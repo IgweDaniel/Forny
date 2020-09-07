@@ -25,6 +25,9 @@ const config = {
     googleSecret: requireProcessEnv("GOOGLE_CLIENT_SECRET"),
     stripekey: requireProcessEnv("STRIPE_KEY"),
     stripeSecret: requireProcessEnv("STRPE_SECRET"),
+    apiRoot: process.env.API_ROOT || "/api",
+    userEmail: requireProcessEnv("USER_EMAIL"),
+    userPass: requireProcessEnv("USER_PASS"),
     mongo: {
       uri: requireProcessEnv("DB_URI"),
       options: {
@@ -34,7 +37,14 @@ const config = {
       },
     },
   },
-  test: {},
+  test: {
+    mongo: {
+      uri: "mongodb://localhost/cform-devTest",
+      options: {
+        debug: true,
+      },
+    },
+  },
   dev: {
     mongo: {
       uri: "mongodb://localhost/cform-dev",

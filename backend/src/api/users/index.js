@@ -1,13 +1,22 @@
-const { schema } = require("./model");
-
 const { Router } = require("express");
 const router = new Router();
-const { middleware: body } = require("bodymen");
 
-const { create } = require("./controller");
+const {
+  createUser,
+  getUser,
+  updateUser,
+  verifyUser,
+  createVerficationToken,
+} = require("./controller");
+const { token } = require("../../services/passport");
 
-const { email, password, name } = schema;
+router.post("/", createUser);
 
-router.post("/", body({ email, password, name }), create);
+router.post("/token", createVerficationToken);
+router.put("/token", verifyUser);
+
+router.get("/me", token, getUser);
+
+router.patch("/me", token, updateUser);
 
 module.exports = router;

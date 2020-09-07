@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
-// const {} =require('../../config')
+
 const { Schema } = mongoose;
 
 const userSchema = new Schema(
@@ -27,8 +27,32 @@ const userSchema = new Schema(
       trim: true,
       default: "https://getform.io/_nuxt/img/d0008e9.svg",
     },
-
-    plan: { type: Schema.Types.ObjectId, ref: "Plan" },
+    plan: {
+      name: {
+        type: String,
+        default: "free",
+      },
+      max_submissions: {
+        type: Number,
+        default: 10,
+      },
+      max_forms: {
+        type: Number,
+        default: 2,
+      },
+      webhook: {
+        type: Boolean,
+        default: true,
+      },
+      autoResponses: {
+        type: Boolean,
+        default: false,
+      },
+      fileUpload: {
+        type: Boolean,
+        default: false,
+      },
+    },
   },
   {
     timestamps: true,
@@ -45,8 +69,8 @@ userSchema.pre("save", function (next) {
   });
 });
 
-userSchema.methods.authenticate = function (password) {
-  return bcrypt.compare(password, this.password);
+userSchema.methods.authenticate = async function (password) {
+  return await bcrypt.compare(password, this.password);
 };
 userSchema.methods.show = function (full) {
   const obj = {};

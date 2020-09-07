@@ -3,7 +3,7 @@ export { GlobalStyle } from "./globalStyle";
 export { theme } from "./theme";
 
 export const Card = styled.div`
-  padding: 20px 24px;
+  padding: 20px 30px;
   width: 100%;
   width: 390px;
   border-radius: 2px;

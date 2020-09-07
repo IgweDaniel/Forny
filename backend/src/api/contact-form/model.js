@@ -1,9 +1,12 @@
 const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
-
 const submissionSchema = new Schema(
-  { name: String, email: String, message: String },
+  {
+    name: String,
+    email: String,
+    message: String,
+  },
   {
     timestamps: true,
   }
@@ -20,7 +23,7 @@ const formSchema = new Schema(
       lowercase: true,
     },
     submissions: [submissionSchema],
-    max_submission: {
+    max_submissions: {
       type: Number,
       required: true,
     },
@@ -30,9 +33,8 @@ const formSchema = new Schema(
   }
 );
 
-const model = mongoose.model("Form", formSchema);
+const ContactForm = mongoose.model("ContactForm", formSchema);
 
 module.exports = {
-  schema: model.schema,
-  Form: model,
+  ContactForm,
 };

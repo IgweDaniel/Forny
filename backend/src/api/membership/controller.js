@@ -2,29 +2,22 @@ const { Plan } = require("./model");
 const { success } = require("../../services/response");
 
 // const createSubcription = (req, res) => {
-//   const { plan_id, stripe_token } = req.body;
-//   const { email } = req.user;
+//   const { plan, stripe_token } = req.body;
 
 //   Plan.findById(plan_id).then((plan) => {
-//     if (plan.name == "free" || plan.id == plan_id) {
+//     if (plan.name == "free" || plan.id == plan) {
 //       // do something
 //       res.json({ err: "You are already on this plan" });
 //     }
-//     return stripe.customers
+//     return stripe.subscriptions
 //       .create({
-//         source: stripe_token,
-//         email: email,
+//         customer: customer.id,
+//         items: [
+//           {
+//             plan: plan,
+//           },
+//         ],
 //       })
-//       .then((customer) =>
-//         stripe.subscriptions.create({
-//           customer: customer.id,
-//           items: [
-//             {
-//               plan: requestBody.planId,
-//             },
-//           ],
-//         })
-//       )
 //       .then((data) => console.log(data));
 //   });
 

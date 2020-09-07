@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="27px" height="26px" viewBox="0 0 27 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>avatar</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon-sprite" transform="translate(1.000000, 1.000000)" fill-rule="nonzero" stroke="#6B7DE0">
+            <g id="avatar" transform="translate(0.100000, 0.000000)">
+                <path d="M0,12 C0,18.63 5.37,24 12,24 C18.63,24 24,18.63 24,12 C24,5.37 18.63,0 12,0 C5.37,0 0,5.37 0,12 Z" id="Shape" stroke-width="2" fill-opacity="0" fill="#FFFFFF"></path>
+                <path d="M14.69,16.1 C13.95,16.68 12.99,17 12,17 C11.01,17 10.05,16.68 9.31,16.1 C9.09,15.93 8.78,15.97 8.61,16.19 C8.44,16.41 8.48,16.72 8.7,16.89 C9.61,17.61 10.79,18 12,18 C13.21,18 14.39,17.61 15.31,16.9 C15.53,16.73 15.57,16.42 15.4,16.2 C15.23,15.97 14.91,15.94 14.69,16.1 Z" id="Shape" fill="#25A69F"></path>
+                <circle id="Oval" fill="#6B7DDF" cx="15.5" cy="12.5" r="1"></circle>
+                <circle id="Oval-Copy" fill="#6B7DDF" cx="8.5" cy="12.5" r="1"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

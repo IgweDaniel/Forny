@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
-const subScriptionSchema = new Schema(
+
+const membershipSchema = new Schema(
   { user: { type: Schema.Types.ObjectId, ref: "User" } },
   { subscriptionId: [{ type: "String", required: true }] },
   {
@@ -34,9 +35,9 @@ const planSchema = new Schema(
 
 const Plan = mongoose.model("Plan", planSchema);
 
-const SubScription = mongoose.model("SubScription", subScriptionSchema);
+const Membership = mongoose.model("Membership", membershipSchema);
 
 module.exports = {
   Plan,
-  SubScription,
+  Membership,
 };

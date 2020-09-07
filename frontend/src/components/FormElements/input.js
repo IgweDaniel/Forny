@@ -15,8 +15,6 @@ const InputWrapper = styled(CenterVertically)`
   border-radius: 2px;
   position: relative;
   overflow: hidden;
-  /* border-color: ${({ inputFilled }) =>
-    inputFilled ? "#6b7ddf" : "#e1e4e8"}; */
 
   &.focus {
     border-color: #6b7ddf;
@@ -55,8 +53,8 @@ const InputWrapper = styled(CenterVertically)`
     font-weight: 600;
     font-size: 13px;
 
-    transform: ${({ inputFilled }) =>
-      inputFilled ? "translateY(0px)" : "translateY(-50px)"};
+    transform: ${({ hasTyped }) =>
+      hasTyped ? "translateY(0px)" : "translateY(-50px)"};
   }
   input {
     position: relative;
@@ -68,24 +66,25 @@ const InputWrapper = styled(CenterVertically)`
     outline: 0;
     font-size: 15px;
     z-index: 1;
-    transform: ${({ inputFilled }) =>
-      inputFilled ? "translateY(5px)" : "translateY(0px)"};
+    transform: ${({ hasTyped }) =>
+      hasTyped ? "translateY(5px)" : "translateY(0px)"};
   }
   .placeholder {
     position: absolute;
     top: 50%;
 
-    transform: ${({ inputFilled }) =>
-      inputFilled ? "translateY(100px)" : "translateY(-50%)"};
+    transform: ${({ hasTyped }) =>
+      hasTyped ? "translateY(100px)" : "translateY(-50%)"};
   }
 `;
 
-export const Input = ({ placeholder, type, value, onChange }) => {
-  const [inputFilled, setInputFilled] = useState(false);
+export const Input = ({ placeholder, value, secureEntry, onChange, name }) => {
+  const [hasTyped, setHasTyped] = useState(false);
+  const [showPass, setShowPass] = useState(false);
   const inp = useRef(null);
+
   function handleInputChange(e) {
-    const hasTyped = e.target.value != "";
-    setInputFilled(hasTyped);
+    setHasTyped(e.target.value !== "");
     onChange(e.target.value);
   }
 
@@ -96,41 +95,39 @@ export const Input = ({ placeholder, type, value, onChange }) => {
     e.target.parentElement.classList.remove("focus");
   }
 
-  let inputElement = null;
-  switch (type) {
-    case "password":
-      inputElement = (
-        <div className="input-wrapper password">
-          <input
-            ref={inp}
-            type={type}
-            onChange={handleInputChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-          />
-          <div className="icon">
-            <FaEyeSlash size={20} />
-          </div>
+  let inputElement = (
+    <div className="input-wrapper text">
+      <input
+        name={name}
+        value={value}
+        ref={inp}
+        type={"text"}
+        onChange={handleInputChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+      />
+    </div>
+  );
+  if (secureEntry) {
+    inputElement = (
+      <div className="input-wrapper password">
+        <input
+          name={name}
+          value={value}
+          ref={inp}
+          type={showPass ? "text" : "password"}
+          onChange={handleInputChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+        />
+        <div className="icon" onClick={() => setShowPass(!showPass)}>
+          <FaEyeSlash size={20} />
         </div>
-      );
-      break;
-    //   FaEyeSlash
-
-    default:
-      inputElement = (
-        <div className="input-wrapper text">
-          <input
-            ref={inp}
-            type={type}
-            onChange={handleInputChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-          />
-        </div>
-      );
+      </div>
+    );
   }
   return (
-    <InputWrapper inputFilled={inputFilled} onClick={() => inp.current.focus()}>
+    <InputWrapper hasTyped={hasTyped} onClick={() => inp.current.focus()}>
       <label htmlFor="">{placeholder}</label>
       {inputElement}
       <div className="placeholder">{placeholder}</div>
@@ -139,6 +136,6 @@ export const Input = ({ placeholder, type, value, onChange }) => {
 };
 
 Input.defaultProps = {
-  type: "text",
   onChange: () => {},
+  secureEntry: false,
 };

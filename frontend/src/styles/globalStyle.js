@@ -8,17 +8,23 @@ export const GlobalStyle = createGlobalStyle`
 }
   body {
     font-family: 'Source Sans Pro', sans-serif;
-    /* height: 100vh; */
+
 }
 .icon{
     display:flex;
     align-items:center;
     justify-content:center;
 }
-
+.container{
+    width:80%;
+    margin:0 auto;
+}
 
   li{
       list-style:none
+  }
+  .emph{
+      font-weight:600;
   }
 
   a{

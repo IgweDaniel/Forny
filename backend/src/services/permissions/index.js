@@ -1,21 +1,22 @@
-const { Form } = require("../../api/cform/model");
+const { ContactForm } = require("../../api/contact-form/model");
+
+const checkMembership = () => {};
 
 const hasFeature = function (feature) {
   const hasSpecificFeature = function ({ user }, res, next) {
-    // match if the feature is enabled
-    // Might handle Error Here
-    return user && user.includes(feature)
-      ? next(null, user)
-      : next(null, false);
+    if (user.plans.features.includes(feature)) {
+      return next(null, user);
+    }
+    return res.status(409).json({ error: "feature not enabled", data: null });
   };
   return hasSpecificFeature;
 };
 
 function getFormLimits(user, delta = 1) {
-  return Form.find({ user }).then((forms) => {
+  return ContactForm.find({ user }).then((forms) => {
     const count = forms.length,
       newTotal = parseInt(count) + delta,
-      maxChecks = user.plan.formLimit;
+      maxChecks = user.plan.max_forms;
     return newTotal > maxChecks;
   });
 }
@@ -23,4 +24,5 @@ function getFormLimits(user, delta = 1) {
 module.exports = {
   getFormLimits,
   hasFeature,
+  checkMembership,
 };
