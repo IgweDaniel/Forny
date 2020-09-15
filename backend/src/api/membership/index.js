@@ -9,8 +9,8 @@ const {
   cancelSubscription,
 } = require("./controller");
 
-// const { name } = schema;
 router.use(token);
+
 router.post("/", createSubcription);
 
 router.patch("/:id", updateSubscription);
