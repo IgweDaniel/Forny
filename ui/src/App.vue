@@ -22,16 +22,22 @@
 body {
   font-family: "Rubik", sans-serif;
 }
-
+.page {
+  background: rgba(67, 154, 134, 0.15);
+  height: 100vh;
+  overflow: hidden;
+}
 button {
   box-shadow: none;
   background: transparent;
   border: none;
-
+  color: inherit;
   font-family: "Rubik", sans-serif;
-  font-size: 1rem;
+  font-size: inherit;
+  font-weight: inherit;
   /* outline: none; */
   cursor: pointer;
+  outline: none;
 }
 
 a {

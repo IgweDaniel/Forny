@@ -36,6 +36,7 @@ export default {
   padding: 0 50px;
   /* background: var(--secondary-color); */
   /* color: #fff; */
+  background: #fff;
 }
 .logo {
   width: 200px;

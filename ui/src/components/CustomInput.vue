@@ -1,6 +1,6 @@
 <template>
   <div class="input">
-    <span class="input__icon">
+    <span class="input__icon" v-if="icon">
       <slot></slot>
     </span>
     <input type="text" class="input__element" :placeholder="placeholder" />
@@ -11,6 +11,10 @@
 export default {
   props: {
     placeholder: String,
+    icon: {
+      default: true,
+      type: Boolean,
+    },
   },
 };
 </script>
@@ -24,6 +28,7 @@ export default {
   justify-content: center;
   border: 1px solid var(--muted-color);
   width: 100%;
+  background: #fff;
 }
 
 .input__icon {
@@ -41,6 +46,7 @@ export default {
   margin: 0;
   border: none;
   outline: none;
+  padding: 0 10px;
 }
 
 .input__element,
