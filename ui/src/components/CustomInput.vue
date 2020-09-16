@@ -3,7 +3,13 @@
     <span class="input__icon" v-if="icon">
       <slot></slot>
     </span>
-    <input type="text" class="input__element" :placeholder="placeholder" />
+    <input
+      type="text"
+      class="input__element"
+      :placeholder="placeholder"
+      :class="{ withIcon: icon }"
+      v-model="inpvalue"
+    />
   </div>
 </template>
 
@@ -11,9 +17,25 @@
 export default {
   props: {
     placeholder: String,
+    value: String,
     icon: {
       default: true,
       type: Boolean,
+    },
+  },
+  computed: {
+    inpvalue: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit("input", val);
+      },
+    },
+  },
+  methods: {
+    handleInputChange() {
+      this.$emit("input", this.value);
     },
   },
 };
@@ -47,6 +69,9 @@ export default {
   border: none;
   outline: none;
   padding: 0 10px;
+}
+.input__element.withIcon {
+  padding: 0;
 }
 
 .input__element,

@@ -6,23 +6,20 @@
     </h1>
 
     <div class="form container">
-      <div class="tab">
-        <ul class="tab__header">
-          <li class="tab__item active"><button>Submissions</button></li>
-          <li class="tab__item"><button>Settings</button></li>
-        </ul>
-
-        <div class="tab_content">
-          <FormSubms />
-          <FormSettings v-if="1 == 2" />
-        </div>
-      </div>
+      <Tab>
+        <TabItem title="Submissions">
+          <FormData :subs="form.subs" />
+        </TabItem>
+        <TabItem title="Settings">
+          <FormSettings :form="form" />
+        </TabItem>
+      </Tab>
     </div>
   </div>
 </template>
 
 <script>
-import { Header, FormSubms, FormSettings } from "@/components";
+import { Header, FormData, FormSettings, Tab, TabItem } from "@/components";
 import { forms } from "@/data.js";
 export default {
   data: () => ({
@@ -30,8 +27,10 @@ export default {
   }),
   components: {
     Header,
-    FormSubms,
+    FormData,
     FormSettings,
+    TabItem,
+    Tab,
   },
   computed: {
     form() {

@@ -9,6 +9,7 @@
 
 :root {
   --primary-color: #439a86;
+  --primary-light-color: rgba(67, 154, 134, 0.15);
   --secondary-color: #2a2d34;
   --muted-color: rgb(176, 176, 176);
 }
@@ -24,6 +25,7 @@ body {
 }
 .page {
   background: rgba(67, 154, 134, 0.15);
+  background: var(--primary-light-color);
   height: 100vh;
   overflow: hidden;
 }

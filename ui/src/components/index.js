@@ -1,7 +1,8 @@
 import CustomInput from "./CustomInput.vue";
 import Header from "./Header.vue";
-import Tab from "./Tab.vue";
-import FormSubms from "./FormSubms.vue";
+import FormData from "./FormData.vue";
 import FormSettings from "./FormSettings.vue";
+import CheckBox from "./CheckBox.vue";
 
-export { CustomInput, Header, Tab, FormSubms, FormSettings };
+export * from "./Tab";
+export { CustomInput, Header, FormData, FormSettings, CheckBox };
