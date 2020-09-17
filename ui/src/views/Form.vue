@@ -4,7 +4,22 @@
     <h1 class="title">
       {{ form.name }}
     </h1>
+    <p class="endpoint">
+      <span class="emph"> Endpoint:</span>
 
+      <input
+        type="text"
+        ref="endpointUrl"
+        class="endpoint__url"
+        :value="form_url"
+        :spellcheck="false"
+      />
+
+      <button class="endpoint__copybutton" @click="copyUrl">
+        <!-- <i class="fas fa-copy"></i> -->
+        <i class="far fa-copy"></i>
+      </button>
+    </p>
     <div class="form container">
       <Tab>
         <TabItem title="Submissions">
@@ -33,10 +48,23 @@ export default {
     Tab,
   },
   computed: {
+    form_url() {
+      return `http://forny.com/${this.$route.params.id}`;
+    },
     form() {
       const formId = this.$route.params.id,
         form = forms.find((form) => form.id == formId);
       return form;
+    },
+  },
+  methods: {
+    copyUrl() {
+      const url = this.$refs.endpointUrl;
+      url.select();
+      url.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+      // Handle your notification Here
+      // alert("Copied the text: " + url.value);
     },
   },
 };
@@ -44,20 +72,52 @@ export default {
 
 <style scoped>
 .page .title {
-  margin: 40px auto;
+  margin: 40px auto 10px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+.endpoint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  width: fit-content;
+  max-width: 400px;
+  width: 80%;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 40px;
+}
+.endpoint .emph {
+  color: var(--primary-color);
+  margin-right: 5px;
+  font-weight: bold;
+  flex: 1;
+}
+.endpoint__copybutton {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
 
+.endpoint__url {
+  flex: 2;
+  font-family: Rubik;
+  outline: none;
+  border: none;
+  font-size: 1rem;
+}
 .form {
-  height: 400px;
+  min-height: 400px;
   background: #fff;
   width: 80%;
   --marginVertical: 40px;
   margin-top: var(--marginVertical);
   margin-bottom: var(--marginVertical);
   padding: 20px 40px;
+  transition: all 0.5s ease-in-out;
+  /* overflow-y: ; */
 }
 .tab__header {
   display: flex;

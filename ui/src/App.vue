@@ -10,6 +10,8 @@
 :root {
   --primary-color: #439a86;
   --primary-light-color: rgba(67, 154, 134, 0.15);
+  /* --primary-color: rgba(54, 130, 127,1);
+  --primary-light-color: rgba(54, 130, 127,0.15); */
   --secondary-color: #2a2d34;
   --muted-color: rgb(176, 176, 176);
 }
@@ -19,16 +21,17 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+#app {
+  height: 100%;
+}
 body {
   font-family: "Rubik", sans-serif;
+  background: var(--primary-light-color);
 }
 .page {
-  background: rgba(67, 154, 134, 0.15);
-  background: var(--primary-light-color);
-  height: 100vh;
-  overflow: hidden;
+  height: 100%;
 }
+
 button {
   box-shadow: none;
   background: transparent;

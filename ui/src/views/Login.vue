@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="login ">
     <form class="form">
       <h4 class="form__title">
         Login into account
@@ -66,6 +66,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #fff;
 }
 .form {
   width: 360px;

@@ -21,6 +21,38 @@ export const forms = [
         message:
           "I have a gig for you spanning 3 months are you intrested, pay is 200k/month, if you are intrested reach out to me. and please do kknow it is a time sensitive matter",
       },
+      {
+        id: 3,
+        name: "jane del",
+        email: "janey@d.com",
+        subject: "A freelance Gig",
+        message:
+          "I have a gig for you spanning 3 months are you intrested, pay is 200k/month, if you are intrested reach out to me. and please do kknow it is a time sensitive matter",
+      },
+      {
+        id: 4,
+        name: "jane del",
+        email: "janey@d.com",
+        subject: "A freelance Gig",
+        message:
+          "I have a gig for you spanning 3 months are you intrested, pay is 200k/month, if you are intrested reach out to me. and please do kknow it is a time sensitive matter",
+      },
+      {
+        id: 5,
+        name: "jane del",
+        email: "janey@d.com",
+        subject: "A freelance Gig",
+        message:
+          "I have a gig for you spanning 3 months are you intrested, pay is 200k/month, if you are intrested reach out to me. and please do kknow it is a time sensitive matter",
+      },
+      {
+        id: 6,
+        name: "jane del",
+        email: "janey@d.com",
+        subject: "A freelance Gig",
+        message:
+          "I have a gig for you spanning 3 months are you intrested, pay is 200k/month, if you are intrested reach out to me. and please do kknow it is a time sensitive matter",
+      },
     ],
   },
   {

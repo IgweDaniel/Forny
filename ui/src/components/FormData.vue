@@ -36,61 +36,51 @@ export default {
 .subs {
   width: 100%;
   margin: 40px 0 0;
-  /* overflow: scroll; */
-  /* height: 100%; */
   padding: 20px 0;
   min-height: 300px;
-  overflow: auto;
+  overflow-x: auto;
 }
 .subs__table {
   height: 100%;
   width: 100%;
+  border: 1px solid var(--primary-light-color);
 }
-.subs thead,
-.subs tbody {
-  /* width: 100%; */
-}
+
 .subs thead {
+  background: var(--primary-light-color);
   font-weight: 700;
-}
-.subs thead .col {
-  /* border-bottom: 1px solid var(--primary-color); */
-}
-.subs .col {
-  display: flex;
-  align-items: center;
-  /* justify-content: center; */
 }
 
 .subs thead .row {
-  background: var(--primary-light-color);
 }
 .subs tbody .row {
   border-bottom: 1px solid var(--primary-light-color);
-  padding: 10px 0;
+  padding: 10px;
+}
+.subs tbody .row:last-of-type {
+  border-bottom: none;
 }
 .subs .row {
   min-height: 40px;
   padding: 0 10px;
   display: flex;
   align-items: center;
-  /* justify-content: center; */
+  justify-content: center;
 }
 .subs .col {
   flex: 1;
-  min-width: 100px;
+  min-width: 120px;
 }
-/* .subs .col {
-  flex: 1;
-  min-width: 200px;
-}
-.subs .col.subject {
+
+.subs .col.message {
   flex: 2;
+  min-width: 400px;
 }
-.subs .col.message {
-  flex: 3;
-} */
-.subs .col.message {
-  flex: 3;
+.subs thead .col {
+}
+.subs .col {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
 }
 </style>
