@@ -111,12 +111,12 @@ export default {
 .form {
   min-height: 400px;
   background: #fff;
-  width: 80%;
+  width: 90%;
   --marginVertical: 40px;
   margin-top: var(--marginVertical);
   margin-bottom: var(--marginVertical);
-  padding: 20px 40px;
-  transition: all 0.5s ease-in-out;
+  padding: 20px;
+  /* transition: all 0.5s ease-in-out; */
   /* overflow-y: ; */
 }
 .tab__header {
@@ -132,5 +132,11 @@ export default {
 
 .tab__item.active {
   color: var(--primary-color);
+}
+
+@media (min-width: 768px) {
+  .form {
+    padding: 20px 40px;
+  }
 }
 </style>

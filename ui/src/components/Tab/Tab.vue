@@ -59,7 +59,7 @@ export default {
 .tab__item {
   margin: 0 10px;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
 }
 .tab_content {
   width: 100%;

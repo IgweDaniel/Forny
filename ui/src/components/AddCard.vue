@@ -4,7 +4,9 @@
       <div class="addCard__container">
         <div ref="card" class="addCard__input"></div>
       </div>
-      <button @click="createCard" class="addCard__button">Create Card</button>
+      <button @click="createCard" class="addCard__button button">
+        Create Card
+      </button>
     </div>
   </div>
 </template>
@@ -60,10 +62,6 @@ export default {
 }
 .addCard__button {
   width: 100%;
-  background: var(--primary-color);
-  color: #fff;
-  font-weight: 600;
-  font-size: 15px;
   height: 40px;
   margin-top: 10px;
 }

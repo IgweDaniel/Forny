@@ -63,7 +63,9 @@
       </div>
       <div class="updater">
         <button class="delete">
-          <i class="fas fa-trash"></i>
+          <!-- <i class="fas fa-trash"></i> -->
+          <i class="fas fa-minus-circle"></i>
+          <!-- <i class="fas fa-ban"></i> -->
         </button>
       </div>
     </div>
@@ -100,7 +102,7 @@ export default {
 }
 
 .formsetting {
-  margin: 10px 0;
+  margin: 0 0 20px;
   width: 100%;
 }
 
@@ -142,7 +144,8 @@ export default {
   flex: 1;
 }
 .delete {
-  color: #cc444b;
+  color: var(--warn-color);
+  font-size: 1.4rem;
 }
 
 @media (min-width: 540px) {

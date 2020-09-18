@@ -6,10 +6,14 @@
 
     <ul class="nav__links">
       <li class="nav__link">
-        <router-link to="/"> Forms</router-link>
+        <router-link to="/" exact active-class="link-active">
+          Forms</router-link
+        >
       </li>
       <li class="nav__link">
-        <router-link to="/account"> Account</router-link>
+        <router-link to="/account" active-class="link-active">
+          Account</router-link
+        >
       </li>
       <li class="nav__link">
         <button @click="handleLogout">Logout</button>
@@ -47,8 +51,11 @@ export default {
 }
 .nav__link {
   margin: 0 0px 0 10px;
+  font-weight: 600;
 }
-
+.link-active {
+  color: var(--primary-color);
+}
 @media (min-width: 768px) {
   .nav__links {
     display: flex;

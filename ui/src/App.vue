@@ -10,11 +10,18 @@
 :root {
   --primary-color: #439a86;
   --primary-light-color: rgba(67, 154, 134, 0.125);
+
+  --warn-color: #cc444b;
+
+  --button-hover-color: #4baa94;
+  --button-active-color: #3e8e7b;
+
   /* --primary-light-color: #f2f2f2; */
   /* --primary-color: rgba(54, 130, 127,1);
   --primary-light-color: rgba(54, 130, 127,0.15); */
   --secondary-color: #2a2d34;
   --muted-color: rgb(176, 176, 176);
+  font-size: 15px;
 }
 
 * {
@@ -49,6 +56,13 @@ button {
   background: var(--primary-color);
   color: #fff;
   font-weight: 600;
+  font-size: 0.9375rem;
+}
+.button:hover {
+  background: var(--button-hover-color);
+}
+.button:active {
+  background: var(--button-active-color);
 }
 a {
   text-decoration: none;
@@ -61,5 +75,11 @@ li {
 .container {
   width: 80%;
   margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  :root {
+    font-size: 16px;
+  }
 }
 </style>

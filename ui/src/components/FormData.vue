@@ -3,18 +3,18 @@
     <table class="subs__table">
       <thead>
         <tr class="row">
-          <td class="name col ">Name</td>
-          <td class="email col">Email</td>
-          <td class="subject col">Subject</td>
-          <td class="message col">Message</td>
+          <th class="name col ">Name</th>
+          <th class="email col">Email</th>
+          <th class="subject col">Subject</th>
+          <th class="message col">Message</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="sub in subs" :key="sub.id" class="row">
-          <td class="name col">{{ sub.name }}</td>
-          <td class="email col">{{ sub.email }}</td>
-          <td class="subject col">{{ sub.subject }}</td>
-          <td class="message col">{{ sub.message }}</td>
+          <td class="name col" data-label="name">{{ sub.name }}</td>
+          <td class="email col" data-label="email">{{ sub.email }}</td>
+          <td class="subject col" data-label="subject">{{ sub.subject }}</td>
+          <td class="message col" data-label="message">{{ sub.message }}</td>
         </tr>
       </tbody>
     </table>
@@ -35,56 +35,78 @@ export default {
 <style scoped>
 .subs {
   width: 100%;
-  margin: 40px 0 0;
   padding: 20px 0;
   min-height: 300px;
   overflow-x: auto;
 }
-.subs__table {
-  height: 100%;
-  width: 100%;
-  border: 1px solid var(--primary-light-color);
-}
-
-.subs thead {
+.subs th {
   background: var(--primary-light-color);
   font-weight: 700;
 }
 
+.subs__table {
+  height: 100%;
+  width: 100%;
+  border: 1px solid var(--primary-light-color);
+  border-collapse: collapse;
+}
+
+td.name {
+  white-space: nowrap;
+}
+td.subject {
+  min-width: 150px;
+}
+td,
+th {
+  padding: 10px;
+  text-align: left;
+}
 .subs tbody .row {
   border-bottom: 1px solid var(--primary-light-color);
-  padding: 10px;
 }
 .subs tbody .row:last-of-type {
   border-bottom: none;
 }
-.subs .row {
-  min-height: 40px;
-  padding: 0 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.subs .col {
-  flex: 1;
-  min-width: 120px;
-}
+@media only screen and (max-width: 760px),
+  (min-device-width: 768px) and (max-device-width: 1024px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
 
-.subs .col.message {
-  flex: 2;
-  min-width: 400px;
-}
+  /* Hide table headers (but not display: none;, for accessibility) */
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
 
-.subs .col {
-  display: flex;
-  align-items: center;
-  font-size: 0.95rem;
-}
-
-@media (min-width: 540px) {
-}
-@media (min-width: 768px) {
-}
-@media (min-width: 1024px) {
+  td {
+    /* Behave  like a "row" */
+    border: none;
+    position: relative;
+    padding-left: 40%;
+    overflow-x: auto;
+    font-size: 0.95rem;
+  }
+  /* tbody {
+    overflow: scroll;
+  } */
+  td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    content: attr(data-label);
+    text-transform: capitalize;
+    font-weight: 700;
+  }
 }
 </style>

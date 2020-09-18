@@ -76,11 +76,12 @@ export default {
 }
 .account {
   background: #fff;
-  height: 400px;
+  min-height: 400px;
   padding: 40px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   column-gap: 20px;
+  margin-bottom: 20px;
 }
 .account__setting {
 }
@@ -88,16 +89,20 @@ export default {
 }
 
 .account__setting .button {
-  background: var(--primary-color);
   height: 39px;
-  color: #fff;
-  font-weight: 600;
   width: fit-content;
   padding: 0 20px;
   margin: 20px 0;
   margin-right: 10px;
 }
-.account__setting .button:active {
-  background: var(--primary-light-color);
+
+@media (min-width: 768px) {
+  .account {
+    background: #fff;
+    height: 400px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
 }
 </style>
