@@ -51,8 +51,6 @@ export default {
   font-weight: 700;
 }
 
-.subs thead .row {
-}
 .subs tbody .row {
   border-bottom: 1px solid var(--primary-light-color);
   padding: 10px;
@@ -76,11 +74,17 @@ export default {
   flex: 2;
   min-width: 400px;
 }
-.subs thead .col {
-}
+
 .subs .col {
   display: flex;
   align-items: center;
   font-size: 0.95rem;
+}
+
+@media (min-width: 540px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 1024px) {
 }
 </style>

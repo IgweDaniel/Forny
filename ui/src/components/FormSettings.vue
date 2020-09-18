@@ -128,6 +128,7 @@ export default {
 }
 .group {
   display: flex;
+  flex-direction: column;
 }
 
 .formsetting .updater {
@@ -142,5 +143,20 @@ export default {
 }
 .delete {
   color: #cc444b;
+}
+
+@media (min-width: 540px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 1024px) {
+  .group {
+    display: flex;
+    flex-direction: row;
+  }
+  .formsetting-field {
+    position: relative;
+    height: 42px;
+  }
 }
 </style>

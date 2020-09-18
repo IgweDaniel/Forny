@@ -4,6 +4,9 @@
     <h1 class="title">
       Account
     </h1>
+    <Modal :show="cardModal" :close="toggleCardModal">
+      <AddCard />
+    </Modal>
     <div class="container account">
       <div class="profile account__setting">
         <h3 class="account__setting__label">
@@ -32,7 +35,7 @@
         <h3 class="account__setting__label">
           Billing:
         </h3>
-        <button class="button">
+        <button class="button" @click="toggleCardModal">
           Add card
         </button>
         <button class="button">
@@ -44,10 +47,22 @@
 </template>
 
 <script>
-import { Header } from "@/components";
+import { Header, Modal, AddCard } from "@/components";
 export default {
+  data() {
+    return {
+      cardModal: false,
+    };
+  },
   components: {
     Header,
+    Modal,
+    AddCard,
+  },
+  methods: {
+    toggleCardModal() {
+      this.cardModal = !this.cardModal;
+    },
   },
 };
 </script>
@@ -74,12 +89,15 @@ export default {
 
 .account__setting .button {
   background: var(--primary-color);
-  height: 42px;
+  height: 39px;
   color: #fff;
   font-weight: 600;
   width: fit-content;
   padding: 0 20px;
   margin: 20px 0;
   margin-right: 10px;
+}
+.account__setting .button:active {
+  background: var(--primary-light-color);
 }
 </style>

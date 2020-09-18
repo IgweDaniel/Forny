@@ -63,10 +63,11 @@ export default {
 .formList {
   margin: 40px 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 190px);
+  grid-template-columns: repeat(1, 1fr);
   grid-auto-rows: 210px;
   /* padding: 50px 40px; */
   column-gap: 30px;
+  row-gap: 20px;
   /* background: #fff; */
 }
 
@@ -138,5 +139,18 @@ export default {
   margin-right: 5px;
 }
 .new-form .text {
+}
+
+@media (min-width: 540px) {
+}
+@media (min-width: 768px) {
+  .formList {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .formList {
+    grid-template-columns: repeat(auto-fit, 190px);
+  }
 }
 </style>

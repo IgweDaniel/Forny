@@ -43,10 +43,16 @@ export default {
 }
 .nav__links {
   flex: 1;
-  display: flex;
-  justify-content: flex-end;
+  display: none;
 }
 .nav__link {
   margin: 0 0px 0 10px;
+}
+
+@media (min-width: 768px) {
+  .nav__links {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
 </style>

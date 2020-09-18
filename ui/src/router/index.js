@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import { Home, Login, Register, Form, Account } from "../views";
+import { Home, Login, Register, Form, Account, Billing } from "../views";
 
 Vue.use(VueRouter);
 
@@ -25,6 +25,11 @@ const routes = [
     path: "/account",
     name: "Account",
     component: Account,
+  },
+  {
+    path: "/billing",
+    name: "Billing",
+    component: Billing,
   },
 ];
 

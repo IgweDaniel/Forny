@@ -9,7 +9,8 @@
 
 :root {
   --primary-color: #439a86;
-  --primary-light-color: rgba(67, 154, 134, 0.15);
+  --primary-light-color: rgba(67, 154, 134, 0.125);
+  /* --primary-light-color: #f2f2f2; */
   /* --primary-color: rgba(54, 130, 127,1);
   --primary-light-color: rgba(54, 130, 127,0.15); */
   --secondary-color: #2a2d34;

@@ -3,6 +3,16 @@ import Header from "./Header.vue";
 import FormData from "./FormData.vue";
 import FormSettings from "./FormSettings.vue";
 import CheckBox from "./CheckBox.vue";
+import Modal from "./Modal.vue";
+import AddCard from "./AddCard.vue";
 
 export * from "./Tab";
-export { CustomInput, Header, FormData, FormSettings, CheckBox };
+export {
+  CustomInput,
+  Header,
+  FormData,
+  FormSettings,
+  CheckBox,
+  Modal,
+  AddCard,
+};
