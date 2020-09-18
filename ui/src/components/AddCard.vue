@@ -38,7 +38,7 @@ export default {
 .addCard {
   width: 300px;
   margin: 0 auto;
-  background: #fff;
+
   display: flex;
   align-items: center;
   justify-content: center;

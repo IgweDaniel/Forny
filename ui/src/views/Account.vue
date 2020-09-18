@@ -4,8 +4,11 @@
     <h1 class="title">
       Account
     </h1>
-    <Modal :show="cardModal" :close="toggleCardModal">
+    <Modal :show="modals.cardModal" :close="() => toggleCardModal('cardModal')">
       <AddCard />
+    </Modal>
+    <Modal :show="modals.accModal" :close="() => toggleCardModal('accModal')">
+      <UpdateProfile />
     </Modal>
     <div class="container account">
       <div class="profile account__setting">
@@ -19,7 +22,8 @@
           </span>
           since 03:46 PM UTC - 06 September 2020.
         </p>
-        <button class="button">
+
+        <button class="button" @click="() => toggleCardModal('accModal')">
           Update Profile
         </button>
       </div>
@@ -35,11 +39,8 @@
         <h3 class="account__setting__label">
           Billing:
         </h3>
-        <button class="button" @click="toggleCardModal">
+        <button class="button" @click="() => toggleCardModal('cardModal')">
           Add card
-        </button>
-        <button class="button">
-          Add Address
         </button>
       </div>
     </div>
@@ -47,21 +48,28 @@
 </template>
 
 <script>
-import { Header, Modal, AddCard } from "@/components";
+import { Header, Modal, AddCard, UpdateProfile } from "@/components";
 export default {
   data() {
     return {
-      cardModal: false,
+      modals: {
+        cardModal: false,
+        accModal: false,
+      },
     };
   },
   components: {
     Header,
     Modal,
     AddCard,
+    UpdateProfile,
   },
   methods: {
-    toggleCardModal() {
-      this.cardModal = !this.cardModal;
+    toggleCardModal(prop) {
+      this.modals = {
+        ...this.modals,
+        [prop]: !this.modals[prop],
+      };
     },
   },
 };

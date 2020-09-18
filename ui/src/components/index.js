@@ -5,6 +5,7 @@ import FormSettings from "./FormSettings.vue";
 import CheckBox from "./CheckBox.vue";
 import Modal from "./Modal.vue";
 import AddCard from "./AddCard.vue";
+import UpdateProfile from "./UpdateProfile.vue";
 
 export * from "./Tab";
 export {
@@ -15,4 +16,5 @@ export {
   CheckBox,
   Modal,
   AddCard,
+  UpdateProfile,
 };

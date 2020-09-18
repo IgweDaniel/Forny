@@ -58,6 +58,11 @@ button {
   font-weight: 600;
   font-size: 0.9375rem;
 }
+.button-outline {
+  background: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--secondary-color);
+}
 .button:hover {
   background: var(--button-hover-color);
 }

@@ -74,7 +74,7 @@
 
 <script>
 import { CustomInput } from "@/components";
-import CheckBox from "@/components/CheckBox.vue";
+import CheckBox from "./CheckBox.vue";
 export default {
   props: {
     form: Object,

@@ -69,7 +69,8 @@ export default {
   background: #fff;
 }
 .form {
-  width: 360px;
+  max-width: 360px;
+  width: 80%;
 }
 .form__title {
   font-size: 1.5rem;
