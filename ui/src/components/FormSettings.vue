@@ -1,36 +1,40 @@
 <template>
   <div class="formsettings">
-    <div class="group">
-      <div class="name formsetting-field">
-        <label class="formsetting__label">
+    <div class="formsettings__group">
+      <div class="name formsetting">
+        <label class="label">
           Name
         </label>
-        <div class="formsetting__input">
-          <CustomInput
-            :value="newName"
-            :icon="false"
-            @input="(val) => handleUpdate(val, 'newName')"
-          />
-        </div>
-        <button class="button">save</button>
+        <form class="form">
+          <div class="input">
+            <CustomInput
+              :value="newName"
+              :icon="false"
+              @input="(val) => handleUpdate(val, 'newName')"
+            />
+          </div>
+          <button class="button">save</button>
+        </form>
       </div>
-      <div class="targetEmail formsetting-field">
-        <label class="formsetting__label">
+      <div class="targetEmail formsetting">
+        <label class="label">
           Target Email
         </label>
-        <div class="formsetting__input">
-          <CustomInput
-            :value="newTargetEmail"
-            :icon="false"
-            @input="(val) => handleUpdate(val, 'newTargetEmail')"
-          />
-        </div>
+        <form class="form">
+          <div class="input">
+            <CustomInput
+              :value="newTargetEmail"
+              :icon="false"
+              @input="(val) => handleUpdate(val, 'newTargetEmail')"
+            />
+          </div>
 
-        <button class="button">save</button>
+          <button class="button">save</button>
+        </form>
       </div>
     </div>
     <div class="emailing formsetting">
-      <div class="formsetting__info">
+      <div class="info">
         <h4>
           Email Notifications
         </h4>
@@ -48,7 +52,7 @@
       </div>
     </div>
     <div class="deleteForm formsetting">
-      <div class="formsetting__info">
+      <div class="info">
         <h4>
           Delete Form
         </h4>
@@ -92,53 +96,49 @@ export default {
 
 <style scoped>
 .formsettings {
-  margin: 80px 0;
+  margin: 40px 0;
 }
 
 .formsetting {
-  margin: 20px 0;
-}
-.formsetting,
-.formsetting-field {
-  display: flex;
-  align-items: center;
+  margin: 10px 0;
   width: 100%;
-  padding: 0 20px;
-}
-.formsetting-field {
-  position: relative;
-  height: 42px;
-}
-.formsetting__input {
-  flex: 1;
-  margin-right: 10px;
 }
 
-.formsetting-field .button {
-  width: 100px;
-  background: var(--primary-color);
-  color: #fff;
-  height: 100%;
-  font-weight: 600;
+.formsetting .form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
-.formsetting__label {
-  position: absolute;
-  top: -30px;
+.formsetting .label {
+  margin: 0 0 5px;
+  display: block;
   font-weight: bold;
 }
-.group {
+.formsetting .form .input,
+.formsetting .form .button {
+  height: 42px;
+}
+.formsetting .form .input {
+  flex: 1;
+  margin: 0 0 5px;
+}
+.formsetting .form .button {
+  width: 100%;
+}
+
+.formsettings__group {
   display: flex;
   flex-direction: column;
 }
 
 .formsetting .updater {
-  width: 100px;
+  width: 100%;
   height: 100%;
   display: flex;
   align-self: flex-end;
   justify-content: flex-end;
 }
-.formsetting__info {
+.formsetting .info {
   flex: 1;
 }
 .delete {
@@ -148,15 +148,36 @@ export default {
 @media (min-width: 540px) {
 }
 @media (min-width: 768px) {
-}
-@media (min-width: 1024px) {
-  .group {
+  .emailing,
+  .deleteForm {
+    display: flex;
+  }
+
+  .formsetting .form .input {
+    flex: 1;
+    margin-right: 10px;
+  }
+  .formsetting .form .button {
+    width: 100px;
+  }
+  .formsetting .form {
     display: flex;
     flex-direction: row;
   }
-  .formsetting-field {
-    position: relative;
-    height: 42px;
+  .formsetting .updater {
+    width: 100px;
+    margin: 0;
+  }
+}
+@media (min-width: 1024px) {
+  .formsettings__group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .formsettings__group .formsetting {
+    width: 48%;
   }
 }
 </style>

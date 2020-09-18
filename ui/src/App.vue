@@ -45,7 +45,11 @@ button {
   cursor: pointer;
   outline: none;
 }
-
+.button {
+  background: var(--primary-color);
+  color: #fff;
+  font-weight: 600;
+}
 a {
   text-decoration: none;
   color: inherit;
