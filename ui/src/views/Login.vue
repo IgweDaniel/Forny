@@ -1,27 +1,27 @@
 <template>
   <div class="login ">
-    <form class="form">
-      <h4 class="form__title">
+    <form class="authform">
+      <h4 class="authform__title">
         Login into account
       </h4>
-      <div class="form__subtitle">
+      <div class="authform__subtitle">
         Use your credentials to access your account.
       </div>
-      <div class="form__block">
+      <div class="authform__block">
         <CustomInput placeholder="Email Address">
           <i class="fas fa-envelope"></i>
         </CustomInput>
       </div>
-      <div class="form__block">
+      <div class="authform__block">
         <CustomInput placeholder="Password">
           <i class="fas fa-lock"></i>
         </CustomInput>
       </div>
-      <div class="form__block lostPassword">
+      <div class="authform__block lostPassword">
         forgot password?
       </div>
 
-      <button class="form_button button" @click="handleLogin">
+      <button class="authform_button button" @click="handleLogin">
         Login
       </button>
 
@@ -68,23 +68,23 @@ export default {
   justify-content: center;
   background: #fff;
 }
-.form {
+.authform {
   max-width: 360px;
   width: 80%;
 }
-.form__title {
+.authform__title {
   font-size: 1.5rem;
 }
 
-.form__subtitle {
+.authform__subtitle {
   margin: 10px 0 20px;
 }
 
-.form__block {
+.authform__block {
   margin-bottom: 15px;
   width: 100%;
 }
-.form_button {
+.authform_button {
   width: 100%;
   height: 2.5rem;
 }

@@ -1,29 +1,29 @@
 <template>
   <div class="register">
-    <form class="form">
-      <h4 class="form__title">
+    <form class="authform">
+      <h4 class="authform__title">
         Create an account
       </h4>
-      <div class="form__subtitle">
+      <div class="authform__subtitle">
         Setup a new account in a minute.
       </div>
-      <div class="form__block">
+      <div class="authform__block">
         <CustomInput placeholder="Full Name">
           <i class="fas fa-user"></i>
         </CustomInput>
       </div>
-      <div class="form__block">
+      <div class="authform__block">
         <CustomInput placeholder="Email Address">
           <i class="fas fa-envelope"></i>
         </CustomInput>
       </div>
-      <div class="form__block">
+      <div class="authform__block">
         <CustomInput placeholder="Password">
           <i class="fas fa-lock"></i>
         </CustomInput>
       </div>
 
-      <button class="form_button button">
+      <button class="authform_button button">
         Register
       </button>
 

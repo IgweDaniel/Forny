@@ -67,6 +67,7 @@ export default {
   align-items: center;
   justify-content: center;
   display: none;
+  z-index: 5000;
 }
 
 .modal__backdrop {

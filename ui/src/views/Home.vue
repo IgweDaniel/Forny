@@ -1,28 +1,48 @@
 <template>
   <div class="page">
     <Header />
+    <Modal :show="newFormModal" :close="toggleNewFormModal">
+      <form class="addForm" @submit.prevent="createForm">
+        <h3>
+          Create Form
+        </h3>
+        <p class="addForm__info">
+          The default email address for the form is this account's email, you
+          can change it in this form's setting
+        </p>
+        <CustomInput
+          placeholder="Form Name"
+          :icon="false"
+          :value="newFormName"
+          @input="handleChange"
+        />
+        <button class="button addForm__button">
+          create form
+        </button>
+      </form>
+    </Modal>
     <div class="home  container">
       <h2 class="title">
         My Forms
       </h2>
 
-      <button class="new-form">
+      <button class="newFormButtton" @click="toggleNewFormModal">
         <span class="icon">
           <i class="fas fa-plus"></i>
         </span>
         <span class="text">New form</span>
       </button>
       <div class="formList">
-        <div class="form" v-for="form in forms" :key="form.id">
+        <div class="formList__item" v-for="form in forms" :key="form.id">
           <router-link
             :to="{ name: 'Form', params: { id: form.id } }"
-            class="form__content"
+            class="formList__item__content"
           >
-            <div class="form_display">
+            <div class="formList__item_display">
               <EggIcon />
             </div>
 
-            <div class="form__info">
+            <div class="formList__item__info">
               <h4>
                 {{ form.name }}
               </h4>
@@ -36,19 +56,41 @@
 </template>
 
 <script>
-import { Header } from "@/components";
+import { Header, Modal, CustomInput } from "@/components";
 import { forms } from "@/data.js";
 
 import EggIcon from "@/assets/egg.svg";
+import { mapActions } from "vuex";
 export default {
   data: () => {
     return {
       forms,
+      newFormModal: false,
+      newFormName: "",
     };
+  },
+  methods: {
+    ...mapActions(["notify"]),
+    toggleNewFormModal() {
+      this.newFormModal = !this.newFormModal;
+    },
+    handleChange(val) {
+      this.newFormName = val;
+    },
+    createForm() {
+      this.toggleNewFormModal();
+      this.notify({
+        message: `Form with name ${this.newFormName} succesfully Created`,
+        type: "success",
+        // id: String(new Date()),
+      });
+    },
   },
   components: {
     Header,
     EggIcon,
+    Modal,
+    CustomInput,
   },
 };
 </script>
@@ -71,10 +113,10 @@ export default {
   /* background: #fff; */
 }
 
-.form {
+.formList__item {
   border-radius: 4px;
 }
-.form {
+.formList__item {
   background: #fff;
   width: 100%;
   height: 100%;
@@ -85,13 +127,13 @@ export default {
   transition: all 0.2s linear;
 }
 
-.form:hover {
+.formList__item:hover {
   box-shadow: 0 13px 19px 0 rgba(191, 198, 204, 0.44);
 }
-.form:hover svg {
+.formList__item:hover svg {
   fill: var(--primary-color);
 }
-.form__content {
+.formList__item__content {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -99,7 +141,7 @@ export default {
   height: 100%;
   width: 100%;
 }
-.form_display {
+.formList__item_display {
   height: 60%;
   width: 100%;
   display: flex;
@@ -108,11 +150,11 @@ export default {
   /* border-bottom: 1px solid rgba(67, 154, 134, 0.2); */
 }
 
-.form_display svg {
+.formList__item_display svg {
   fill: rgba(67, 154, 134, 0.15);
   transition: all 0.2s linear;
 }
-.form__info {
+.formList__item__info {
   height: 40%;
   width: 100%;
   padding: 0 20px;
@@ -121,7 +163,22 @@ export default {
   flex-direction: column;
 }
 
-.new-form {
+form.addForm {
+  padding: 20px;
+  width: 300px;
+}
+.addForm__info {
+  margin: 10px 0;
+}
+
+.addForm__button {
+  height: 2.5rem;
+  padding: 0 10px;
+  margin-top: 10px;
+  display: block;
+  width: 100%;
+}
+.newFormButtton {
   position: absolute;
   right: 0;
   height: 30px;
@@ -134,21 +191,39 @@ export default {
   /* color: #fff; */
   /* background: var(--primary-color); */
 }
-.new-form .icon {
+.newFormButtton:hover {
+  /* box-shadow: 0 2px 2px 0 rgba(67, 154, 134, 0.1); */
+}
+.newFormButtton:active {
+  border: 1px solid var(--secondary-color);
+}
+.newFormButtton .icon {
   font-size: 0.6rem;
   margin-right: 5px;
 }
-.new-form .text {
+.newFormButtton .text {
 }
 
 @media (min-width: 540px) {
+  form.addForm {
+    padding: 20px;
+    width: 400px;
+  }
 }
 @media (min-width: 768px) {
+  form.addForm {
+    padding: 20px;
+    width: 500px;
+  }
   .formList {
     grid-template-columns: repeat(1, 1fr);
   }
 }
 @media (min-width: 1024px) {
+  .addForm__button {
+    width: fit-content;
+  }
+
   .formList {
     grid-template-columns: repeat(auto-fit, 190px);
   }

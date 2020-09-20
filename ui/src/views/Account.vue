@@ -4,10 +4,10 @@
     <h1 class="title">
       Account
     </h1>
-    <Modal :show="modals.cardModal" :close="() => toggleCardModal('cardModal')">
+    <Modal :show="modals.cardModal" :close="() => toggleModal('cardModal')">
       <AddCard />
     </Modal>
-    <Modal :show="modals.accModal" :close="() => toggleCardModal('accModal')">
+    <Modal :show="modals.accModal" :close="() => toggleModal('accModal')">
       <UpdateProfile />
     </Modal>
     <div class="container account">
@@ -23,7 +23,7 @@
           since 03:46 PM UTC - 06 September 2020.
         </p>
 
-        <button class="button" @click="() => toggleCardModal('accModal')">
+        <button class="button" @click="() => toggleModal('accModal')">
           Update Profile
         </button>
       </div>
@@ -37,9 +37,9 @@
       </div>
       <div class="billing  account__setting">
         <h3 class="account__setting__label">
-          Billing:
+          Billing
         </h3>
-        <button class="button" @click="() => toggleCardModal('cardModal')">
+        <button class="button" @click="() => toggleModal('cardModal')">
           Add card
         </button>
       </div>
@@ -65,7 +65,7 @@ export default {
     UpdateProfile,
   },
   methods: {
-    toggleCardModal(prop) {
+    toggleModal(prop) {
       this.modals = {
         ...this.modals,
         [prop]: !this.modals[prop],
@@ -98,13 +98,17 @@ export default {
 
 .account__setting .button {
   height: 39px;
-  width: fit-content;
+  /* width: fit-content; */
+  width: 100%;
   padding: 0 20px;
   margin: 20px 0;
   margin-right: 10px;
 }
 
 @media (min-width: 768px) {
+  .account__setting .button {
+    width: 150px;
+  }
   .account {
     background: #fff;
     height: 400px;

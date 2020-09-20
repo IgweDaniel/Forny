@@ -90,6 +90,8 @@ export default {
     handleUpdate(val, prop) {
       this[prop] = val;
     },
+    saveNewEmail() {},
+    saveFormName() {},
   },
 
   components: { CustomInput, CheckBox },

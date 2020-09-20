@@ -63,7 +63,6 @@ export default {
 .button {
   height: 38px;
   width: 100%;
-  text-transform: uppercase;
 
   font-weight: 500;
   font-size: 0.85rem;

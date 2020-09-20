@@ -12,12 +12,12 @@
         ref="endpointUrl"
         class="endpoint__url"
         :value="form_url"
+        readonly
         :spellcheck="false"
       />
 
       <button class="endpoint__copybutton" @click="copyUrl">
-        <!-- <i class="fas fa-copy"></i> -->
-        <i class="far fa-copy"></i>
+        <i class="far fa-clone"></i>
       </button>
     </p>
     <div class="form container">
@@ -36,6 +36,7 @@
 <script>
 import { Header, FormData, FormSettings, Tab, TabItem } from "@/components";
 import { forms } from "@/data.js";
+import { mapActions } from "vuex";
 export default {
   data: () => ({
     tabList: [{ name: "Submissions", component: 1 }],
@@ -58,13 +59,17 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["notify"]),
     copyUrl() {
       const url = this.$refs.endpointUrl;
       url.select();
-      url.setSelectionRange(0, 99999);
+      url.setSelectionRange(0, url.value.length);
       document.execCommand("copy");
-      // Handle your notification Here
-      // alert("Copied the text: " + url.value);
+      this.notify({
+        message: "copied to clipboard",
+        type: "success",
+        // id: String(new Date()),
+      });
     },
   },
 };
@@ -108,10 +113,12 @@ export default {
   border: none;
   font-size: 1rem;
 }
+
 .form {
   min-height: 400px;
   background: #fff;
   width: 90%;
+
   --marginVertical: 40px;
   margin-top: var(--marginVertical);
   margin-bottom: var(--marginVertical);
