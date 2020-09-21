@@ -5,7 +5,7 @@
         <label class="label">
           Name
         </label>
-        <form class="form">
+        <form class="form" @submit.prevent="saveFormName">
           <div class="input">
             <CustomInput
               :value="newName"
@@ -20,7 +20,7 @@
         <label class="label">
           Target Email
         </label>
-        <form class="form">
+        <form class="form" @submit.prevent="saveNewEmail">
           <div class="input">
             <CustomInput
               :value="newTargetEmail"
@@ -46,8 +46,8 @@
       <div class="updater">
         <CheckBox
           name="email"
-          :value="newEmailNotify"
-          @input="(val) => handleUpdate(val, 'newEmailNotify')"
+          :value="emailNotifyStatus"
+          @input="(val) => handleUpdate(val, 'emailNotifyStatus')"
         />
       </div>
     </div>
@@ -75,6 +75,7 @@
 <script>
 import { CustomInput } from "@/components";
 import CheckBox from "./CheckBox.vue";
+import { mapActions } from "vuex";
 export default {
   props: {
     form: Object,
@@ -83,17 +84,37 @@ export default {
     return {
       newName: this.form.name,
       newTargetEmail: this.form.target_email,
-      newEmailNotify: this.form.notifications,
+      emailNotifyStatus: this.form.notifications,
     };
   },
   methods: {
+    ...mapActions(["notify"]),
     handleUpdate(val, prop) {
       this[prop] = val;
     },
-    saveNewEmail() {},
-    saveFormName() {},
+
+    saveNewEmail() {
+      console.log(this.newTargetEmail);
+      this.notifySettingsChange();
+    },
+    saveFormName() {
+      console.log(this.newName);
+      this.notifySettingsChange();
+    },
+    notifySettingsChange() {
+      this.notify({
+        type: "success",
+        message: `${this.form.name} form settings has been updated`,
+      });
+    },
   },
 
+  watch: {
+    emailNotifyStatus() {
+      console.log(this.emailNotifyStatus);
+      this.notifySettingsChange();
+    },
+  },
   components: { CustomInput, CheckBox },
 };
 </script>

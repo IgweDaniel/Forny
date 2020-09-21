@@ -1,7 +1,7 @@
 <template>
   <nav class="nav">
     <div class="logo">
-      <h3>Logo</h3>
+      <router-link to="/"> <h3>Logo</h3></router-link>
     </div>
 
     <ul class="nav__links">
@@ -27,8 +27,8 @@ export default {
   methods: {
     handleLogout() {
       this.$router.push({ name: "Login" });
-    },
-  },
+    }
+  }
 };
 </script>
 

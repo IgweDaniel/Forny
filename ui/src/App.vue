@@ -20,14 +20,14 @@ import { mapState, mapActions } from "vuex";
 import { Notification } from "@/components";
 export default {
   components: {
-    Notification,
+    Notification
   },
   computed: {
-    ...mapState(["notifications"]),
+    ...mapState(["notifications"])
   },
   methods: {
-    ...mapActions(["notify"]),
-  },
+    ...mapActions(["notify"])
+  }
 };
 </script>
 
@@ -36,17 +36,14 @@ export default {
 
 :root {
   --primary-color: #439a86;
-  --primary-light-color: rgba(67, 154, 134, 0.125);
+  --primary-light-color: rgba(67, 154, 134, 0.11);
 
   --warn-color: #cc444b;
 
   --button-hover-color: #4baa94;
   --button-active-color: #3e8e7b;
 
-  /* --primary-light-color: #f2f2f2; */
-  /* --primary-color: rgba(54, 130, 127,1);
-  --primary-light-color: rgba(54, 130, 127,0.15); */
-  --secondary-color: #2a2d34;
+  --secondary-color: #17183b;
   --muted-color: rgb(176, 176, 176);
   font-size: 15px;
 }
@@ -78,7 +75,7 @@ body {
 .list-enter-active,
 .list-leave-active,
 .list-move {
-  transition: all 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 .list-enter {
   /* opacity: 0; */
@@ -114,10 +111,27 @@ button {
   text-transform: capitalize;
   font-size: 0.9375rem;
 }
+.button a {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .button-outline {
-  background: transparent;
-  border: 1px solid var(--primary-color);
+  background: var(--primary-light-color);
+  border: 2px solid var(--primary-color);
   color: var(--secondary-color);
+}
+.button:disabled {
+  background: #cccc;
+  cursor: not-allowed;
+}
+.button:disabled:hover {
+  background: #cccc;
+}
+.button:disabled:active {
+  background: #cccc;
 }
 .button:hover {
   background: var(--button-hover-color);

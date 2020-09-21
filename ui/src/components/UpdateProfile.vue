@@ -20,24 +20,30 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import CustomInput from "./CustomInput";
 export default {
   data() {
     return {
-      newEmail: "igwedanielchi@cmail.com",
+      newEmail: "igwedanielchi@cmail.com"
     };
   },
   methods: {
+    ...mapActions(["notify"]),
     setEmail(email) {
       this.newEmail = email;
     },
     updateEmail() {
       console.log(`Account email has been updated to ${this.newEmail}`);
-    },
+      this.notify({
+        message: `Account email has been updated to ${this.newEmail}`,
+        type: "success"
+      });
+    }
   },
   components: {
-    CustomInput,
-  },
+    CustomInput
+  }
 };
 </script>
 
@@ -64,13 +70,16 @@ export default {
   height: 38px;
   width: 100%;
 
-  font-weight: 500;
-  font-size: 0.85rem;
   margin: 10px 0;
+}
+@media (min-width: 540px) {
+  .updateProfile {
+    width: 400px;
+  }
 }
 @media (min-width: 768px) {
   .updateProfile {
-    width: 400px;
+    width: 500px;
   }
 }
 </style>

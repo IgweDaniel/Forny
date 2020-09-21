@@ -16,7 +16,7 @@
           :value="newFormName"
           @input="handleChange"
         />
-        <button class="button addForm__button">
+        <button class="button addForm__button ">
           create form
         </button>
       </form>
@@ -46,7 +46,7 @@
               <h4>
                 {{ form.name }}
               </h4>
-              <p>{{ form.submissions_count }} submissions</p>
+              <p>{{ form.subs.length }} submissions</p>
             </div>
           </router-link>
         </div>
@@ -66,7 +66,7 @@ export default {
     return {
       forms,
       newFormModal: false,
-      newFormName: "",
+      newFormName: ""
     };
   },
   methods: {
@@ -81,17 +81,17 @@ export default {
       this.toggleNewFormModal();
       this.notify({
         message: `Form with name ${this.newFormName} succesfully Created`,
-        type: "success",
+        type: "success"
         // id: String(new Date()),
       });
-    },
+    }
   },
   components: {
     Header,
     EggIcon,
     Modal,
-    CustomInput,
-  },
+    CustomInput
+  }
 };
 </script>
 
@@ -192,7 +192,6 @@ form.addForm {
   /* background: var(--primary-color); */
 }
 .newFormButtton:hover {
-  /* box-shadow: 0 2px 2px 0 rgba(67, 154, 134, 0.1); */
 }
 .newFormButtton:active {
   border: 1px solid var(--secondary-color);
@@ -221,7 +220,7 @@ form.addForm {
 }
 @media (min-width: 1024px) {
   .addForm__button {
-    width: fit-content;
+    width: 150px;
   }
 
   .formList {

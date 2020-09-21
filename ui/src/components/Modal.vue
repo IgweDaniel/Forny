@@ -16,11 +16,11 @@ import { TimelineLite } from "gsap";
 export default {
   props: {
     show: Boolean,
-    close: Function,
+    close: Function
   },
   data() {
     return {
-      tl: new TimelineLite(),
+      tl: new TimelineLite()
     };
   },
   watch: {
@@ -29,31 +29,31 @@ export default {
         this.tl
           .to(this.$refs.modal, { display: "flex", duration: 0 })
           .to(this.$refs.backdrop, {
-            opacity: 0.5,
-            duration: 0.1,
+            opacity: 0.6,
+            duration: 0.1
           })
           .fromTo(
             this.$refs.content,
             {
               y: 100,
-              opacity: 0,
+              opacity: 0
             },
             {
               opacity: 1,
               y: 0,
-              duration: 0.2,
+              duration: 0.2
             }
           );
       } else {
         this.tl.reverse().then(() => (this.tl = new TimelineLite()));
       }
-    },
+    }
   },
   methods: {},
 
   mounted() {
     // this.tl = new TimelineLite();
-  },
+  }
 };
 </script>
 
@@ -74,6 +74,7 @@ export default {
   position: absolute;
   height: 100%;
   background: #000;
+  /* background: var(--primary-light-color); */
 
   width: 100%;
   opacity: 0;
@@ -86,15 +87,19 @@ export default {
   opacity: 0;
 }
 .close-button {
-  position: absolute;
+  /* position: absolute;
+  top: -50px;
+  right: -20px;
+    color: #fff; */
   font-size: 1.1rem;
   margin-left: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  top: -50px;
-  right: -20px;
-  color: #fff;
+  position: absolute;
+  top: 10px;
+  right: 5px;
+  /* display: none; */
   /* background: #fff; */
   height: 25px;
   width: 30px;

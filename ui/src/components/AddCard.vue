@@ -1,6 +1,7 @@
 <template>
   <div class="addCard">
     <div class="addCard__content">
+      <span class="label">Add Card</span>
       <div class="addCard__container">
         <div ref="card" class="addCard__input"></div>
       </div>
@@ -13,6 +14,7 @@
 
 <script>
 import { loadStripe } from "@stripe/stripe-js";
+import { mapActions } from "vuex";
 const stripe_key =
   "pk_test_51HNZanJnak3PexxST8Q6su9EFaPo5EXew0USIPW42tAcOs3eHbv8jxasF4yoC4CX2IgWaves3Ow3nrvBidYyGf9R00G7CO3nRg";
 export default {
@@ -20,9 +22,15 @@ export default {
     return { elements: {}, stripe: {} };
   },
   methods: {
+    ...mapActions(["notify"]),
     createCard() {
       console.log(this.stripe);
-    },
+
+      this.notify({
+        message: "Card added",
+        type: "success"
+      });
+    }
   },
   async mounted() {
     const stripe = await loadStripe(stripe_key);
@@ -30,7 +38,7 @@ export default {
     const elements = stripe.elements(),
       card = elements.create("card");
     card.mount(this.$refs.card);
-  },
+  }
 };
 </script>
 
@@ -49,6 +57,11 @@ export default {
   width: 100%;
 }
 
+.addCard__content .label {
+  font-weight: 600;
+  margin: 10px 0;
+  display: block;
+}
 .addCard__container {
   border: 1px solid var(--primary-color);
   height: 40px;
@@ -68,6 +81,11 @@ export default {
 @media (min-width: 568px) {
   .addCard {
     width: 400px;
+  }
+}
+@media (min-width: 768px) {
+  .addCard {
+    width: 500px;
   }
 }
 </style>

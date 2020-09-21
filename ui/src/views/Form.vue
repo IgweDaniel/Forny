@@ -39,14 +39,14 @@ import { forms } from "@/data.js";
 import { mapActions } from "vuex";
 export default {
   data: () => ({
-    tabList: [{ name: "Submissions", component: 1 }],
+    tabList: [{ name: "Submissions", component: 1 }]
   }),
   components: {
     Header,
     FormData,
     FormSettings,
     TabItem,
-    Tab,
+    Tab
   },
   computed: {
     form_url() {
@@ -54,9 +54,9 @@ export default {
     },
     form() {
       const formId = this.$route.params.id,
-        form = forms.find((form) => form.id == formId);
+        form = forms.find(form => form.id == formId);
       return form;
-    },
+    }
   },
   methods: {
     ...mapActions(["notify"]),
@@ -66,12 +66,11 @@ export default {
       url.setSelectionRange(0, url.value.length);
       document.execCommand("copy");
       this.notify({
-        message: "copied to clipboard",
-        type: "success",
-        // id: String(new Date()),
+        message: "Endpoint copied to clipboard",
+        type: "success"
       });
-    },
-  },
+    }
+  }
 };
 </script>
 

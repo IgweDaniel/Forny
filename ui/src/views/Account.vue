@@ -32,7 +32,7 @@
           Current Plan: Free
         </h3>
         <button class="button">
-          upgrade plan
+          <router-link to="/plans"> upgrade plan</router-link>
         </button>
       </div>
       <div class="billing  account__setting">
@@ -54,24 +54,24 @@ export default {
     return {
       modals: {
         cardModal: false,
-        accModal: false,
-      },
+        accModal: false
+      }
     };
   },
   components: {
     Header,
     Modal,
     AddCard,
-    UpdateProfile,
+    UpdateProfile
   },
   methods: {
     toggleModal(prop) {
       this.modals = {
         ...this.modals,
-        [prop]: !this.modals[prop],
+        [prop]: !this.modals[prop]
       };
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -90,11 +90,12 @@ export default {
   grid-template-columns: repeat(1, 1fr);
   column-gap: 20px;
   margin-bottom: 20px;
+  width: 90%;
 }
-.account__setting {
+/* .account__setting {
 }
 .account__setting__label {
-}
+} */
 
 .account__setting .button {
   height: 39px;
@@ -116,5 +117,8 @@ export default {
   }
 }
 @media (min-width: 1024px) {
+  .account {
+    width: 80%;
+  }
 }
 </style>

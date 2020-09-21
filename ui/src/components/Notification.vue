@@ -1,7 +1,8 @@
 <template>
   <div class="notification" :class="type">
     <button @click="unotify(id)" class="notification__closebutton">
-      <i class="fas fa-window-close"></i>
+      <!-- <i class="fas fa-window-close"></i> -->
+      <i class="fas fa-times"></i>
     </button>
     <p>{{ message }}</p>
   </div>
@@ -13,16 +14,16 @@ export default {
   props: {
     message: String,
     type: String,
-    id: String,
+    id: String
   },
   methods: {
-    ...mapActions(["unotify"]),
+    ...mapActions(["unotify"])
   },
   mounted() {
     setTimeout(() => {
       this.unotify(this.id);
-    }, 6000);
-  },
+    }, 5000);
+  }
 };
 //
 </script>
@@ -45,15 +46,15 @@ export default {
 }
 .notification__closebutton {
   position: absolute;
-  top: 0px;
-  right: 2px;
+  top: 5px;
+  right: 10px;
 }
 
 .notification.success {
   background: var(--primary-color);
 }
 
-.notification.danger {
+.notification.error {
   background: var(--warn-color);
 }
 </style>
