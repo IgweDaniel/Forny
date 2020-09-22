@@ -11,19 +11,32 @@
         />
       </transition-group>
     </div>
+
+    <Header v-if="showHeader" />
     <router-view />
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
-import { Notification } from "@/components";
+import { Notification, Header } from "@/components";
+const blacklist = [
+  "Register",
+  "Login",
+  "PasswordReset",
+  "ForgetPassword",
+  "LoginGoogle"
+];
 export default {
   components: {
-    Notification
+    Notification,
+    Header
   },
   computed: {
-    ...mapState(["notifications"])
+    ...mapState(["notifications"]),
+    showHeader() {
+      return !blacklist.includes(this.$route.name);
+    }
   },
   methods: {
     ...mapActions(["notify"])

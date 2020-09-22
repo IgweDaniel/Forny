@@ -1,21 +1,47 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import { Home, Login, Register, Form, Account, Plans } from "../views";
+import {
+  Home,
+  Login,
+  Register,
+  Form,
+  Account,
+  Plans,
+  ForgetPassword,
+  PasswordReset,
+  LoginGoogle
+} from "../views";
 import NProgress from "nprogress";
 import axios from "axios";
+
 Vue.use(VueRouter);
 NProgress.configure({ showSpinner: false });
 
 const routes = [
   {
     path: "/",
-    name: "Home",
+    name: "Forms",
     component: Home
   },
   {
     path: "/login",
     name: "Login",
     component: Login
+  },
+  {
+    path: "/login/google",
+    name: "LoginGoogle",
+    component: LoginGoogle
+  },
+  {
+    path: "/reset/:token",
+    name: "PasswordReset",
+    component: PasswordReset
+  },
+  {
+    path: "/forget-password",
+    name: "ForgetPassword",
+    component: ForgetPassword
   },
   {
     path: "/register",

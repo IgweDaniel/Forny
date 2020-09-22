@@ -7,6 +7,7 @@ import Modal from "./Modal.vue";
 import AddCard from "./AddCard.vue";
 import UpdateProfile from "./UpdateProfile.vue";
 import Notification from "./Notification.vue";
+import GoogleButton from "./GoogleButton.vue";
 
 export * from "./Tab";
 export {
@@ -19,4 +20,5 @@ export {
   AddCard,
   UpdateProfile,
   Notification,
+  GoogleButton
 };

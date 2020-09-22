@@ -1,9 +1,9 @@
 <template>
-  <div class="notification" :class="type">
-    <button @click="unotify(id)" class="notification__closebutton">
-      <!-- <i class="fas fa-window-close"></i> -->
+  <div class="notification" :class="type" @click="unotify(id)">
+    <!-- <button @click="unotify(id)" class="notification__closebutton">
+      
       <i class="fas fa-times"></i>
-    </button>
+    </button> -->
     <p>{{ message }}</p>
   </div>
 </template>

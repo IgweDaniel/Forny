@@ -1,7 +1,5 @@
 <template>
   <div class="page">
-    <Header />
-
     <div class="container plans">
       <h1 class="title">
         Forny Plans
@@ -41,6 +39,7 @@
               </span>
               submissions
             </li>
+
             <li
               class="plan__perk"
               v-for="feature in plan.features"
@@ -56,15 +55,12 @@
 </template>
 
 <script>
-import { Header } from "@/components";
 import { plans } from "@/data.js";
 export default {
   data() {
     return { plans };
   },
-  components: {
-    Header
-  }
+  components: {}
 };
 </script>
 
@@ -131,8 +127,8 @@ export default {
 .plan__perks {
   padding: 10px;
   border-top: 1px solid var(--primary-light-color);
-  /* width: fit-content; */
-  margin: 10px 0;
+  width: fit-content;
+  margin: 10px auto;
   /* align-items: center; */
 }
 .plan__perk {
@@ -143,6 +139,7 @@ export default {
 .plan__perk .emph {
   font-weight: 600;
   color: var(--primary-color);
+  /* font-style: italic; */
 }
 
 /* @media (min-width: 768px) {

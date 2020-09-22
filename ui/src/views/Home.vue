@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <Header />
+    <!-- <Header /> -->
     <Modal :show="newFormModal" :close="toggleNewFormModal">
       <form class="addForm" @submit.prevent="createForm">
         <h3>
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { Header, Modal, CustomInput } from "@/components";
+import { Modal, CustomInput } from "@/components";
 import { forms } from "@/data.js";
 
 import EggIcon from "@/assets/egg.svg";
@@ -68,6 +68,11 @@ export default {
       newFormModal: false,
       newFormName: ""
     };
+  },
+  components: {
+    EggIcon,
+    Modal,
+    CustomInput
   },
   methods: {
     ...mapActions(["notify"]),
@@ -85,12 +90,6 @@ export default {
         // id: String(new Date()),
       });
     }
-  },
-  components: {
-    Header,
-    EggIcon,
-    Modal,
-    CustomInput
   }
 };
 </script>

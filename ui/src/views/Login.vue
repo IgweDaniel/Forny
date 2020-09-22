@@ -18,7 +18,7 @@
         </CustomInput>
       </div>
       <div class="authform__block lostPassword">
-        forgot password?
+        <router-link to="/forget-password">forget password?</router-link>
       </div>
 
       <button class="authform_button button" @click="handleLogin">
@@ -29,7 +29,8 @@
         <p class="altLogin__title">or login with</p>
         <ul class="altLogin__links">
           <li class="altLogin__link">
-            <a href="" class="google-button">google</a>
+            <GoogleButton />
+            <!-- <a href="" class="google-button">google</a> -->
           </li>
         </ul>
       </div>
@@ -45,22 +46,25 @@
 </template>
 
 <script>
-import { CustomInput } from "@/components";
+import { CustomInput, GoogleButton } from "@/components";
 export default {
   components: {
     CustomInput,
+    GoogleButton
   },
   methods: {
     handleLogin(e) {
       e.preventDefault();
-      this.$router.push({ name: "Home" });
-    },
-  },
+      this.$router.push({ name: "Forms" });
+    }
+  }
 };
 </script>
 
 <style>
 .login,
+.reset,
+.forgotPassword,
 .register {
   height: 100vh;
   display: flex;
@@ -93,6 +97,7 @@ export default {
   text-transform: capitalize;
   display: flex;
   justify-content: flex-end;
+  text-transform: lowercase;
 }
 .altLogin {
   display: flex;

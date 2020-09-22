@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <Header />
+    <!-- <Header /> -->
     <h1 class="title">
       Account
     </h1>
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { Header, Modal, AddCard, UpdateProfile } from "@/components";
+import { Modal, AddCard, UpdateProfile } from "@/components";
 export default {
   data() {
     return {
@@ -59,7 +59,6 @@ export default {
     };
   },
   components: {
-    Header,
     Modal,
     AddCard,
     UpdateProfile

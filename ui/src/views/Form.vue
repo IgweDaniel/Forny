@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <Header />
+    <!-- <Header /> -->
     <h1 class="title">
       {{ form.name }}
     </h1>
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { Header, FormData, FormSettings, Tab, TabItem } from "@/components";
+import { FormData, FormSettings, Tab, TabItem } from "@/components";
 import { forms } from "@/data.js";
 import { mapActions } from "vuex";
 export default {
@@ -42,7 +42,6 @@ export default {
     tabList: [{ name: "Submissions", component: 1 }]
   }),
   components: {
-    Header,
     FormData,
     FormSettings,
     TabItem,
