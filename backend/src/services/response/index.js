@@ -6,7 +6,7 @@ const notFound = (res) => {
   res.status(404).json({ error: "resource not found", data: null });
 };
 
-const serverError = (res, status = 500) => () => {
+const serverError = (res, status = 500) => {
   res.status(status).json({ error: "Server Error", data: null });
 };
 

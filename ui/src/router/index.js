@@ -12,7 +12,7 @@ import {
   LoginGoogle
 } from "../views";
 import NProgress from "nprogress";
-import axios from "axios";
+// import axios from "axios";
 
 Vue.use(VueRouter);
 NProgress.configure({ showSpinner: false });
@@ -78,34 +78,34 @@ router.afterEach(() => {
   NProgress.done();
 });
 
-axios.interceptors.request.use(
-  function(config) {
-    /**
-     * Attach Headers to axios request
-     */
-    return config;
-  },
-  function(error) {
-    return Promise.reject(error);
-  }
-);
+// axios.interceptors.request.use(
+//   function(config) {
+//     /**
+//      * Attach Headers to axios request
+//      */
+//     return config;
+//   },
+//   function(error) {
+//     return Promise.reject(error);
+//   }
+// );
 
 // Add a response interceptor
-axios.interceptors.response.use(
-  function(response) {
-    /**
-     * Check if an unthentication error occured and log out
-     */
-    if (response.data.message.includes("Token Error")) {
-      return router.push("/login");
-    }
-    return response;
-  },
-  function(error) {
-    if (error.response.status == 401) {
-      return router.push("/login");
-    }
-    return Promise.reject(error);
-  }
-);
+// axios.interceptors.response.use(
+//   function(response) {
+//     /**
+//      * Check if an unthentication error occured and log out
+//      */
+//     if (response.data.message.includes("Token Error")) {
+//       return router.push("/login");
+//     }
+//     return response;
+//   },
+//   function(error) {
+//     if (error.response.status == 401) {
+//       return router.push("/login");
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 export default router;
