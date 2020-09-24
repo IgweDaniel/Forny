@@ -1,4 +1,5 @@
 const { ContactForm } = require("./model");
+const { Entry } = require("../entries/model");
 const { getFormLimits } = require("../../services/permissions");
 const { success, notFound, serverError } = require("../../services/response");
 
@@ -8,11 +9,10 @@ const createForm = async ({ body: { name }, user }, res) => {
     if (atLimit) {
       return res.status(403).json({ error: "Limit Exceeded", data: null });
     }
-
     const form = await ContactForm.create({
       user: user.id,
       name,
-      max_submissions: user.plan.max_submissions,
+      targetEmail: user.email,
     });
     return success(res, 201)({ form });
   } catch (error) {
@@ -24,25 +24,40 @@ const createForm = async ({ body: { name }, user }, res) => {
 const makeSubmission = async (req, res) => {
   const {
       params,
-      body: { name, email, message },
+      body: { name, email, message, subject },
     } = req,
-    form = await ContactForm.findById(params.id).populate("Submission");
+    form = await ContactForm.findById(params.id).populate("user");
 
   if (!form) {
     return res.status(404).send("<h1>Invalid Form</h1>");
   }
 
-  if (form.submissions.length >= form.max_submissions) {
+  if (form.entryCount >= form.user.plan.max_submissions) {
     return res
       .status(406)
       .send("<h1>You can't make submissions at this time</h1>");
   }
-  form.submissions.push({ name, email, message });
-  form.save().then(() => {
-    return res
-      .status(200)
-      .send("<h1>Thank you and hopefully you'll hear from me soon</h1>");
-  });
+
+  form.entryCount = form.entryCount + 1;
+  try {
+    Promise.resolve([
+      await Entry.create({ form: form.id, name, email, message, subject }),
+      await form.save(),
+    ]).then(() => {
+      return res
+        .status(200)
+        .send("<h1>Thank you and hopefully you'll hear from me soon</h1>");
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getFormSubmissions = async ({ params }, res) => {
+  const form = await ContactForm.findById(params.id);
+  if (!form) return notFound(res);
+  const submissions = await Entry.find({ form: form.id });
+  return success(res)({ submissions });
 };
 
 const getUserForms = ({ user }, res) =>
@@ -54,9 +69,27 @@ const getAForm = async ({ params, user }, res) => {
   return success(res)({ form });
 };
 
-const updateForm = ({ params }, res) => {
-  console.log(params.id);
-  res.json({ msg: "updateForm" });
+const updateForm = async ({ params, body }, res) => {
+  const { name, targetEmail, emailNotifyStatus } = body,
+    update = {};
+  if (name) {
+    update.name = name;
+  }
+  if (emailNotifyStatus != null) {
+    update.emailNotify = Boolean(emailNotifyStatus);
+  }
+  if (targetEmail) {
+    update.targetEmail = targetEmail;
+  }
+  try {
+    const form = await ContactForm.findByIdAndUpdate(params.id, update, {
+      new: true,
+    });
+    if (!form) return notFound(res);
+    return success(res)({ form });
+  } catch (error) {
+    return serverError(res);
+  }
 };
 const deleteForm = ({ params }, res) => {
   console.log(params.id);
@@ -70,4 +103,5 @@ module.exports = {
   getAForm,
   updateForm,
   deleteForm,
+  getFormSubmissions,
 };

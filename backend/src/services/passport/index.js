@@ -16,6 +16,7 @@ passport.use(
         done(true);
         return null;
       }
+
       const passwordValid = await user.authenticate(password);
 
       if (passwordValid) {
@@ -51,14 +52,14 @@ const token = (req, res, next) =>
       return res.status(401).json({ error: true, message: "Token Error" });
     }
     req.logIn(user, { session: false }, (err) => {
-      if (err) return res.status(401).end();
+      if (err)
+        return res.status(401).json({ error: true, message: "Token Error" });
       next();
     });
   })(req, res, next);
 
 const password = (req, res, next) =>
   passport.authenticate("password", { session: false }, (err, user) => {
-    // console.log(user);
     if (!user || err) {
       return res
         .status(401)

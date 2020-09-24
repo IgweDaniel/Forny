@@ -34,6 +34,7 @@ const config = {
         useUnifiedTopology: true,
         useNewUrlParser: true,
         useCreateIndex: true,
+        useFindAndModify: false,
       },
     },
   },
@@ -42,6 +43,7 @@ const config = {
       uri: "mongodb://localhost/cform-devTest",
       options: {
         debug: true,
+        useFindAndModify: false,
       },
     },
   },

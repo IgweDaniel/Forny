@@ -11,8 +11,11 @@ import {
   PasswordReset,
   LoginGoogle
 } from "../views";
+
+import store from "../store";
+
 import NProgress from "nprogress";
-// import axios from "axios";
+import axios from "axios";
 
 Vue.use(VueRouter);
 NProgress.configure({ showSpinner: false });
@@ -21,7 +24,8 @@ const routes = [
   {
     path: "/",
     name: "Forms",
-    component: Home
+    component: Home,
+    meta: { protected: true }
   },
   {
     path: "/login",
@@ -48,11 +52,17 @@ const routes = [
     name: "Register",
     component: Register
   },
-  { path: "/form/:id", name: "Form", component: Form },
+  {
+    path: "/form/:id",
+    name: "Form",
+    component: Form,
+    meta: { protected: true }
+  },
   {
     path: "/account",
     name: "Account",
-    component: Account
+    component: Account,
+    meta: { protected: true }
   },
   {
     path: "/plans",
@@ -67,6 +77,21 @@ const router = new VueRouter({
   routes
 });
 
+router.beforeEach((to, from, next) => {
+  if (
+    to.matched.some(record => record.meta.protected) &&
+    store.state.token == null
+  ) {
+    next({
+      path: "/login",
+      query: { redirect: to.fullPath }
+    });
+  } else {
+    next();
+  }
+  next();
+});
+
 router.beforeResolve((to, from, next) => {
   if (to.name) {
     NProgress.start();
@@ -78,34 +103,32 @@ router.afterEach(() => {
   NProgress.done();
 });
 
-// axios.interceptors.request.use(
-//   function(config) {
-//     /**
-//      * Attach Headers to axios request
-//      */
-//     return config;
-//   },
-//   function(error) {
-//     return Promise.reject(error);
-//   }
-// );
+axios.interceptors.request.use(
+  function(config) {
+    if (!config.headers.Authorization) {
+      const token = store.state.token;
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  function(error) {
+    return Promise.reject(error);
+  }
+);
 
 // Add a response interceptor
-// axios.interceptors.response.use(
-//   function(response) {
-//     /**
-//      * Check if an unthentication error occured and log out
-//      */
-//     if (response.data.message.includes("Token Error")) {
-//       return router.push("/login");
-//     }
-//     return response;
-//   },
-//   function(error) {
-//     if (error.response.status == 401) {
-//       return router.push("/login");
-//     }
-//     return Promise.reject(error);
-//   }
-// );
+axios.interceptors.response.use(
+  function(response) {
+    return response.data;
+  },
+  function(error) {
+    if (
+      error.response.status == 401 &&
+      error.response.data.message.includes("Token")
+    ) {
+      return router.push("/login");
+    }
+    return Promise.reject(error);
+  }
+);
 export default router;

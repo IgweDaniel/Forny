@@ -74,7 +74,7 @@ userSchema.methods.authenticate = async function (password) {
 };
 userSchema.methods.show = function (full) {
   const obj = {};
-  let fields = ["id", "name", "avatar"];
+  let fields = ["id", "name", "email", "plan"];
 
   if (full) {
     fields = [...fields, "email", "createdAt"];

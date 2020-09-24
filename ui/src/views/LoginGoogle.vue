@@ -21,11 +21,11 @@ export default {
   async mounted() {
     const code = this.$route.query.code;
     try {
-      const { data } = await axios.post("/api/auth/google/", {
+      const { data } = await axios.post("auth/google/", {
         code
       });
       console.log(data);
-      const token = data.data.acces_token;
+      const token = data.data.access_token;
       localStorage.setItem("token", token);
       this.$router.replace("/");
     } catch (error) {

@@ -6,7 +6,7 @@ import axios from "axios";
 import "./assets/nprogress.css";
 Vue.config.productionTip = false;
 
-axios.defaults.baseURL = "http://localhost:9000";
+axios.defaults.baseURL = "http://localhost:9000/api/";
 
 new Vue({
   router,

@@ -27,7 +27,7 @@ test("POST /users 200 ", async () => {
     password: "123456",
   });
 
-  expect(body.data).toHaveProperty("acces_token");
+  expect(body.data).toHaveProperty("access_token");
   expect(body.error).toBeNull();
   expect(status).toBe(201);
 });

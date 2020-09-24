@@ -8,7 +8,7 @@
       <AddCard />
     </Modal>
     <Modal :show="modals.accModal" :close="() => toggleModal('accModal')">
-      <UpdateProfile />
+      <UpdateProfile :email="user.email" />
     </Modal>
     <div class="container account">
       <div class="profile account__setting">
@@ -49,6 +49,7 @@
 
 <script>
 import { Modal, AddCard, UpdateProfile } from "@/components";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -63,6 +64,10 @@ export default {
     AddCard,
     UpdateProfile
   },
+  computed: {
+    ...mapState(["user"])
+  },
+
   methods: {
     toggleModal(prop) {
       this.modals = {

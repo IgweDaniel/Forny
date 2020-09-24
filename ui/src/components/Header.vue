@@ -1,7 +1,7 @@
 <template>
   <nav class="nav">
     <div class="logo">
-      <router-link to="{name:'Forms'}"> <h3>Logo</h3></router-link>
+      <router-link to="{name:'Home'}"> <h3>Logo</h3></router-link>
     </div>
 
     <div class="nav__content" ref="navContent">
@@ -33,12 +33,16 @@
 
 <script>
 import { TimelineLite } from "gsap";
+import { mapActions } from "vuex";
 export default {
   data() {
     return { showSideBar: false, tl: new TimelineLite() };
   },
   methods: {
+    ...mapActions(["logout"]),
     handleLogout() {
+      localStorage.removeItem("token");
+      this.logout();
       this.$router.push({ name: "Login" });
     },
     toggleSideBar() {

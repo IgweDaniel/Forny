@@ -25,9 +25,16 @@ import CustomInput from "./CustomInput";
 export default {
   data() {
     return {
-      newEmail: "igwedanielchi@cmail.com"
+      newEmail: this.email
     };
   },
+  props: {
+    email: String
+  },
+  components: {
+    CustomInput
+  },
+
   methods: {
     ...mapActions(["notify"]),
     setEmail(email) {
@@ -40,9 +47,6 @@ export default {
         type: "success"
       });
     }
-  },
-  components: {
-    CustomInput
   }
 };
 </script>

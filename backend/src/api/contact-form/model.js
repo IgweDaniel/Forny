@@ -1,16 +1,6 @@
 const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
-const submissionSchema = new Schema(
-  {
-    name: String,
-    email: String,
-    message: String,
-  },
-  {
-    timestamps: true,
-  }
-);
 
 const formSchema = new Schema(
   {
@@ -22,16 +12,31 @@ const formSchema = new Schema(
       trim: true,
       lowercase: true,
     },
-    submissions: [submissionSchema],
-    max_submissions: {
-      type: Number,
+    targetEmail: {
+      type: String,
       required: true,
+    },
+    emailNotify: {
+      type: Boolean,
+      default: true,
+    },
+    entryCount: {
+      type: Number,
+      default: 0,
     },
   },
   {
     timestamps: true,
   }
 );
+formSchema.virtual("id").get(function () {
+  return this._id.toHexString();
+});
+
+// Ensure virtual fields are serialised.
+formSchema.set("toJSON", {
+  virtuals: true,
+});
 
 const ContactForm = mongoose.model("ContactForm", formSchema);
 

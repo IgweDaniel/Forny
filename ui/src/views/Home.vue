@@ -13,7 +13,7 @@
         <CustomInput
           placeholder="Form Name"
           :icon="false"
-          :value="newFormName"
+          :value="formName"
           @input="handleChange"
         />
         <button class="button addForm__button ">
@@ -26,13 +26,16 @@
         My Forms
       </h2>
 
-      <button class="newFormButtton" @click="toggleNewFormModal">
+      <button class="newFormButtton" @click="addForm">
         <span class="icon">
           <i class="fas fa-plus"></i>
         </span>
         <span class="text">New form</span>
       </button>
-      <div class="formList">
+      <Spinner v-if="status == 'loading'" />
+      <h2 v-else-if="status == 'error'">Something went wrong</h2>
+
+      <div class="formList" v-else>
         <div class="formList__item" v-for="form in forms" :key="form.id">
           <router-link
             :to="{ name: 'Form', params: { id: form.id } }"
@@ -46,7 +49,7 @@
               <h4>
                 {{ form.name }}
               </h4>
-              <p>{{ form.subs.length }} submissions</p>
+              <p>{{ form.submissions.length }} submissions</p>
             </div>
           </router-link>
         </div>
@@ -56,40 +59,70 @@
 </template>
 
 <script>
-import { Modal, CustomInput } from "@/components";
-import { forms } from "@/data.js";
-
+import { Modal, CustomInput, Spinner } from "@/components";
+// import { forms } from "@/data.js";
+import axios from "axios";
 import EggIcon from "@/assets/egg.svg";
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
   data: () => {
     return {
-      forms,
+      forms: [],
       newFormModal: false,
-      newFormName: ""
+      formName: "",
+      status: "loading"
     };
   },
   components: {
     EggIcon,
     Modal,
-    CustomInput
+    CustomInput,
+    Spinner
   },
+  computed: { ...mapState(["user"]) },
   methods: {
     ...mapActions(["notify"]),
     toggleNewFormModal() {
       this.newFormModal = !this.newFormModal;
     },
-    handleChange(val) {
-      this.newFormName = val;
+    addForm() {
+      if (this.forms.length >= this.user.plan.max_forms) {
+        return this.notify({
+          message: `Form limit reached. please upgrade your plan`,
+          type: "error"
+        });
+      }
+      this.toggleNewFormModal();
     },
-    createForm() {
+    handleChange(val) {
+      this.formName = val;
+    },
+    async createForm() {
+      const {
+        data: { form }
+      } = await axios.post("/forms", {
+        name: this.formName
+      });
+      this.forms.push(form);
       this.toggleNewFormModal();
       this.notify({
-        message: `Form with name ${this.newFormName} succesfully Created`,
+        message: `Form with name ${form.name} succesfully Created`,
         type: "success"
-        // id: String(new Date()),
       });
+    },
+    async getForms() {
+      try {
+        const { data } = await axios.get("/forms", {});
+        this.forms = data;
+        this.status = "done";
+      } catch (error) {
+        this.status = "error";
+        console.log(error);
+      }
     }
+  },
+  mounted() {
+    this.getForms();
   }
 };
 </script>

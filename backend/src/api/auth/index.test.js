@@ -24,5 +24,5 @@ test("POST /Login A user SuccessFully", async () => {
     .auth(user.email, user.password);
 
   expect(status).toBe(200);
-  expect(body.data).toHaveProperty("acces_token");
+  expect(body.data).toHaveProperty("access_token");
 });

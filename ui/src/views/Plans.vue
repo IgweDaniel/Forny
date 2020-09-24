@@ -139,14 +139,8 @@ export default {
 .plan__perk .emph {
   font-weight: 600;
   color: var(--primary-color);
-  /* font-style: italic; */
 }
 
-/* @media (min-width: 768px) {
-  .planList {
-    grid-template-columns: repeat(auto-fit, 1fr);
-  }
-} */
 @media (min-width: 1024px) {
   .planList {
     grid-template-columns: repeat(3, 1fr);

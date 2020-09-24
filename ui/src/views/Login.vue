@@ -8,12 +8,20 @@
         Use your credentials to access your account.
       </div>
       <div class="authform__block">
-        <CustomInput placeholder="Email Address">
+        <CustomInput
+          placeholder="Email Address"
+          :value="email"
+          @input="val => handleUpdate(val, 'email')"
+        >
           <i class="fas fa-envelope"></i>
         </CustomInput>
       </div>
       <div class="authform__block">
-        <CustomInput placeholder="Password">
+        <CustomInput
+          placeholder="Password"
+          :value="password"
+          @input="val => handleUpdate(val, 'password')"
+        >
           <i class="fas fa-lock"></i>
         </CustomInput>
       </div>
@@ -21,7 +29,7 @@
         <router-link to="/forget-password">forget password?</router-link>
       </div>
 
-      <button class="authform_button button" @click="handleLogin">
+      <button class="authform_button button" @click.prevent="handleLogin">
         Login
       </button>
 
@@ -47,15 +55,52 @@
 
 <script>
 import { CustomInput, GoogleButton } from "@/components";
+import axios from "axios";
+import { mapActions } from "vuex";
 export default {
+  data() {
+    return {
+      email: "testuser@test.com",
+      password: "mytits",
+      loading: false
+    };
+  },
   components: {
     CustomInput,
     GoogleButton
   },
+
   methods: {
-    handleLogin(e) {
-      e.preventDefault();
-      this.$router.push({ name: "Forms" });
+    ...mapActions(["notify", "login"]),
+    handleUpdate(val, prop) {
+      this[prop] = val;
+    },
+    async handleLogin() {
+      const { email, password } = this,
+        redirect = this.$route.query.redirect;
+
+      try {
+        const { data } = await axios.post("auth/", "", {
+          auth: {
+            username: email,
+            password: password
+          }
+        });
+        const { access_token, user } = data;
+        localStorage.setItem("token", access_token);
+        this.login({ user, access_token }).then(() => {
+          if (redirect) {
+            return this.$router.push(redirect);
+          }
+          this.$router.push({ name: "Forms" });
+        });
+      } catch (error) {
+        console.log(error.response.status);
+        this.notify({
+          type: "error",
+          message: error.response.data.message
+        });
+      }
     }
   }
 };

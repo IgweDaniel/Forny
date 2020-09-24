@@ -20,6 +20,7 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import { Notification, Header } from "@/components";
+import axios from "axios";
 const blacklist = [
   "Register",
   "Login",
@@ -33,13 +34,26 @@ export default {
     Header
   },
   computed: {
-    ...mapState(["notifications"]),
+    ...mapState(["notifications", "user", "token"]),
     showHeader() {
       return !blacklist.includes(this.$route.name);
     }
   },
   methods: {
-    ...mapActions(["notify"])
+    ...mapActions(["notify", "setUser"]),
+    async getUser() {
+      try {
+        const { data } = await axios.get("users/me");
+        this.setUser(data.user);
+      } catch (error) {
+        console.log({ error });
+      }
+    }
+  },
+  mounted() {
+    if (this.token != null && this.user == null) {
+      this.getUser();
+    }
   }
 };
 </script>

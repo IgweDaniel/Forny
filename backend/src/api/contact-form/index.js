@@ -6,7 +6,7 @@ const {
   makeSubmission,
   getUserForms,
   getAForm,
-
+  getFormSubmissions,
   updateForm,
   deleteForm,
 } = require("./controller");
@@ -18,6 +18,7 @@ router.post("/:id", makeSubmission);
 
 router.use(token);
 
+router.get("/:id/entries", getFormSubmissions);
 // All Form Methods
 router.post("/", createForm);
 router.get("/", getUserForms);

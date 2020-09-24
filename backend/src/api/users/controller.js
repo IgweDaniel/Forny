@@ -7,7 +7,7 @@ const createUser = async (req, res) => {
   try {
     const user = await User.create({ email, password, name }),
       token = await encode(user.id);
-    return success(res, 201)({ acces_token: token });
+    return success(res, 201)({ access_token: token, user: user.show() });
   } catch (error) {
     if (error.code == "11000" && error.name == "MongoError") {
       return res.status(409).json({ error: "Duplicate Email", data: null });

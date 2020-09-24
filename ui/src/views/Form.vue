@@ -1,6 +1,6 @@
 <template>
-  <div class="page">
-    <!-- <Header /> -->
+  <Spinner v-if="status == 'loading'" />
+  <div class="page" v-else>
     <h1 class="title">
       {{ form.name }}
     </h1>
@@ -34,27 +34,25 @@
 </template>
 
 <script>
-import { FormData, FormSettings, Tab, TabItem } from "@/components";
-import { forms } from "@/data.js";
+import { FormData, FormSettings, Tab, TabItem, Spinner } from "@/components";
+// import { forms } from "@/data.js";
 import { mapActions } from "vuex";
+import axios from "axios";
 export default {
   data: () => ({
-    tabList: [{ name: "Submissions", component: 1 }]
+    form: null,
+    status: "loading"
   }),
   components: {
     FormData,
     FormSettings,
     TabItem,
-    Tab
+    Tab,
+    Spinner
   },
   computed: {
     form_url() {
       return `http://forny.com/${this.$route.params.id}`;
-    },
-    form() {
-      const formId = this.$route.params.id,
-        form = forms.find(form => form.id == formId);
-      return form;
     }
   },
   methods: {
@@ -69,6 +67,13 @@ export default {
         type: "success"
       });
     }
+  },
+  async mounted() {
+    const formId = this.$route.params.id;
+    const { data } = await axios.get(`forms/${formId}`);
+    console.log(data);
+    this.form = data.form;
+    this.status = "done";
   }
 };
 </script>
@@ -87,7 +92,7 @@ export default {
   background: #fff;
   width: fit-content;
   max-width: 400px;
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   padding: 0 20px;
   height: 40px;
@@ -96,20 +101,21 @@ export default {
   color: var(--primary-color);
   margin-right: 5px;
   font-weight: bold;
-  flex: 1;
+  width: fit-content;
 }
 .endpoint__copybutton {
-  flex: 1;
+  width: fit-content;
   display: flex;
   justify-content: flex-end;
 }
 
 .endpoint__url {
-  flex: 2;
+  flex: 1;
   font-family: Rubik;
   outline: none;
   border: none;
   font-size: 1rem;
+  margin: 0 5px;
 }
 
 .form {

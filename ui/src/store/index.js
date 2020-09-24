@@ -6,6 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     notifications: [],
+    token: localStorage.getItem("token"),
+    user: null
   },
   mutations: {
     createNotification(state, payload) {
@@ -14,9 +16,20 @@ export default new Vuex.Store({
     },
     deleteNotification(state, payload) {
       state.notifications = state.notifications.filter(
-        (notification) => notification.id != payload.id
+        notification => notification.id != payload.id
       );
     },
+    addAuth(state, payload) {
+      state.user = payload.user;
+      state.token = payload.access_token;
+    },
+    removeAuth(state) {
+      state.user = null;
+      state.token = null;
+    },
+    updateUser(state, payload) {
+      state.user = payload.user;
+    }
   },
   actions: {
     notify({ commit }, { message, type }) {
@@ -25,6 +38,15 @@ export default new Vuex.Store({
     unotify({ commit }, id) {
       commit("deleteNotification", { id });
     },
+    login({ commit }, data) {
+      commit("addAuth", data);
+    },
+    logout({ commit }) {
+      commit("removeAuth");
+    },
+    setUser({ commit }, user) {
+      commit("updateUser", { user });
+    }
   },
-  modules: {},
+  modules: {}
 });

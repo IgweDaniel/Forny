@@ -13,7 +13,7 @@
           <i class="fas fa-envelope"></i>
         </CustomInput>
       </div>
-      <button class=" authform_button   button" @click="handleLogin">
+      <button class=" authform_button   button">
         send
       </button>
     </form>

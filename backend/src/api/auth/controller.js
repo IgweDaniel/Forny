@@ -8,7 +8,7 @@ const {
 
 const login = async ({ user }, res) => {
   const token = await encode(user.id);
-  return success(res)({ acces_token: token });
+  return success(res)({ access_token: token, user: user.show() });
 };
 
 const google = async ({ body: { code } }, res) => {
@@ -23,7 +23,7 @@ const google = async ({ body: { code } }, res) => {
       }),
       token = await encode(user.id);
     console.log(token);
-    return success(res, 201)({ acces_token: token });
+    return success(res, 201)({ access_token: token, user: user.show() });
   } catch (error) {
     // console.log(error.response.data);
     console.log(error.message);
