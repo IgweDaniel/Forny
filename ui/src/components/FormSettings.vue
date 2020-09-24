@@ -10,7 +10,7 @@
             <CustomInput
               :value="newName"
               :icon="false"
-              @input="(val) => handleUpdate(val, 'newName')"
+              @input="val => handleUpdate(val, 'newName')"
             />
           </div>
           <button class="button">save</button>
@@ -25,7 +25,7 @@
             <CustomInput
               :value="newTargetEmail"
               :icon="false"
-              @input="(val) => handleUpdate(val, 'newTargetEmail')"
+              @input="val => handleUpdate(val, 'newTargetEmail')"
             />
           </div>
 
@@ -47,7 +47,7 @@
         <CheckBox
           name="email"
           :value="emailNotifyStatus"
-          @input="(val) => handleUpdate(val, 'emailNotifyStatus')"
+          @input="val => handleUpdate(val, 'emailNotifyStatus')"
         />
       </div>
     </div>
@@ -76,15 +76,18 @@
 import { CustomInput } from "@/components";
 import CheckBox from "./CheckBox.vue";
 import { mapActions } from "vuex";
+
+import * as api from "@/apiFunctions";
+
 export default {
   props: {
-    form: Object,
+    form: Object
   },
   data() {
     return {
       newName: this.form.name,
-      newTargetEmail: this.form.target_email,
-      emailNotifyStatus: this.form.notifications,
+      newTargetEmail: this.form.targetEmail,
+      emailNotifyStatus: this.form.emailNotify
     };
   },
   methods: {
@@ -93,29 +96,67 @@ export default {
       this[prop] = val;
     },
 
-    saveNewEmail() {
-      console.log(this.newTargetEmail);
-      this.notifySettingsChange();
+    async saveNewEmail() {
+      if (this.newTargetEmail == this.form.name) {
+        return this.notify({
+          type: "error",
+          message: `${this.newName}  update is same as existing`
+        });
+      }
+      const { data, error } = await api.updateForm(this.form.id, {
+        targetEmail: this.newTargetEmail
+      });
+      if (error) {
+        return this.notifyUpdateError();
+      }
+      this.brodcastFormUpdate(data);
     },
-    saveFormName() {
-      console.log(this.newName);
-      this.notifySettingsChange();
+
+    async saveFormName() {
+      if (this.newName == this.form.name) {
+        return this.notify({
+          type: "error",
+          message: `${this.newName}  update is same as existing`
+        });
+      }
+      const { data, error } = await api.updateForm(this.form.id, {
+        name: this.newName
+      });
+      if (error) {
+        return this.notifyUpdateError();
+      }
+      this.brodcastFormUpdate(data);
     },
-    notifySettingsChange() {
+
+    brodcastFormUpdate(data) {
+      this.$emit("formUpdate", data);
       this.notify({
         type: "success",
-        message: `${this.form.name} form settings has been updated`,
+        message: `${this.newName} form settings has been updated`
       });
     },
+
+    notifyUpdateError() {
+      this.notify({
+        type: "error",
+        message: `${this.newName} form settings could not be updated`
+      });
+    }
   },
 
   watch: {
-    emailNotifyStatus() {
-      console.log(this.emailNotifyStatus);
-      this.notifySettingsChange();
-    },
+    async emailNotifyStatus() {
+      const { data, error } = await api.updateForm(this.form.id, {
+        emailNotifyStatus: this.emailNotifyStatus
+      });
+      if (error) {
+        return this.notifyUpdateError();
+      }
+      // this.emailNotifyStatus = data.emailNotify;
+      this.brodcastFormUpdate(data);
+    }
   },
-  components: { CustomInput, CheckBox },
+  components: { CustomInput, CheckBox }
 };
 </script>
 

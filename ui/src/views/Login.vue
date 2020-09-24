@@ -55,7 +55,7 @@
 
 <script>
 import { CustomInput, GoogleButton } from "@/components";
-import axios from "axios";
+import * as api from "@/apiFunctions";
 import { mapActions } from "vuex";
 export default {
   data() {
@@ -78,29 +78,24 @@ export default {
     async handleLogin() {
       const { email, password } = this,
         redirect = this.$route.query.redirect;
-
-      try {
-        const { data } = await axios.post("auth/", "", {
-          auth: {
-            username: email,
-            password: password
-          }
-        });
-        const { access_token, user } = data;
-        localStorage.setItem("token", access_token);
-        this.login({ user, access_token }).then(() => {
-          if (redirect) {
-            return this.$router.push(redirect);
-          }
-          this.$router.push({ name: "Forms" });
-        });
-      } catch (error) {
-        console.log(error.response.status);
+      const { data, error } = await api.loginUser(email, password);
+      if (error) {
         this.notify({
           type: "error",
-          message: error.response.data.message
+          message: "Email and password Combination does not exist"
         });
+        return;
       }
+
+      const { access_token, user } = data;
+      localStorage.setItem("token", access_token);
+
+      this.login({ user, access_token }).then(() => {
+        if (redirect) {
+          return this.$router.push(redirect);
+        }
+        this.$router.push({ name: "Forms" });
+      });
     }
   }
 };

@@ -37,7 +37,7 @@ export default {
     this.stripe = stripe;
     const elements = stripe.elements(),
       card = elements.create("card");
-    card.mount(this.$refs.card);
+    if (this.$refs.card) card.mount(this.$refs.card);
   }
 };
 </script>

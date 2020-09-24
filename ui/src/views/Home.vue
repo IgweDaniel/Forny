@@ -34,34 +34,38 @@
       </button>
       <Spinner v-if="status == 'loading'" />
       <h2 v-else-if="status == 'error'">Something went wrong</h2>
-
-      <div class="formList" v-else>
-        <div class="formList__item" v-for="form in forms" :key="form.id">
-          <router-link
-            :to="{ name: 'Form', params: { id: form.id } }"
-            class="formList__item__content"
-          >
-            <div class="formList__item_display">
-              <EggIcon />
-            </div>
-
-            <div class="formList__item__info">
-              <h4>
-                {{ form.name }}
-              </h4>
-              <p>{{ form.submissions.length }} submissions</p>
-            </div>
-          </router-link>
+      <template v-else>
+        <div v-if="forms.length < 1" class="emptyForm">
+          <div class="emptyForm__icon"><i class="fas fa-box-open"></i></div>
+          <h3>You have no forms. Start creating now</h3>
         </div>
-      </div>
+        <div class="formList" v-else>
+          <div class="formList__item" v-for="form in forms" :key="form.id">
+            <router-link
+              :to="{ name: 'Form', params: { id: form.id } }"
+              class="formList__item__content"
+            >
+              <div class="formList__item_display">
+                <EggIcon />
+              </div>
+
+              <div class="formList__item__info">
+                <h4>
+                  {{ form.name }}
+                </h4>
+                <p>{{ form.entryCount }} submissions</p>
+              </div>
+            </router-link>
+          </div>
+        </div>
+      </template>
     </div>
   </div>
 </template>
 
 <script>
 import { Modal, CustomInput, Spinner } from "@/components";
-// import { forms } from "@/data.js";
-import axios from "axios";
+import * as api from "@/apiFunctions";
 import EggIcon from "@/assets/egg.svg";
 import { mapActions, mapState } from "vuex";
 export default {
@@ -98,27 +102,29 @@ export default {
       this.formName = val;
     },
     async createForm() {
-      const {
-        data: { form }
-      } = await axios.post("/forms", {
-        name: this.formName
-      });
-      this.forms.push(form);
+      const { data, error } = await api.createAForm(this.formName);
+      if (error) {
+        this.notify({
+          message: `Form with name ${this.formName} creation failed`,
+          type: "error"
+        });
+        return;
+      }
+      this.forms.push(data);
       this.toggleNewFormModal();
       this.notify({
-        message: `Form with name ${form.name} succesfully Created`,
+        message: `Form with name ${data.name} succesfully Created`,
         type: "success"
       });
     },
     async getForms() {
-      try {
-        const { data } = await axios.get("/forms", {});
-        this.forms = data;
-        this.status = "done";
-      } catch (error) {
+      const { data, error } = await api.getMyForms();
+      if (error) {
         this.status = "error";
-        console.log(error);
+        return;
       }
+      this.forms = data;
+      this.status = "done";
     }
   },
   mounted() {
@@ -134,6 +140,17 @@ export default {
   margin-top: var(--marginVertical);
   margin-bottom: var(--marginVertical);
 }
+
+.emptyForm {
+  margin: 70px 0;
+  text-align: center;
+  /* color: var(--primary-color); */
+  /* color: #fff; */
+}
+.emptyForm__icon {
+  font-size: 2rem;
+}
+
 .formList {
   margin: 40px 0;
   display: grid;

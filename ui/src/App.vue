@@ -11,15 +11,15 @@
         />
       </transition-group>
     </div>
-
     <Header v-if="showHeader" />
-    <router-view />
+    <Spinner v-if="loadingUser" />
+    <router-view v-else />
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
-import { Notification, Header } from "@/components";
+import { Notification, Header, Spinner } from "@/components";
 import axios from "axios";
 const blacklist = [
   "Register",
@@ -31,7 +31,13 @@ const blacklist = [
 export default {
   components: {
     Notification,
-    Header
+    Header,
+    Spinner
+  },
+  data() {
+    return {
+      loadingUser: false
+    };
   },
   computed: {
     ...mapState(["notifications", "user", "token"]),
@@ -42,17 +48,26 @@ export default {
   methods: {
     ...mapActions(["notify", "setUser"]),
     async getUser() {
+      console.log("fetching");
       try {
         const { data } = await axios.get("users/me");
-        this.setUser(data.user);
+        this.setUser(data.user).then(() => {
+          console.log("updating User");
+          this.loadingUser = false;
+        });
       } catch (error) {
         console.log({ error });
       }
     }
   },
-  mounted() {
-    if (this.token != null && this.user == null) {
-      this.getUser();
+  async mounted() {
+    if (
+      this.token != null &&
+      this.user == null &&
+      !blacklist.includes(this.$route.name)
+    ) {
+      this.loadingUser = true;
+      await this.getUser();
     }
   }
 };

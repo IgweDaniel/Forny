@@ -1,20 +1,38 @@
 <template>
   <div class="subs">
-    <table class="subs__table">
+    <Spinner v-if="status == 'loading'" />
+    <table class="subs__table" v-else>
       <thead>
         <tr class="row">
-          <th class="name col ">Name</th>
+          <th class="col" v-for="key in keys" :key="key" :class="key">
+            {{ key }}
+          </th>
+          <!-- <th class="name col ">Name</th>
           <th class="email col">Email</th>
           <th class="subject col">Subject</th>
-          <th class="message col">Message</th>
+          <th class="message col">Message</th> -->
         </tr>
       </thead>
       <tbody>
-        <tr v-for="sub in subs" :key="sub.id" class="row">
-          <td class="name col" data-label="name">{{ sub.name }}</td>
-          <td class="email col" data-label="email">{{ sub.email }}</td>
-          <td class="subject col" data-label="subject">{{ sub.subject }}</td>
-          <td class="message col" data-label="message">{{ sub.message }}</td>
+        <tr v-for="entry in entries" :key="entry.id" class="row">
+          <td
+            class="col"
+            :data-label="key"
+            :class="key"
+            :key="key"
+            v-for="key in keys"
+          >
+            <p v-if="key == 'createdAt'">
+              {{ entry[key] }}
+            </p>
+            <p v-else>
+              {{ entry.data[key] }}
+            </p>
+          </td>
+          <!-- <td class="name col" data-label="name">{{ entry.name }}</td>
+          <td class="email col" data-label="email">{{ entry.email }}</td>
+          <td class="subject col" data-label="subject">{{ entry.subject }}</td>
+          <td class="message col" data-label="message">{{ entry.message }}</td> -->
         </tr>
       </tbody>
     </table>
@@ -22,13 +40,40 @@
 </template>
 
 <script>
+import * as api from "@/apiFunctions";
+import Spinner from "./Spinner";
+import { mapActions } from "vuex";
 export default {
+  components: {
+    Spinner
+  },
   props: {
-    subs: Array,
+    keys: Array,
+    formId: String
   },
   data() {
-    return {};
+    return {
+      status: "loading",
+      entries: []
+    };
   },
+
+  methods: { ...mapActions(["notify"]) },
+
+  async mounted() {
+    console.log(this.keys);
+    const { data, error } = await api.getFormEntries(this.formId);
+    if (error) {
+      this.notify({
+        type: "error",
+        message: "Submissions cannot be loaded at the moment"
+      });
+      return;
+    }
+    this.entries = data;
+    this.status = "done";
+    console.log(data);
+  }
 };
 </script>
 
@@ -42,6 +87,7 @@ export default {
 .subs th {
   background: var(--primary-light-color);
   font-weight: 700;
+  text-transform: capitalize;
 }
 
 .subs__table {
@@ -52,7 +98,7 @@ export default {
 }
 
 td.name {
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 td.subject {
   min-width: 150px;
@@ -61,6 +107,7 @@ td,
 th {
   padding: 10px;
   text-align: left;
+  font-size: 0.95rem;
 }
 .subs tbody .row {
   border-bottom: 1px solid var(--primary-light-color);
@@ -85,13 +132,16 @@ th {
     top: -9999px;
     left: -9999px;
   }
+  tbody tr {
+    padding: 10px 0;
+  }
 
   td {
     /* Behave  like a "row" */
     border: none;
     position: relative;
     padding-left: 40%;
-    overflow-x: auto;
+    /* overflow-x: auto; */
     font-size: 0.95rem;
   }
   /* tbody {

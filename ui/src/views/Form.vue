@@ -1,5 +1,9 @@
 <template>
   <Spinner v-if="status == 'loading'" />
+  <div v-else-if="status == 'error'" class="formError">
+    <h1>error loading Form</h1>
+    <button class="button">Refresh PAGE</button>
+  </div>
   <div class="page" v-else>
     <h1 class="title">
       {{ form.name }}
@@ -23,10 +27,10 @@
     <div class="form container">
       <Tab>
         <TabItem title="Submissions">
-          <FormData :subs="form.subs" />
+          <FormData :keys="form.tableKeys" :formId="form.id" />
         </TabItem>
         <TabItem title="Settings">
-          <FormSettings :form="form" />
+          <FormSettings :form="form" @formUpdate="handleUpdate" />
         </TabItem>
       </Tab>
     </div>
@@ -35,9 +39,9 @@
 
 <script>
 import { FormData, FormSettings, Tab, TabItem, Spinner } from "@/components";
-// import { forms } from "@/data.js";
+import * as api from "@/apiFunctions";
 import { mapActions } from "vuex";
-import axios from "axios";
+
 export default {
   data: () => ({
     form: null,
@@ -66,13 +70,18 @@ export default {
         message: "Endpoint copied to clipboard",
         type: "success"
       });
+    },
+    handleUpdate(data) {
+      this.form = data;
     }
   },
   async mounted() {
-    const formId = this.$route.params.id;
-    const { data } = await axios.get(`forms/${formId}`);
-    console.log(data);
-    this.form = data.form;
+    const { data, error } = await api.getForm(this.$route.params.id);
+    if (error) {
+      this.status = "error";
+      return;
+    }
+    this.form = data;
     this.status = "done";
   }
 };
@@ -96,6 +105,7 @@ export default {
   margin: 0 auto;
   padding: 0 20px;
   height: 40px;
+  font-size: 0.98rem;
 }
 .endpoint .emph {
   color: var(--primary-color);
@@ -114,8 +124,8 @@ export default {
   font-family: Rubik;
   outline: none;
   border: none;
-  font-size: 1rem;
-  margin: 0 5px;
+
+  margin-right: 5px;
 }
 
 .form {

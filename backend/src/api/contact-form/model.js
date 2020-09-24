@@ -24,6 +24,14 @@ const formSchema = new Schema(
       type: Number,
       default: 0,
     },
+    redirectUrl: {
+      type: String,
+      default: "",
+    },
+    tableKeys: {
+      type: Array,
+      default: ["createdAt"],
+    },
   },
   {
     timestamps: true,

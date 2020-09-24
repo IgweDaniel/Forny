@@ -1,6 +1,6 @@
 <template>
   <div class="register">
-    <form class="authform" @submit.prevent="handleLogin">
+    <form class="authform" @submit.prevent="createUser">
       <h4 class="authform__title">
         Create an account
       </h4>
@@ -60,7 +60,7 @@
 
 <script>
 import { CustomInput } from "@/components";
-import axios from "axios";
+import * as api from "@/apiFunctions";
 import { mapActions } from "vuex";
 export default {
   components: {
@@ -79,29 +79,29 @@ export default {
     handleUpdate(val, prop) {
       this[prop] = val;
     },
-    async handleLogin() {
-      try {
-        const { name, email, password } = this;
-        const { data } = await axios.post("/users", {
-          name,
-          email,
-          password
-        });
-        const { access_token, user } = data;
-        localStorage.setItem("token", access_token);
-        this.login({ user, access_token }).then(() => {
-          this.$router.push({ name: "Forms" });
-        });
-      } catch (error) {
+    async createUser() {
+      const { name, email, password } = this,
+        { data, error } = await api.registerUser(name, email, password);
+      if (error) {
+        console.log(error.response.status);
         if (error.response.status == 409) {
           this.notify({
             type: "error",
             message: `This email already exists for an account`
           });
+        } else {
+          this.notify({
+            type: "error",
+            message: `Account creation failed`
+          });
         }
-
-        console.log(error.response.status);
+        return;
       }
+      const { access_token, user } = data;
+      localStorage.setItem("token", access_token);
+      this.login({ user, access_token }).then(() => {
+        this.$router.push({ name: "Forms" });
+      });
     }
   }
 };

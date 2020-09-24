@@ -21,12 +21,9 @@ const createForm = async ({ body: { name }, user }, res) => {
   }
 };
 
-const makeSubmission = async (req, res) => {
-  const {
-      params,
-      body: { name, email, message, subject },
-    } = req,
-    form = await ContactForm.findById(params.id).populate("user");
+const makeSubmission = async ({ params, body }, res) => {
+  const { name, email, message, subject } = body;
+  form = await ContactForm.findById(params.id).populate("user");
 
   if (!form) {
     return res.status(404).send("<h1>Invalid Form</h1>");
@@ -37,11 +34,17 @@ const makeSubmission = async (req, res) => {
       .status(406)
       .send("<h1>You can't make submissions at this time</h1>");
   }
+  const s = new Set(form.tableKeys);
+  Object.keys(body).forEach((key) => s.add(key));
 
   form.entryCount = form.entryCount + 1;
+  form.tableKeys = Array.from(s);
   try {
     Promise.resolve([
-      await Entry.create({ form: form.id, name, email, message, subject }),
+      await Entry.create({
+        form: form.id,
+        data: { name, email, message, subject },
+      }),
       await form.save(),
     ]).then(() => {
       return res

@@ -122,6 +122,13 @@ axios.interceptors.response.use(
     return response.data;
   },
   function(error) {
+    if (error.message.includes("Network")) {
+      store.dispatch("notify", {
+        type: "error",
+        message: "Disconnected from server"
+      });
+      return Promise.reject(error);
+    }
     if (
       error.response.status == 401 &&
       error.response.data.message.includes("Token")
