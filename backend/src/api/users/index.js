@@ -1,6 +1,9 @@
 const { Router } = require("express");
 const router = new Router();
-
+/**
+ * Custom Redirect Url as one of the plans
+ *
+ */
 const {
   createUser,
   getUser,

@@ -14,6 +14,7 @@ async function createPlans() {
       webhook: true,
       autoResponses: false,
       fileUpload: true,
+      customRedirectURL: tru,
     },
   });
 

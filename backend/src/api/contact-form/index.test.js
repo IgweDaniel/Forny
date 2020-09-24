@@ -53,9 +53,11 @@ beforeEach(async () => {
   });
   await Entry.create({
     form: contactform2.id,
-    name: "daniel",
-    email: "c@c.com",
-    message: "Hello ",
+    data: {
+      name: "daniel",
+      email: "c@c.com",
+      message: "Hello ",
+    },
   });
   token = await encode(user1.id);
   token2 = await encode(user2.id);
