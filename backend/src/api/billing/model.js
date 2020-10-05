@@ -2,16 +2,24 @@ const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
-const membershipSchema = new Schema(
-  { user: { type: Schema.Types.ObjectId, ref: "User" } },
-  { stripeId: [{ type: "String", required: true }] },
+const billingSchema = new Schema(
+  {
+    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    stripe_subId: { type: "String", required: true },
+    expired: {
+      type: Boolean,
+      default: false,
+    },
+    planName: { type: "String", required: true },
+  },
+
   {
     timestamps: true,
   }
 );
 
-const Membership = mongoose.model("Membership", membershipSchema);
+const Billing = mongoose.model("Billing", billingSchema);
 
 module.exports = {
-  Membership,
+  Billing,
 };

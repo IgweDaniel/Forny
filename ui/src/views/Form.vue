@@ -105,7 +105,8 @@ export default {
   margin: 0 auto;
   padding: 0 20px;
   height: 40px;
-  font-size: 0.98rem;
+  /* font-size: 0.98rem; */
+  box-shadow: 0 2px 2px 0 rgba(67, 154, 134, 0.1);
 }
 .endpoint .emph {
   color: var(--primary-color);
@@ -124,7 +125,7 @@ export default {
   font-family: Rubik;
   outline: none;
   border: none;
-
+  font-size: 0.93rem;
   margin-right: 5px;
 }
 
@@ -139,6 +140,7 @@ export default {
   padding: 20px;
   /* transition: all 0.5s ease-in-out; */
   /* overflow-y: ; */
+  box-shadow: 0 13px 19px 0 rgba(191, 198, 204, 0.44);
 }
 .tab__header {
   display: flex;

@@ -77,7 +77,18 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 :root {
-  --primary-color: #439a86;
+  --primary-color: #094d92;
+  --primary-light-color: #eff1f3;
+
+  --warn-color: #cc444b;
+  --success-color: #689689;
+
+  --button-hover-color: #0b5cad;
+  --button-active-color: #094786;
+
+  --secondary-color: #17183b;
+  --muted-color: rgb(176, 176, 176);
+  /* --primary-color: #439a86;
   --primary-light-color: rgba(67, 154, 134, 0.11);
 
   --warn-color: #cc444b;
@@ -86,7 +97,7 @@ export default {
   --button-active-color: #3e8e7b;
 
   --secondary-color: #17183b;
-  --muted-color: rgb(176, 176, 176);
+  --muted-color: rgb(176, 176, 176); */
   font-size: 15px;
 }
 
@@ -152,6 +163,11 @@ button {
   font-weight: 600;
   text-transform: capitalize;
   font-size: 0.9375rem;
+  /* border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  background: var(--primary-light-color); */
+  border-radius: 5px;
+  box-shadow: 0 2px 2px 0 rgba(67, 154, 134, 0.1);
 }
 .button a {
   height: 100%;

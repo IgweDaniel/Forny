@@ -1,41 +1,42 @@
 <template>
   <div class="subs">
     <Spinner v-if="status == 'loading'" />
-    <table class="subs__table" v-else>
-      <thead>
-        <tr class="row">
-          <th class="col" v-for="key in keys" :key="key" :class="key">
-            {{ key }}
-          </th>
-          <!-- <th class="name col ">Name</th>
-          <th class="email col">Email</th>
-          <th class="subject col">Subject</th>
-          <th class="message col">Message</th> -->
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="entry in entries" :key="entry.id" class="row">
-          <td
-            class="col"
-            :data-label="key"
-            :class="key"
-            :key="key"
-            v-for="key in keys"
-          >
-            <p v-if="key == 'createdAt'">
-              {{ entry[key] }}
-            </p>
-            <p v-else>
-              {{ entry.data[key] }}
-            </p>
-          </td>
-          <!-- <td class="name col" data-label="name">{{ entry.name }}</td>
+    <template v-else>
+      <div v-if="entries.length < 1" class="empty-table">
+        No Entries for this form yet
+      </div>
+      <table class="subs__table" v-else>
+        <thead>
+          <tr class="row">
+            <th class="col" v-for="key in keys" :key="key" :class="key">
+              {{ key }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="entry in entries" :key="entry.id" class="row">
+            <td
+              class="col"
+              :data-label="key"
+              :class="key"
+              :key="key"
+              v-for="key in keys"
+            >
+              <p v-if="key == 'createdAt'">
+                {{ entry[key] }}
+              </p>
+              <p v-else>
+                {{ entry.data[key] }}
+              </p>
+            </td>
+            <!-- <td class="name col" data-label="name">{{ entry.name }}</td>
           <td class="email col" data-label="email">{{ entry.email }}</td>
           <td class="subject col" data-label="subject">{{ entry.subject }}</td>
           <td class="message col" data-label="message">{{ entry.message }}</td> -->
-        </tr>
-      </tbody>
-    </table>
+          </tr>
+        </tbody>
+      </table>
+    </template>
   </div>
 </template>
 
@@ -78,6 +79,10 @@ export default {
 </script>
 
 <style scoped>
+.empty-table {
+  text-align: center;
+  margin: 30px 0;
+}
 .subs {
   width: 100%;
   padding: 20px 0;
@@ -97,9 +102,6 @@ export default {
   border-collapse: collapse;
 }
 
-td.name {
-  /* white-space: nowrap; */
-}
 td.subject {
   min-width: 150px;
 }

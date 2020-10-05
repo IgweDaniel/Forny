@@ -97,7 +97,7 @@ export default {
     },
 
     async saveNewEmail() {
-      if (this.newTargetEmail == this.form.name) {
+      if (this.newTargetEmail == this.form.targetEmail) {
         return this.notify({
           type: "error",
           message: `${this.newName}  update is same as existing`
@@ -152,7 +152,6 @@ export default {
       if (error) {
         return this.notifyUpdateError();
       }
-      // this.emailNotifyStatus = data.emailNotify;
       this.brodcastFormUpdate(data);
     }
   },

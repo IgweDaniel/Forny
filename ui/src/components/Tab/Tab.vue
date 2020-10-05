@@ -21,11 +21,11 @@ export default {
   data() {
     return {
       selectedIndex: 0,
-      tabs: [],
+      tabs: []
     };
   },
   props: {
-    tabList: Array,
+    tabList: Array
   },
   methods: {
     selectTab(i) {
@@ -35,7 +35,7 @@ export default {
       this.tabs.forEach((tab, index) => {
         tab.isActive = index === i;
       });
-    },
+    }
   },
   mounted() {
     this.selectTab(0);
@@ -43,7 +43,7 @@ export default {
   computed: {},
   created() {
     this.tabs = this.$children;
-  },
+  }
 };
 </script>
 
@@ -55,11 +55,18 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
+  /* border: 1px solid var(--primary-color); */
+  width: 250px;
 }
 .tab__item {
-  margin: 0 10px;
+  /* margin: 0 10px; */
   font-weight: 600;
   font-size: 1.05rem;
+  text-align: center;
+  flex: 1;
+  padding: 5px 0;
+  /* background: var(--primary-light-color); */
 }
 .tab_content {
   width: 100%;
@@ -68,5 +75,10 @@ export default {
 }
 .tab__item.active {
   color: var(--primary-color);
+
+  /* color: #fff; */
+  /* background: var(--primary-color);
+  background: #ccc;
+  color: #fff; */
 }
 </style>

@@ -1,6 +1,9 @@
 <template>
   <div class="forgotPassword">
-    <form class="authform authform-forgotPassword">
+    <form
+      class="authform authform-forgotPassword"
+      @submit.prevent="handleSubmit"
+    >
       <h4 class="authform__title">
         Request Password Reset
       </h4>
@@ -9,7 +12,12 @@
         password
       </div>
       <div class="authform__block">
-        <CustomInput placeholder="Email Address" :icon="false">
+        <CustomInput
+          :value="email"
+          @input="handleInput"
+          placeholder="Email Address"
+          :icon="false"
+        >
           <i class="fas fa-envelope"></i>
         </CustomInput>
       </div>
@@ -23,8 +31,19 @@
 <script>
 import { CustomInput } from "@/components";
 export default {
+  data() {
+    return { email: "" };
+  },
   components: {
     CustomInput
+  },
+  methods: {
+    handleInput(val) {
+      this.email = val;
+    },
+    handleSubmit() {
+      console.log("submited", this.email);
+    }
   }
 };
 </script>

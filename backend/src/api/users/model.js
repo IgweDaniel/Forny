@@ -22,33 +22,31 @@ const userSchema = new Schema(
       index: true,
       trim: true,
     },
-    avatar: {
-      type: String,
-      trim: true,
-      default: "https://getform.io/_nuxt/img/d0008e9.svg",
-    },
+    stripeId: String,
+    cards: Array,
     plan: {
+      id: String,
       name: {
         type: String,
         default: "free",
       },
-      max_submissions: {
+      maxEntries: {
         type: Number,
         default: 10,
       },
-      max_forms: {
+      maxForms: {
         type: Number,
         default: 2,
       },
-      webhook: {
-        type: Boolean,
-        default: true,
-      },
-      autoResponses: {
+      customRedirectURL: {
         type: Boolean,
         default: false,
       },
-      fileUpload: {
+      entriesExport: {
+        type: Boolean,
+        default: false,
+      },
+      autoResponses: {
         type: Boolean,
         default: false,
       },

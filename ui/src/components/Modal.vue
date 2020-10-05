@@ -3,9 +3,9 @@
   <div class="modal" ref="modal">
     <div class="modal__backdrop" @click="close" ref="backdrop"></div>
     <div class="modal__content" ref="content">
-      <button @click="close" class="close-button">
+      <!-- <button @click="close" class="close-button">
         <i class="fas fa-times"></i>
-      </button>
+      </button> -->
       <slot></slot>
     </div>
   </div>
@@ -82,9 +82,11 @@ export default {
 }
 .modal__content {
   position: relative;
+  border-radius: 5px;
   z-index: 1;
   background: #fff;
   opacity: 0;
+  box-shadow: 0 13px 19px 0 rgba(0, 0, 0, 0.24);
 }
 .close-button {
   /* position: absolute;

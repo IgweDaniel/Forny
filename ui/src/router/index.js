@@ -9,7 +9,8 @@ import {
   Plans,
   ForgetPassword,
   PasswordReset,
-  LoginGoogle
+  LoginGoogle,
+  FourOFour
 } from "../views";
 
 import store from "../store";
@@ -68,6 +69,10 @@ const routes = [
     path: "/plans",
     name: "Plans",
     component: Plans
+  },
+  {
+    path: "*",
+    component: FourOFour
   }
 ];
 

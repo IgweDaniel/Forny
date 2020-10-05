@@ -1,24 +1,63 @@
 const stripe = require("./src/services/stripe");
 
-async function createPlans() {
-  const plan = await stripe.plans.create({
+const appPlans = [
+  {
+    amount: 0,
+    currency: "usd",
+    interval: "month",
+    product: {
+      name: "Free",
+    },
+    metadata: {
+      maxForms: 2,
+      maxEntries: 10,
+      autoResponses: false,
+      customRedirectURL: false,
+      entriesExport: false,
+      name: "free",
+    },
+  },
+  {
     amount: 2000,
     currency: "usd",
     interval: "month",
     product: {
-      name: "agency",
+      name: "Basic",
     },
     metadata: {
-      max_submissions: 10,
-      max_forms: 4,
-      webhook: true,
+      maxForms: 50,
+      maxEntries: 9999,
       autoResponses: false,
-      fileUpload: true,
-      customRedirectURL: tru,
+      customRedirectURL: false,
+      entriesExport: true,
+      name: "basic",
     },
-  });
+  },
+  {
+    amount: 4000,
+    currency: "usd",
+    interval: "month",
+    product: {
+      name: "Alpha",
+    },
+    metadata: {
+      maxForms: 9999,
+      maxEntries: 9999,
+      autoResponses: true,
+      customRedirectURL: true,
+      entriesExport: true,
+      name: "alpha",
+    },
+  },
+];
 
-  console.log(plan);
+async function createPlans() {
+  const promiseArr = appPlans.map(async (plan) => {
+    return await stripe.plans.create(plan);
+  });
+  const res = await Promise.all(promiseArr);
+
+  console.log({ res });
 }
 
 createPlans();

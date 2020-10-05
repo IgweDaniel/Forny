@@ -1,6 +1,10 @@
 <template>
   <div class="page">
-    <div class="container plans">
+    <Modal :show="showUpgradeModal" :close="toggleModal">
+      <CheckOut :planId="selectedPlan" />
+    </Modal>
+    <Spinner v-if="status == 'loading'" />
+    <div class="container plans" v-else>
       <h1 class="title">
         Forny Plans
       </h1>
@@ -18,28 +22,25 @@
             <span class="freq">/mo</span>
           </div>
           <div class="plan__action">
-            <button class="button" :disabled="plan.isCurrent">
+            <button
+              class="button"
+              :disabled="plan.isCurrent"
+              @click="selectPlan(plan.id)"
+            >
               {{ plan.isCurrent ? "current" : "select" }}
             </button>
           </div>
-
           <ul class="plan__perks">
             <li class="plan__perk">
-              <span class="emph">
-                {{
-                  plan.maxForms === 9999 ? "unlimited" : plan.maxForms
-                }} </span
+              <span class="emph"> {{ normalizeValue(plan.maxForms) }} </span
               >forms
             </li>
             <li class="plan__perk">
               <span class="emph">
-                {{
-                  plan.maxSubmission === 9999 ? "unlimited" : plan.maxSubmission
-                }}
+                {{ normalizeValue(plan.maxEntries) }}
               </span>
               submissions
             </li>
-
             <li
               class="plan__perk"
               v-for="feature in plan.features"
@@ -55,12 +56,49 @@
 </template>
 
 <script>
-import { plans } from "@/data.js";
+// import { plans } from "@/data.js";
+import { CheckOut, Spinner, Modal } from "@/components";
+import * as api from "@/apiFunctions";
+import { mapActions, mapState } from "vuex";
 export default {
   data() {
-    return { plans };
+    return {
+      plans: [],
+      status: "loading",
+      showUpgradeModal: false,
+      selectedPlan: null
+    };
   },
-  components: {}
+  components: { CheckOut, Spinner, Modal },
+  computed: {
+    ...mapState(["user"])
+  },
+  methods: {
+    ...mapActions(["notify"]),
+    normalizeValue(val) {
+      return val == 9999 ? "unlimited" : val;
+    },
+    selectPlan(id) {
+      this.selectedPlan = id;
+      this.toggleModal();
+    },
+    toggleModal() {
+      console.log({ user: this.user });
+      this.showUpgradeModal = !this.showUpgradeModal;
+    }
+  },
+  async mounted() {
+    const { data, error } = await api.listPlans();
+    if (error != null) {
+      this.notify({
+        message: "Something went wrong",
+        type: "error"
+      });
+    }
+    this.plans = data;
+    this.status = "done";
+    console.log({ data });
+  }
 };
 </script>
 

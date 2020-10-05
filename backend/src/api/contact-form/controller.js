@@ -29,7 +29,7 @@ const makeSubmission = async ({ params, body }, res) => {
     return res.status(404).send("<h1>Invalid Form</h1>");
   }
 
-  if (form.entryCount >= form.user.plan.max_submissions) {
+  if (form.entryCount >= form.user.plan.maxEntries) {
     return res
       .status(406)
       .send("<h1>You can't make submissions at this time</h1>");

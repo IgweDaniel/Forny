@@ -79,11 +79,15 @@ export default {
       const { email, password } = this,
         redirect = this.$route.query.redirect;
       const { data, error } = await api.loginUser(email, password);
+      // Check the error and ensure is auth error
+
       if (error) {
-        this.notify({
-          type: "error",
-          message: "Email and password Combination does not exist"
-        });
+        console.log(error);
+        if (error.status == 401)
+          this.notify({
+            type: "error",
+            message: "Email and password Combination does not exist"
+          });
         return;
       }
 

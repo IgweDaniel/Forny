@@ -51,7 +51,7 @@ export default {
 }
 
 .notification.success {
-  background: var(--primary-color);
+  background: var(--success-color);
 }
 
 .notification.error {

@@ -16,7 +16,7 @@ function getFormLimits(user, delta = 1) {
   return ContactForm.find({ user }).then((forms) => {
     const count = forms.length,
       newTotal = parseInt(count) + delta,
-      maxChecks = user.plan.max_forms;
+      maxChecks = user.plan.maxForms;
     return newTotal > maxChecks;
   });
 }

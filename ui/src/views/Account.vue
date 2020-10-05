@@ -18,7 +18,7 @@
         <p>
           You are registered with the email
           <span class="emph">
-            koxade6577@wonrg.com
+            {{ user.email }}
           </span>
           since 03:46 PM UTC - 06 September 2020.
         </p>
@@ -89,6 +89,16 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.emph {
+  background: var(--primary-light-color);
+  padding: 5px;
+  display: inline-block;
+  text-align: center;
+  /* font-weight: bold; */
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 0.95rem;
 }
 .account {
   background: #fff;

@@ -9,6 +9,7 @@ import UpdateProfile from "./UpdateProfile.vue";
 import Notification from "./Notification.vue";
 import GoogleButton from "./GoogleButton.vue";
 import Spinner from "./Spinner.vue";
+import CheckOut from "./CheckOut.vue";
 
 export * from "./Tab";
 export {
@@ -22,5 +23,6 @@ export {
   UpdateProfile,
   Notification,
   GoogleButton,
-  Spinner
+  Spinner,
+  CheckOut
 };

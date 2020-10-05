@@ -7,6 +7,7 @@ import Plans from "./Plans.vue";
 import PasswordReset from "./PasswordReset.vue";
 import ForgetPassword from "./ForgetPassword.vue";
 import LoginGoogle from "./LoginGoogle.vue";
+import FourOFour from "./404.vue";
 
 export {
   Home,
@@ -17,5 +18,6 @@ export {
   Plans,
   ForgetPassword,
   PasswordReset,
-  LoginGoogle
+  LoginGoogle,
+  FourOFour
 };

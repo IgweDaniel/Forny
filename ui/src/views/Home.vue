@@ -90,7 +90,7 @@ export default {
       this.newFormModal = !this.newFormModal;
     },
     addForm() {
-      if (this.forms.length >= this.user.plan.max_forms) {
+      if (this.forms.length >= this.user.plan.maxForms) {
         return this.notify({
           message: `Form limit reached. please upgrade your plan`,
           type: "error"
@@ -163,17 +163,18 @@ export default {
 }
 
 .formList__item {
-  border-radius: 4px;
-}
-.formList__item {
   background: #fff;
   width: 100%;
   height: 100%;
   box-shadow: 0 2px 2px 0 rgba(67, 154, 134, 0.1);
   /* background: var(--primary-color);
   color: #fff; */
+  /* background: #577399;
+  color: #fff; */
+  border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s linear;
+  /* border: 1px solid #eee; */
 }
 
 .formList__item:hover {
@@ -202,6 +203,7 @@ export default {
 .formList__item_display svg {
   fill: rgba(67, 154, 134, 0.15);
   transition: all 0.2s linear;
+  /* fill: #fff; */
 }
 .formList__item__info {
   height: 40%;
@@ -269,7 +271,7 @@ form.addForm {
 }
 @media (min-width: 1024px) {
   .addForm__button {
-    width: 150px;
+    /* width: 150px; */
   }
 
   .formList {
