@@ -11,14 +11,11 @@ passport.use(
   new BasicStrategy(async (email, password, done) => {
     try {
       const user = await User.findOne({ email });
-
       if (!user) {
         done(true);
         return null;
       }
-
       const passwordValid = await user.authenticate(password);
-
       if (passwordValid) {
         done(null, user);
         return null;

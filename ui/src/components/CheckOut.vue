@@ -14,7 +14,11 @@
     </div>
 
     <div class="checkOut__input">
-      <button class="button checkOut___button" @click="handlePurchase">
+      <button
+        class="button checkOut___button"
+        :class="{ 'button-loading': buttonLoading }"
+        @click="handlePurchase"
+      >
         Purchase
       </button>
     </div>
@@ -38,7 +42,8 @@ export default {
     return {
       card: null,
       cardHolderName: "",
-      stripeToken: ""
+      stripeToken: "",
+      buttonLoading: false
     };
   },
   methods: {
@@ -54,6 +59,7 @@ export default {
         });
         return;
       }
+      this.buttonLoading = true;
       const { token, error: cardError } = await this.stripe.createToken(
         this.card,
         {
@@ -66,12 +72,15 @@ export default {
       }
       const { data, error } = await api.upgradePlan(this.planId, token.id);
       if (error != null) {
+        this.buttonLoading = false;
         this.notify({
           message: "Something Went Wrong",
           type: "error"
         });
       }
-      this.setUser(data.user);
+      this.setUser(data.user).then(() => {
+        this.buttonLoading = false;
+      });
       console.log({ data, error });
     }
   },

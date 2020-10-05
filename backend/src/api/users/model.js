@@ -57,16 +57,6 @@ const userSchema = new Schema(
   }
 );
 
-userSchema.pre("save", function (next) {
-  bcrypt.genSalt(10, (err, salt) => {
-    if (err) throw Error("internal Server Error", err);
-    bcrypt.hash(this.password, salt, (err, hash) => {
-      this.password = hash;
-      next();
-    });
-  });
-});
-
 userSchema.methods.authenticate = async function (password) {
   return await bcrypt.compare(password, this.password);
 };

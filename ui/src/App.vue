@@ -181,6 +181,25 @@ button {
   border: 2px solid var(--primary-color);
   color: var(--secondary-color);
 }
+.button-loading {
+  position: relative;
+  text-indent: 9999px;
+}
+
+.button-loading:after {
+  content: "";
+  height: 1.3rem;
+  width: 1.3rem;
+  background-image: url("./assets/loading/48x48.gif");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .button:disabled {
   background: #cccc;
   cursor: not-allowed;

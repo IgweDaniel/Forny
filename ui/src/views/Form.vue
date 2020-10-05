@@ -2,7 +2,7 @@
   <Spinner v-if="status == 'loading'" />
   <div v-else-if="status == 'error'" class="formError">
     <h1>error loading Form</h1>
-    <button class="button">Refresh PAGE</button>
+    <button class="button" @click="handleRefresh">Refresh PAGE</button>
   </div>
   <div class="page" v-else>
     <h1 class="title">
@@ -61,6 +61,9 @@ export default {
   },
   methods: {
     ...mapActions(["notify"]),
+    handleRefresh() {
+      window.location.reload();
+    },
     copyUrl() {
       const url = this.$refs.endpointUrl;
       url.select();

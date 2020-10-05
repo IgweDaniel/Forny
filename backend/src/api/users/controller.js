@@ -1,11 +1,13 @@
 const { User } = require("./model");
 const { encode } = require("../../services/jwt");
 const { success, serverError } = require("../../services/response");
-
+const bcrypt = require("bcryptjs");
 const createUser = async (req, res) => {
   const { name, email, password } = req.body;
   try {
-    const user = await User.create({ email, password, name }),
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(password, salt);
+    const user = await User.create({ email, password: hash, name }),
       token = await encode(user.id);
     return success(res, 201)({ access_token: token, user: user.show() });
   } catch (error) {

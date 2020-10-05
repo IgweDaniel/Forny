@@ -13,7 +13,12 @@
               @input="val => handleUpdate(val, 'newName')"
             />
           </div>
-          <button class="button">save</button>
+          <button
+            class="button"
+            :class="{ 'button-loading': nameButtonLoading }"
+          >
+            save
+          </button>
         </form>
       </div>
       <div class="targetEmail formsetting">
@@ -29,7 +34,12 @@
             />
           </div>
 
-          <button class="button">save</button>
+          <button
+            class="button"
+            :class="{ 'button-loading': emailButtonLoading }"
+          >
+            save
+          </button>
         </form>
       </div>
     </div>
@@ -87,7 +97,9 @@ export default {
     return {
       newName: this.form.name,
       newTargetEmail: this.form.targetEmail,
-      emailNotifyStatus: this.form.emailNotify
+      emailNotifyStatus: this.form.emailNotify,
+      nameButtonLoading: false,
+      emailButtonLoading: false
     };
   },
   methods: {
@@ -103,12 +115,15 @@ export default {
           message: `${this.newName}  update is same as existing`
         });
       }
+      this.emailButtonLoading = true;
       const { data, error } = await api.updateForm(this.form.id, {
         targetEmail: this.newTargetEmail
       });
       if (error) {
+        this.emailButtonLoading = false;
         return this.notifyUpdateError();
       }
+      this.emailButtonLoading = false;
       this.brodcastFormUpdate(data);
     },
 
@@ -119,12 +134,15 @@ export default {
           message: `${this.newName}  update is same as existing`
         });
       }
+      this.nameButtonLoading = true;
       const { data, error } = await api.updateForm(this.form.id, {
         name: this.newName
       });
       if (error) {
+        this.nameButtonLoading = false;
         return this.notifyUpdateError();
       }
+      this.nameButtonLoading = false;
       this.brodcastFormUpdate(data);
     },
 
