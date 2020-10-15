@@ -48,11 +48,9 @@ export default {
   methods: {
     ...mapActions(["notify", "setUser"]),
     async getUser() {
-      console.log("fetching");
       try {
         const { data } = await axios.get("users/me");
         this.setUser(data.user).then(() => {
-          console.log("updating User");
           this.loadingUser = false;
         });
       } catch (error) {
@@ -69,6 +67,9 @@ export default {
       this.loadingUser = true;
       await this.getUser();
     }
+  },
+  updated() {
+    this.loadingUser = false;
   }
 };
 </script>

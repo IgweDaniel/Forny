@@ -135,6 +135,7 @@ axios.interceptors.response.use(
       return Promise.reject(error);
     }
     if (
+      router.currentRoute.name != "Login" &&
       error.response.status == 401 &&
       error.response.data.message.includes("Token")
     ) {
