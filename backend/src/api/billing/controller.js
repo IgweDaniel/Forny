@@ -58,7 +58,7 @@ const cancelSubscription = ({ params }, res) => {
   console.log(params.id);
   res.json({ msg: " cancelSubscription" });
 };
-const listPlans = async ({ user }, res) => {
+const listPlans = async (req, res) => {
   try {
     const { data } = await stripe.plans.list({ active: true, limit: 3 });
     const appPlans = data.map(
@@ -79,12 +79,12 @@ const listPlans = async ({ user }, res) => {
           maxEntries,
           maxForms,
           features,
-          isCurrent: user.plan.name.includes(name),
         };
       }
     );
     success(res)(appPlans);
   } catch (error) {
+    console.log(error);
     serverError(res);
   }
 };

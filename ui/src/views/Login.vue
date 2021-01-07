@@ -55,7 +55,7 @@
 
 <script>
 import { CustomInput, GoogleButton } from "@/components";
-import * as api from "@/apiFunctions";
+import * as api from "@/api";
 import { mapActions } from "vuex";
 export default {
   data() {

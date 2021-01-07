@@ -92,11 +92,11 @@ export default {
 }
 .emph {
   background: var(--primary-light-color);
+  color: var(--primary-color);
   padding: 5px;
   display: inline-block;
   text-align: center;
-  /* font-weight: bold; */
-  color: var(--primary-color);
+
   font-weight: 600;
   font-size: 0.95rem;
 }

@@ -60,12 +60,13 @@ export default {
   width: 250px;
 }
 .tab__item {
-  /* margin: 0 10px; */
+  margin: 0 7px;
   font-weight: 600;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   text-align: center;
-  flex: 1;
+  /* flex: 1; */
   padding: 5px 0;
+  text-transform: uppercase;
   /* background: var(--primary-light-color); */
 }
 .tab_content {

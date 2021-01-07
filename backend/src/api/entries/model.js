@@ -5,10 +5,6 @@ const entrySchema = new Schema(
   {
     form: { type: Schema.Types.ObjectId, ref: "ContactForm", required: true },
     data: {},
-    // name: String,
-    // email: String,
-    // message: String,
-    // subject: String,
   },
   {
     timestamps: true,

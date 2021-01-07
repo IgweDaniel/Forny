@@ -9,14 +9,14 @@ export default {
   props: {
     title: {
       type: String,
-      default: "Tab",
-    },
+      default: "Tab"
+    }
   },
   data() {
     return {
-      isActive: false,
+      isActive: false
     };
-  },
+  }
 };
 </script>
 

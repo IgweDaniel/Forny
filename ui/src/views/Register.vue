@@ -60,7 +60,7 @@
 
 <script>
 import { CustomInput } from "@/components";
-import * as api from "@/apiFunctions";
+import * as api from "@/api";
 import { mapActions } from "vuex";
 export default {
   components: {

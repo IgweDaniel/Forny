@@ -65,7 +65,7 @@
 
 <script>
 import { Modal, CustomInput, Spinner } from "@/components";
-import * as api from "@/apiFunctions";
+import * as api from "@/api";
 import EggIcon from "@/assets/egg.svg";
 import { mapActions, mapState } from "vuex";
 export default {

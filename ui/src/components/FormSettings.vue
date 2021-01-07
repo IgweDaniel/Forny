@@ -87,7 +87,7 @@ import { CustomInput } from "@/components";
 import CheckBox from "./CheckBox.vue";
 import { mapActions } from "vuex";
 
-import * as api from "@/apiFunctions";
+import * as api from "@/api";
 
 export default {
   props: {

@@ -1,6 +1,6 @@
 import CustomInput from "./CustomInput.vue";
 import Header from "./Header.vue";
-import FormData from "./FormData.vue";
+import Entries from "./Entries.vue";
 import FormSettings from "./FormSettings.vue";
 import CheckBox from "./CheckBox.vue";
 import Modal from "./Modal.vue";
@@ -9,13 +9,13 @@ import UpdateProfile from "./UpdateProfile.vue";
 import Notification from "./Notification.vue";
 import GoogleButton from "./GoogleButton.vue";
 import Spinner from "./Spinner.vue";
-import CheckOut from "./CheckOut.vue";
+import Checkout from "./Checkout.vue";
 
 export * from "./Tab";
 export {
   CustomInput,
   Header,
-  FormData,
+  Entries,
   FormSettings,
   CheckBox,
   Modal,
@@ -24,5 +24,5 @@ export {
   Notification,
   GoogleButton,
   Spinner,
-  CheckOut
+  Checkout
 };

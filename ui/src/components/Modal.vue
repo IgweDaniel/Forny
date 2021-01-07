@@ -1,5 +1,4 @@
 <template>
-  <!-- <div class="modal" v-show="show" ref="modal"> -->
   <div class="modal" ref="modal">
     <div class="modal__backdrop" @click="close" ref="backdrop"></div>
     <div class="modal__content" ref="content">
@@ -74,7 +73,6 @@ export default {
   position: absolute;
   height: 100%;
   background: #000;
-  /* background: var(--primary-light-color); */
 
   width: 100%;
   opacity: 0;

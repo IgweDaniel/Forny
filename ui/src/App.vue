@@ -80,6 +80,7 @@ export default {
 :root {
   --primary-color: #094d92;
   --primary-light-color: #eff1f3;
+  --primary-light-color: #eff1f3;
 
   --warn-color: #cc444b;
   --success-color: #689689;
@@ -157,6 +158,7 @@ button {
   /* outline: none; */
   cursor: pointer;
   outline: none;
+  text-transform: inherit;
 }
 .button {
   background: var(--primary-color);

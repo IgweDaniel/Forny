@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <Modal :show="showUpgradeModal" :close="toggleModal">
-      <CheckOut :planId="selectedPlan" />
+      <Checkout :planId="selectedPlan" />
     </Modal>
     <Spinner v-if="status == 'loading'" />
     <div class="container plans" v-else>
@@ -24,10 +24,10 @@
           <div class="plan__action">
             <button
               class="button"
-              :disabled="plan.isCurrent"
+              :disabled="user ? user.plan.id == plan.id : false"
               @click="selectPlan(plan.id)"
             >
-              {{ plan.isCurrent ? "current" : "select" }}
+              {{ user && user.plan.id == plan.id ? "current" : "select" }}
             </button>
           </div>
           <ul class="plan__perks">
@@ -56,9 +56,8 @@
 </template>
 
 <script>
-// import { plans } from "@/data.js";
-import { CheckOut, Spinner, Modal } from "@/components";
-import * as api from "@/apiFunctions";
+import { Checkout, Spinner, Modal } from "@/components";
+import * as api from "@/api";
 import { mapActions, mapState } from "vuex";
 export default {
   data() {
@@ -69,7 +68,7 @@ export default {
       selectedPlan: null
     };
   },
-  components: { CheckOut, Spinner, Modal },
+  components: { Checkout, Spinner, Modal },
   computed: {
     ...mapState(["user"])
   },
@@ -79,6 +78,12 @@ export default {
       return val == 9999 ? "unlimited" : val;
     },
     selectPlan(id) {
+      if (!this.user) {
+        this.$router.push({
+          path: "/login",
+          query: { redirect: "Plans" }
+        });
+      }
       this.selectedPlan = id;
       this.toggleModal();
     },

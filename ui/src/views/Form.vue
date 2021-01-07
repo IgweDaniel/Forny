@@ -27,7 +27,7 @@
     <div class="form container">
       <Tab>
         <TabItem title="Submissions">
-          <FormData :keys="form.tableKeys" :formId="form.id" />
+          <Entries :keys="form.tableKeys" :formId="form.id" />
         </TabItem>
         <TabItem title="Settings">
           <FormSettings :form="form" @formUpdate="handleUpdate" />
@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import { FormData, FormSettings, Tab, TabItem, Spinner } from "@/components";
-import * as api from "@/apiFunctions";
+import { Entries, FormSettings, Tab, TabItem, Spinner } from "@/components";
+import * as api from "@/api";
 import { mapActions } from "vuex";
 
 export default {
@@ -48,7 +48,7 @@ export default {
     status: "loading"
   }),
   components: {
-    FormData,
+    Entries,
     FormSettings,
     TabItem,
     Tab,
