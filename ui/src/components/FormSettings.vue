@@ -1,5 +1,27 @@
 <template>
   <div class="formsettings">
+    <div class="endpoint formsetting">
+      <label class="label">
+        Your form's endpoint is:
+      </label>
+      <form class="form" @submit.prevent="copyUrl">
+        <div class="input">
+          <CustomInput
+            class="endpoint__url"
+            value="http://localhost:8080/form/60042571c439f5221e8a44ac"
+            readonly
+            :icon="false"
+            :spellcheck="false"
+            name="endpointUrl"
+          />
+        </div>
+        <button class="button" :class="{ 'button-loading': nameButtonLoading }">
+          <div class="icon">
+            <i class="fas fa-clipboard"></i>
+          </div>
+        </button>
+      </form>
+    </div>
     <div class="formsettings__group">
       <div class="name formsetting">
         <label class="label">
@@ -104,6 +126,16 @@ export default {
   },
   methods: {
     ...mapActions(["notify"]),
+    copyUrl(e) {
+      const url_holder = e.target.elements["endpointUrl"];
+      url_holder.select();
+      url_holder.setSelectionRange(0, url_holder.value.length);
+      document.execCommand("copy");
+      this.notify({
+        message: "Endpoint copied to clipboard",
+        type: "success"
+      });
+    },
     handleUpdate(val, prop) {
       this[prop] = val;
     },

@@ -4,10 +4,13 @@
       <li
         class="tab__item "
         v-for="(tab, i) in tabs"
-        :key="tab.title"
+        :key="i"
         :class="{ active: selectedIndex === i }"
+        @click="selectTab(i)"
       >
-        <button @click="selectTab(i)">{{ tab.title }}</button>
+        <!-- <button @click="selectTab(i)">{{ tab.title }}</button> -->
+
+        <component :is="tab.icon" width="22px" height="22px"></component>
       </li>
     </ul>
     <div class="tab_content">
@@ -24,6 +27,7 @@ export default {
       tabs: []
     };
   },
+
   props: {
     tabList: Array
   },
@@ -38,7 +42,8 @@ export default {
     }
   },
   mounted() {
-    this.selectTab(0);
+    console.log(this.tabs);
+    this.selectTab(1);
   },
   computed: {},
   created() {
@@ -50,36 +55,84 @@ export default {
 <style scoped>
 .tab {
   height: 100%;
+  width: 100%;
 }
 .tab__header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  /* margin: 0 auto; */
+  /* border: 1px solid var(--primary-color); */
+  width: fit-content;
+  /* background: #eee; */
+  background: var(--primary-light-color);
+
+  border-bottom: none !important;
+}
+.tab__header::after {
+  position: absolute;
+  content: "";
+  height: 5px;
+  /* background: #fff; */
+  z-index: 2;
+  width: 100%;
+  bottom: -5px;
+}
+
+.tab__item {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
-  /* border: 1px solid var(--primary-color); */
-  width: 250px;
-}
-.tab__item {
-  margin: 0 7px;
+  /* margin: 0 7px; */
   font-weight: 600;
   font-size: 0.95rem;
   text-align: center;
   /* flex: 1; */
-  padding: 5px 0;
+  height: 55px;
+  width: 100px;
+  cursor: pointer;
   text-transform: uppercase;
-  /* background: var(--primary-light-color); */
+  background: #fff;
 }
 .tab_content {
+  padding: 40px;
   width: 100%;
   height: 100%;
-  /* overflow: hidden; */
+  background: #fff;
 }
-.tab__item.active {
-  color: var(--primary-color);
 
-  /* color: #fff; */
-  /* background: var(--primary-color);
-  background: #ccc;
-  color: #fff; */
+.tab__item.active {
+  background: var(--primary-color);
+  border-right: 1px solid;
+  border-left: 1px solid;
+  background: #fff;
+  background: var(--primary-color);
+}
+.tab__item.active svg {
+  fill: #fff;
+}
+.tab__item.active:after {
+  position: absolute;
+  content: "";
+  height: 5px;
+  background: #fff;
+  z-index: 2;
+  width: 100%;
+  bottom: -5px;
+}
+
+.tab__item:last-child {
+  border-top-right-radius: 5px;
+}
+
+.tab__item:first-child {
+  border-top-left-radius: 5px;
+}
+.tab_content {
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 </style>

@@ -1,14 +1,16 @@
 <template>
-  <div class="input">
+  <div class="input" :class="{ readonly: readonly }">
     <span class="input__icon" v-if="icon">
       <slot></slot>
     </span>
     <input
+      v-bind="$attrs"
       type="text"
       class="input__element"
       :placeholder="placeholder"
       :class="{ withIcon: icon }"
       v-model="inpvalue"
+      :readonly="readonly"
     />
   </div>
 </template>
@@ -18,10 +20,14 @@ export default {
   props: {
     placeholder: String,
     value: String,
+    readonly: {
+      default: false,
+      type: Boolean
+    },
     icon: {
       default: true,
-      type: Boolean,
-    },
+      type: Boolean
+    }
   },
   computed: {
     inpvalue: {
@@ -30,18 +36,17 @@ export default {
       },
       set(val) {
         this.$emit("input", val);
-      },
-    },
+      }
+    }
   },
   methods: {
     handleInputChange() {
       this.$emit("input", this.value);
-    },
-  },
+    }
+  }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .input {
   height: 2.625rem;
@@ -51,6 +56,9 @@ export default {
   border: 1px solid var(--muted-color);
   width: 100%;
   background: #fff;
+}
+.input.readonly {
+  border: none;
 }
 
 .input__icon {
@@ -78,5 +86,9 @@ export default {
 .input__element::placeholder {
   font-family: Rubik;
   font-size: 0.9375rem;
+}
+.input__element:read-only {
+  background: var(--primary-light-color);
+  border: none;
 }
 </style>

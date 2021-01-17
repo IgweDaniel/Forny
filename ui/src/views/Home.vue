@@ -201,7 +201,7 @@ export default {
 }
 
 .formList__item_display svg {
-  fill: rgba(67, 154, 134, 0.15);
+  fill: var(--primary-light-color);
   transition: all 0.2s linear;
   /* fill: #fff; */
 }

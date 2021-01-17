@@ -85,8 +85,8 @@ export default {
 }
 .subs {
   width: 100%;
-  padding: 20px 0;
-  min-height: 300px;
+  /* padding: 20px 0; */
+  /* min-height: 300px; */
   overflow-x: auto;
 }
 .subs th {
