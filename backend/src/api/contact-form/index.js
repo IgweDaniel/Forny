@@ -3,10 +3,10 @@ const router = new Router();
 
 const {
   createForm,
-  makeSubmission,
+
   getUserForms,
   getAForm,
-  getFormSubmissions,
+  getFormEntries,
   updateForm,
   deleteForm,
 } = require("./controller");
@@ -14,11 +14,11 @@ const {
 const { token } = require("../../services/passport");
 
 // All Form Submission
-router.post("/:id", makeSubmission);
+// router.post("/:id", makeSubmission);
 
 router.use(token);
 
-router.get("/:id/entries", getFormSubmissions);
+router.get("/:id/entries", getFormEntries);
 // All Form Methods
 router.post("/", createForm);
 router.get("/", getUserForms);

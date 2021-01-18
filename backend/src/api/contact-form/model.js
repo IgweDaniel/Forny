@@ -5,6 +5,7 @@ const { Schema } = mongoose;
 const formSchema = new Schema(
   {
     user: { type: Schema.Types.ObjectId, ref: "User" },
+    publicId: { type: String, required: true },
     name: {
       type: String,
       required: true,

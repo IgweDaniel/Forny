@@ -8,7 +8,7 @@
         <div class="input">
           <CustomInput
             class="endpoint__url"
-            value="http://localhost:8080/form/60042571c439f5221e8a44ac"
+            :value="`http://localhost:9000/api/${form.publicId}`"
             readonly
             :icon="false"
             :spellcheck="false"
@@ -17,7 +17,8 @@
         </div>
         <button class="button" :class="{ 'button-loading': nameButtonLoading }">
           <div class="icon">
-            <i class="fas fa-clipboard"></i>
+            <ClipBoardIcon width="17px" height="17px" fill="#fff" />
+            <!-- <i class="fas fa-clipboard"></i> -->
           </div>
         </button>
       </form>
@@ -95,9 +96,7 @@
       </div>
       <div class="updater">
         <button class="delete">
-          <!-- <i class="fas fa-trash"></i> -->
           <i class="fas fa-minus-circle"></i>
-          <!-- <i class="fas fa-ban"></i> -->
         </button>
       </div>
     </div>
@@ -110,6 +109,7 @@ import CheckBox from "./CheckBox.vue";
 import { mapActions } from "vuex";
 
 import * as api from "@/api";
+import ClipBoardIcon from "@/assets/clipboard.svg";
 
 export default {
   props: {
@@ -205,7 +205,7 @@ export default {
       this.brodcastFormUpdate(data);
     }
   },
-  components: { CustomInput, CheckBox }
+  components: { CustomInput, CheckBox, ClipBoardIcon }
 };
 </script>
 

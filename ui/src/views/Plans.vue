@@ -12,7 +12,7 @@
         Simple, fair pricing for everyone. Cancel anytime.
       </p>
       <div class="planList">
-        <div class="plan" v-for="plan in plans" :key="plan.id">
+        <div class="plan" v-for="plan in plans" :key="plan.stripe_id">
           <h3 class="plan__name">{{ plan.name }}</h3>
           <div class="plan__price">
             <span class="dollarsymbol">$</span>
@@ -24,23 +24,22 @@
           <div class="plan__action">
             <button
               class="button"
-              :disabled="user ? user.plan.id == plan.id : false"
-              @click="selectPlan(plan.id)"
+              :disabled="user ? user.plan.name == plan.name : false"
+              @click="selectPlan(plan.stripe_id)"
             >
-              {{ user && user.plan.id == plan.id ? "current" : "select" }}
+              {{ user && user.plan.name == plan.name ? "current" : "select" }}
             </button>
           </div>
           <ul class="plan__perks">
-            <li class="plan__perk">
-              <span class="emph"> {{ normalizeValue(plan.maxForms) }} </span
-              >forms
-            </li>
-            <li class="plan__perk">
-              <span class="emph">
-                {{ normalizeValue(plan.maxEntries) }}
-              </span>
-              submissions
-            </li>
+            <div class="limits">
+              <li
+                class="plan__perk"
+                v-for="(key, i) in Object.keys(plan.limits)"
+                :key="i"
+              >
+                {{ key }} : {{ normalizeValue(plan.limits[key]) }}
+              </li>
+            </div>
             <li
               class="plan__perk"
               v-for="feature in plan.features"
@@ -75,7 +74,7 @@ export default {
   methods: {
     ...mapActions(["notify"]),
     normalizeValue(val) {
-      return val == 9999 ? "unlimited" : val;
+      return val >= 9999 ? "unlimited" : val;
     },
     selectPlan(id) {
       if (!this.user) {
@@ -88,7 +87,6 @@ export default {
       this.toggleModal();
     },
     toggleModal() {
-      console.log({ user: this.user });
       this.showUpgradeModal = !this.showUpgradeModal;
     }
   },
@@ -100,6 +98,7 @@ export default {
         type: "error"
       });
     }
+    console.log({ user: this.user });
     this.plans = data;
     this.status = "done";
     console.log({ data });

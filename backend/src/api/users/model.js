@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
+const { FREE_PLAN, AVAILABLE_PLANS } = require("../../constants");
 
 const userSchema = new Schema(
   {
@@ -24,32 +25,9 @@ const userSchema = new Schema(
     },
     stripeId: String,
     cards: Array,
-    plan: {
-      id: String,
-      name: {
-        type: String,
-        default: "free",
-      },
-      maxEntries: {
-        type: Number,
-        default: 10,
-      },
-      maxForms: {
-        type: Number,
-        default: 2,
-      },
-      customRedirectURL: {
-        type: Boolean,
-        default: false,
-      },
-      entriesExport: {
-        type: Boolean,
-        default: false,
-      },
-      autoResponses: {
-        type: Boolean,
-        default: false,
-      },
+    membership: {
+      type: String,
+      default: FREE_PLAN,
     },
   },
   {
@@ -62,16 +40,19 @@ userSchema.methods.authenticate = async function (password) {
 };
 userSchema.methods.show = function (full) {
   const obj = {};
-  let fields = ["id", "name", "email", "plan"];
+  let fields = ["id", "name", "email"];
 
   if (full) {
     fields = [...fields, "email", "createdAt"];
   }
-
   fields.forEach((f) => (obj[f] = this[f]));
+  obj.plan = this.getPlan();
   return obj;
 };
 
+userSchema.methods.getPlan = function () {
+  return AVAILABLE_PLANS.find((plan) => plan.name === this.membership);
+};
 const model = mongoose.model("User", userSchema);
 
 module.exports = {

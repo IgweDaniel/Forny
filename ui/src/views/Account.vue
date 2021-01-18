@@ -1,6 +1,5 @@
 <template>
   <div class="page">
-    <!-- <Header /> -->
     <h1 class="title">
       Account
     </h1>
@@ -8,7 +7,7 @@
       <AddCard />
     </Modal>
     <Modal :show="modals.accModal" :close="() => toggleModal('accModal')">
-      <UpdateProfile :email="email" />
+      <UpdateProfile :user="user" />
     </Modal>
     <div class="container account">
       <div class="profile account__setting">
@@ -17,7 +16,7 @@
         </h3>
         <p>
           You are registered with the email
-          <span class="emph">
+          <span class="emph" v-if="user">
             {{ user.email }}
           </span>
           since 03:46 PM UTC - 06 September 2020.
@@ -66,10 +65,7 @@ export default {
     UpdateProfile
   },
   computed: {
-    ...mapState(["user"]),
-    email() {
-      return this.user ? this.user.email : "";
-    }
+    ...mapState(["user"])
   },
 
   methods: {

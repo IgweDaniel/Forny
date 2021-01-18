@@ -22,22 +22,26 @@
       </form>
     </Modal>
     <div class="home  container">
-      <h2 class="title">
-        My Forms
-      </h2>
+      <div class="meta">
+        <h2 class="title">
+          My Forms
+        </h2>
 
-      <button class="newFormButtton" @click="addForm">
-        <span class="icon">
-          <i class="fas fa-plus"></i>
-        </span>
-        <span class="text">New form</span>
-      </button>
+        <button class="newFormButtton" @click="addForm">
+          <span class="icon">
+            <i class="fas fa-plus"></i>
+          </span>
+          <span class="text">New form</span>
+        </button>
+      </div>
       <Spinner v-if="status == 'loading'" />
       <h2 v-else-if="status == 'error'">Something went wrong</h2>
       <template v-else>
         <div v-if="forms.length < 1" class="emptyForm">
-          <div class="emptyForm__icon"><i class="fas fa-box-open"></i></div>
-          <h3>You have no forms. Start creating now</h3>
+          <div class="emptyForm__icon">
+            <EmptyBoxIcon />
+          </div>
+          <h2 class="emptyForm__text">You have no forms. Start creating now</h2>
         </div>
         <div class="formList" v-else>
           <div class="formList__item" v-for="form in forms" :key="form.id">
@@ -67,6 +71,7 @@
 import { Modal, CustomInput, Spinner } from "@/components";
 import * as api from "@/api";
 import EggIcon from "@/assets/egg.svg";
+import EmptyBoxIcon from "@/assets/inbox-empty-tray.svg";
 import { mapActions, mapState } from "vuex";
 export default {
   data: () => {
@@ -81,7 +86,8 @@ export default {
     EggIcon,
     Modal,
     CustomInput,
-    Spinner
+    Spinner,
+    EmptyBoxIcon
   },
   computed: { ...mapState(["user"]) },
   methods: {
@@ -103,15 +109,22 @@ export default {
     },
     async createForm() {
       const { data, error } = await api.createAForm(this.formName);
+      this.formName = "";
+      this.toggleNewFormModal();
       if (error) {
-        this.notify({
+        if (error == "Limit Exceeded") {
+          return this.notify({
+            message: `Limit Exceeded`,
+            type: "error"
+          });
+        }
+        return this.notify({
           message: `Form with name ${this.formName} creation failed`,
           type: "error"
         });
-        return;
       }
       this.forms.push(data);
-      this.toggleNewFormModal();
+
       this.notify({
         message: `Form with name ${data.name} succesfully Created`,
         type: "success"
@@ -141,16 +154,22 @@ export default {
   margin-bottom: var(--marginVertical);
 }
 
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .emptyForm {
   margin: 70px 0;
   text-align: center;
-  /* color: var(--primary-color); */
-  /* color: #fff; */
 }
 .emptyForm__icon {
   font-size: 2rem;
 }
 
+.emptyForm__text {
+  font-size: 1.3rem;
+}
 .formList {
   margin: 40px 0;
   display: grid;

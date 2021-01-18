@@ -3,6 +3,9 @@ node_modules
 node_modules/
 **/.env
 .env
+.vscode/
+
+/.vscode
 
 t.html
 contactform.html

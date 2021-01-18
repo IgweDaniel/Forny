@@ -25,11 +25,11 @@ import CustomInput from "./CustomInput";
 export default {
   data() {
     return {
-      newEmail: this.email
+      newEmail: this.user ? this.user.email : ""
     };
   },
   props: {
-    email: String
+    user: Object
   },
   components: {
     CustomInput

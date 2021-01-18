@@ -1,9 +1,5 @@
 <template>
   <div class="notification" :class="type" @click="unotify(id)">
-    <!-- <button @click="unotify(id)" class="notification__closebutton">
-      
-      <i class="fas fa-times"></i>
-    </button> -->
     <p>{{ message }}</p>
   </div>
 </template>

@@ -13,10 +13,12 @@ const hasFeature = function (feature) {
 };
 
 function getFormLimits(user, delta = 1) {
+  const user_plan = user.getPlan();
+
   return ContactForm.find({ user }).then((forms) => {
     const count = forms.length,
       newTotal = parseInt(count) + delta,
-      maxChecks = user.plan.maxForms;
+      maxChecks = user_plan.limits.maxForms;
     return newTotal > maxChecks;
   });
 }

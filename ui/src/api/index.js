@@ -43,8 +43,7 @@ export async function createAForm(name) {
     });
     return { error: null, data: data.form };
   } catch (error) {
-    console.log({ error });
-    return { error, data: null };
+    return { error: error.response.data.error, data: null };
   }
 }
 export async function getMyForms() {

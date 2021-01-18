@@ -1,7 +1,7 @@
 import CustomInput from "./CustomInput.vue";
 import Header from "./Header.vue";
 import Entries from "./Entries.vue";
-import FormSettings from "./FormSettings.vue";
+import Prefrences from "./Prefrences.vue";
 import CheckBox from "./CheckBox.vue";
 import Modal from "./Modal.vue";
 import AddCard from "./AddCard.vue";
@@ -16,7 +16,7 @@ export {
   CustomInput,
   Header,
   Entries,
-  FormSettings,
+  Prefrences,
   CheckBox,
   Modal,
   AddCard,

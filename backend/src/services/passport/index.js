@@ -36,7 +36,6 @@ passport.use(
     },
     ({ id }, done) => {
       User.findById(id)
-        .populate("plan")
         .then((user) => done(null, user))
         .catch(done);
     }

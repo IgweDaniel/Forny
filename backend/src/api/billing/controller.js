@@ -1,7 +1,8 @@
-const { success, serverError } = require("../../services/response");
-const { User } = require("../users/model");
+const { success } = require("../../services/response");
+// const { User } = require("../users/model");
 const stripe = require("../../services/stripe");
 const { Billing } = require("./model");
+const { AVAILABLE_PLANS } = require("../../constants");
 
 const createSubcription = async ({ user, body }, res) => {
   const { planId, cardToken } = body;
@@ -59,34 +60,7 @@ const cancelSubscription = ({ params }, res) => {
   res.json({ msg: " cancelSubscription" });
 };
 const listPlans = async (req, res) => {
-  try {
-    const { data } = await stripe.plans.list({ active: true, limit: 3 });
-    const appPlans = data.map(
-      ({ id, amount, interval, currency, metadata }) => {
-        const { maxForms, maxEntries, name, ...rest } = metadata;
-
-        const features = [],
-          price = amount / 100;
-        for (const key in rest) {
-          if (rest[key] == "true") features.push(key);
-        }
-        return {
-          id,
-          name,
-          price,
-          interval,
-          currency,
-          maxEntries,
-          maxForms,
-          features,
-        };
-      }
-    );
-    success(res)(appPlans);
-  } catch (error) {
-    console.log(error);
-    serverError(res);
-  }
+  success(res)(AVAILABLE_PLANS);
 };
 
 module.exports = {

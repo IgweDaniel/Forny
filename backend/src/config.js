@@ -28,6 +28,7 @@ const config = {
     apiRoot: process.env.API_ROOT || "/api",
     userEmail: requireProcessEnv("USER_EMAIL"),
     userPass: requireProcessEnv("USER_PASS"),
+
     mongo: {
       uri: requireProcessEnv("DB_URI"),
       options: {

@@ -54,6 +54,7 @@ export default {
           this.loadingUser = false;
         });
       } catch (error) {
+        this.loadingUser = false;
         console.log({ error });
       }
     }
@@ -69,7 +70,7 @@ export default {
     }
   },
   updated() {
-    this.loadingUser = false;
+    // this.loadingUser = false;
   }
 };
 </script>

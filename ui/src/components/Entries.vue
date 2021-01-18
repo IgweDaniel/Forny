@@ -29,10 +29,6 @@
                 {{ entry.data[key] }}
               </p>
             </td>
-            <!-- <td class="name col" data-label="name">{{ entry.name }}</td>
-          <td class="email col" data-label="email">{{ entry.email }}</td>
-          <td class="subject col" data-label="subject">{{ entry.subject }}</td>
-          <td class="message col" data-label="message">{{ entry.message }}</td> -->
           </tr>
         </tbody>
       </table>
@@ -62,7 +58,6 @@ export default {
   methods: { ...mapActions(["notify"]) },
 
   async mounted() {
-    console.log(this.keys);
     const { data, error } = await api.getFormEntries(this.formId);
     if (error) {
       this.notify({
@@ -71,9 +66,10 @@ export default {
       });
       return;
     }
-    this.entries = data;
-    this.status = "done";
     console.log(data);
+    this.entries = data;
+    console.log(this.keys);
+    this.status = "done";
   }
 };
 </script>

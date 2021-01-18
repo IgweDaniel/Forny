@@ -8,9 +8,7 @@
         :class="{ active: selectedIndex === i }"
         @click="selectTab(i)"
       >
-        <!-- <button @click="selectTab(i)">{{ tab.title }}</button> -->
-
-        <component :is="tab.icon" width="22px" height="22px"></component>
+        <component :is="tab.icon" width="20px" height="20px"></component>
       </li>
     </ul>
     <div class="tab_content">
@@ -42,8 +40,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.tabs);
-    this.selectTab(1);
+    this.selectTab(0);
   },
   computed: {},
   created() {

@@ -2,6 +2,7 @@ const { User } = require("./model");
 const { encode } = require("../../services/jwt");
 const { success, serverError } = require("../../services/response");
 const bcrypt = require("bcryptjs");
+
 const createUser = async (req, res) => {
   const { name, email, password } = req.body;
   try {
@@ -19,6 +20,7 @@ const createUser = async (req, res) => {
 };
 
 const getUser = async ({ user }, res) => {
+  console.log(user.show(true));
   return success(res)({ user: user.show(true) });
 };
 const updateUser = async ({ user }, res) => {
