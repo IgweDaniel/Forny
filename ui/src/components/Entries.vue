@@ -66,9 +66,9 @@ export default {
       });
       return;
     }
-    console.log(data);
+
     this.entries = data;
-    console.log(this.keys);
+
     this.status = "done";
   }
 };

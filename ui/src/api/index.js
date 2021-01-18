@@ -33,7 +33,14 @@ export async function registerUser(name, email, password) {
 
 export async function updateProfile() {}
 
-export async function getMe() {}
+export async function getMe() {
+  try {
+    const { data } = await axios.get("users/me");
+    return { error: null, data: data.user };
+  } catch (error) {
+    return { error: error.response.data.error, data: null };
+  }
+}
 
 /**Forms */
 export async function createAForm(name) {
@@ -65,8 +72,7 @@ export async function getForm(id) {
     return { error, data: null };
   }
 }
-export async function getFormEntries(id, limit, skip) {
-  console.log({ limit, skip });
+export async function getFormEntries(id) {
   try {
     const { data } = await axios.get(`forms/${id}/entries`);
     return { error: null, data: data.submissions };

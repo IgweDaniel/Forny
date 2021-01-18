@@ -6,7 +6,7 @@
 
     <div class="nav__content" ref="navContent">
       <button class="menuButton" @click="toggleSideBar">
-        <i class="fas fa-user-circle"></i>
+        <AvatarIcon />
       </button>
 
       <ul class="nav__links" ref="sideBar">
@@ -34,9 +34,14 @@
 <script>
 import { TimelineLite } from "gsap";
 import { mapActions } from "vuex";
+
+import AvatarIcon from "@/assets/avatar.svg";
 export default {
   data() {
     return { showSideBar: false, tl: new TimelineLite() };
+  },
+  components: {
+    AvatarIcon
   },
   methods: {
     ...mapActions(["logout"]),

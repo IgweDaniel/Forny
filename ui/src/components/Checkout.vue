@@ -97,7 +97,9 @@ export default {
 <style scoped>
 .checkOut {
   padding: 15px;
-  width: 320px;
+
+  width: calc(var(--vw) * 0.8);
+  max-width: 500px;
 }
 
 .cardContainer {
@@ -126,16 +128,5 @@ export default {
 .checkOut___button {
   width: 100%;
   height: 40px;
-}
-
-@media (min-width: 540px) {
-  .checkOut {
-    width: 400px;
-  }
-}
-@media (min-width: 768px) {
-  .checkOut {
-    width: 500px;
-  }
 }
 </style>

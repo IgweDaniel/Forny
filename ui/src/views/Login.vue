@@ -13,7 +13,7 @@
           :value="email"
           @input="val => handleUpdate(val, 'email')"
         >
-          <i class="fas fa-envelope"></i>
+          <EnvelopeIcon />
         </CustomInput>
       </div>
       <div class="authform__block">
@@ -22,7 +22,7 @@
           :value="password"
           @input="val => handleUpdate(val, 'password')"
         >
-          <i class="fas fa-lock"></i>
+          <LockIcon />
         </CustomInput>
       </div>
       <div class="authform__block lostPassword">
@@ -38,7 +38,6 @@
         <ul class="altLogin__links">
           <li class="altLogin__link">
             <GoogleButton />
-            <!-- <a href="" class="google-button">google</a> -->
           </li>
         </ul>
       </div>
@@ -56,6 +55,8 @@
 <script>
 import { CustomInput, GoogleButton } from "@/components";
 import * as api from "@/api";
+import EnvelopeIcon from "@/assets/envelope.svg";
+import LockIcon from "@/assets/lock.svg";
 import { mapActions } from "vuex";
 export default {
   data() {
@@ -67,7 +68,9 @@ export default {
   },
   components: {
     CustomInput,
-    GoogleButton
+    GoogleButton,
+    EnvelopeIcon,
+    LockIcon
   },
 
   methods: {

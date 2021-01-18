@@ -44,13 +44,14 @@ export default {
 
 <style scoped>
 .addCard {
-  width: 300px;
   margin: 0 auto;
 
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
+  width: calc(var(--vw) * 0.8);
+  max-width: 500px;
 }
 
 .addCard__content {
@@ -77,15 +78,5 @@ export default {
   width: 100%;
   height: 40px;
   margin-top: 10px;
-}
-@media (min-width: 568px) {
-  .addCard {
-    width: 400px;
-  }
-}
-@media (min-width: 768px) {
-  .addCard {
-    width: 500px;
-  }
 }
 </style>

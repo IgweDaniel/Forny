@@ -56,6 +56,8 @@ export default {
   /* height: 100px; */
   width: 300px;
   padding: 20px;
+  width: calc(var(--vw) * 0.8);
+  max-width: 500px;
 }
 
 .label {
@@ -75,15 +77,5 @@ export default {
   width: 100%;
 
   margin: 10px 0;
-}
-@media (min-width: 540px) {
-  .updateProfile {
-    width: 400px;
-  }
-}
-@media (min-width: 768px) {
-  .updateProfile {
-    width: 500px;
-  }
 }
 </style>

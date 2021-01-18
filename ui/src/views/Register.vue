@@ -13,7 +13,7 @@
           :value="name"
           @input="val => handleUpdate(val, 'name')"
         >
-          <i class="fas fa-user"></i>
+          <UserIcon />
         </CustomInput>
       </div>
       <div class="authform__block">
@@ -22,7 +22,7 @@
           :value="email"
           @input="val => handleUpdate(val, 'email')"
         >
-          <i class="fas fa-envelope"></i>
+          <EnvelopeIcon />
         </CustomInput>
       </div>
       <div class="authform__block">
@@ -31,7 +31,7 @@
           :value="password"
           @input="val => handleUpdate(val, 'password')"
         >
-          <i class="fas fa-lock"></i>
+          <LockIcon />
         </CustomInput>
       </div>
 
@@ -61,10 +61,16 @@
 <script>
 import { CustomInput } from "@/components";
 import * as api from "@/api";
+import EnvelopeIcon from "@/assets/envelope.svg";
+import LockIcon from "@/assets/lock.svg";
+import UserIcon from "@/assets/user.svg";
 import { mapActions } from "vuex";
 export default {
   components: {
-    CustomInput
+    CustomInput,
+    EnvelopeIcon,
+    LockIcon,
+    UserIcon
   },
   data() {
     return {

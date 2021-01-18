@@ -95,8 +95,8 @@
         </p>
       </div>
       <div class="updater">
-        <button class="delete">
-          <i class="fas fa-minus-circle"></i>
+        <button class="delete" @click="requestFormDelete">
+          <DeleteIcon />
         </button>
       </div>
     </div>
@@ -110,6 +110,7 @@ import { mapActions } from "vuex";
 
 import * as api from "@/api";
 import ClipBoardIcon from "@/assets/clipboard.svg";
+import DeleteIcon from "@/assets/delete.svg";
 
 export default {
   props: {
@@ -140,6 +141,9 @@ export default {
       this[prop] = val;
     },
 
+    requestFormDelete() {
+      this.$emit("deleteFormRequest");
+    },
     async saveNewEmail() {
       if (this.newTargetEmail == this.form.targetEmail) {
         return this.notify({
@@ -205,7 +209,12 @@ export default {
       this.brodcastFormUpdate(data);
     }
   },
-  components: { CustomInput, CheckBox, ClipBoardIcon }
+  components: {
+    CustomInput,
+    CheckBox,
+    ClipBoardIcon,
+    DeleteIcon
+  }
 };
 </script>
 

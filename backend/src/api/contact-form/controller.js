@@ -106,9 +106,11 @@ const updateForm = async ({ params, body }, res) => {
     return serverError(res);
   }
 };
-const deleteForm = ({ params }, res) => {
-  console.log(params.id);
-  res.json({ msg: "deleteForm" });
+const deleteForm = async ({ params, user }, res) => {
+  if (!ObjectId.isValid(params.id)) return notFound(res);
+  const form = await ContactForm.findOneAndDelete({ _id: params.id, user });
+  if (!form) return notFound(res);
+  return success(res)({ form });
 };
 
 module.exports = {

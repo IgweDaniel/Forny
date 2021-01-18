@@ -1,7 +1,7 @@
 import Home from "./Home.vue";
 import Login from "./Login.vue";
 import Register from "./Register.vue";
-import Form from "./Form.vue";
+import ContactForm from "./ContactForm.vue";
 import Account from "./Account.vue";
 import Plans from "./Plans.vue";
 import PasswordReset from "./PasswordReset.vue";
@@ -13,7 +13,7 @@ export {
   Home,
   Login,
   Register,
-  Form,
+  ContactForm,
   Account,
   Plans,
   ForgetPassword,

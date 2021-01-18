@@ -29,7 +29,7 @@
 
         <button class="newFormButtton" @click="addForm">
           <span class="icon">
-            <i class="fas fa-plus"></i>
+            <PlusIcon />
           </span>
           <span class="text">New form</span>
         </button>
@@ -72,6 +72,7 @@ import { Modal, CustomInput, Spinner } from "@/components";
 import * as api from "@/api";
 import EggIcon from "@/assets/egg.svg";
 import EmptyBoxIcon from "@/assets/inbox-empty-tray.svg";
+import PlusIcon from "@/assets/plus.svg";
 import { mapActions, mapState } from "vuex";
 export default {
   data: () => {
@@ -87,6 +88,7 @@ export default {
     Modal,
     CustomInput,
     Spinner,
+    PlusIcon,
     EmptyBoxIcon
   },
   computed: { ...mapState(["user"]) },
@@ -235,7 +237,9 @@ export default {
 
 form.addForm {
   padding: 20px;
-  width: 300px;
+
+  width: calc(var(--vw) * 0.8);
+  max-width: 500px;
 }
 .addForm__info {
   margin: 10px 0;
@@ -249,8 +253,8 @@ form.addForm {
   width: 100%;
 }
 .newFormButtton {
-  position: absolute;
-  right: 0;
+  /* position: absolute; */
+  /* right: 0; */
   height: 30px;
   width: 120px;
   display: flex;
@@ -261,38 +265,27 @@ form.addForm {
   /* color: #fff; */
   /* background: var(--primary-color); */
 }
-.newFormButtton:hover {
-}
+
 .newFormButtton:active {
   border: 1px solid var(--secondary-color);
 }
 .newFormButtton .icon {
-  font-size: 0.6rem;
+  font-size: 0.7rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-right: 5px;
-}
-.newFormButtton .text {
 }
 
 @media (min-width: 540px) {
-  form.addForm {
-    padding: 20px;
-    width: 400px;
-  }
 }
 @media (min-width: 768px) {
-  form.addForm {
-    padding: 20px;
-    width: 500px;
-  }
   .formList {
     grid-template-columns: repeat(1, 1fr);
   }
 }
 @media (min-width: 1024px) {
-  .addForm__button {
-    /* width: 150px; */
-  }
-
   .formList {
     grid-template-columns: repeat(auto-fit, 190px);
   }

@@ -20,7 +20,9 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import { Notification, Header, Spinner } from "@/components";
-import axios from "axios";
+
+import * as api from "@/api";
+
 const blacklist = [
   "Register",
   "Login",
@@ -47,19 +49,27 @@ export default {
   },
   methods: {
     ...mapActions(["notify", "setUser"]),
+    updateBrowserDimensions() {
+      let vh = window.innerHeight;
+      let vw = window.innerWidth;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+      document.documentElement.style.setProperty("--vw", `${vw}px`);
+    },
     async getUser() {
-      try {
-        const { data } = await axios.get("users/me");
-        this.setUser(data.user).then(() => {
-          this.loadingUser = false;
-        });
-      } catch (error) {
+      const { data, error } = await api.getMe();
+      if (error) {
         this.loadingUser = false;
         console.log({ error });
+      } else {
+        this.setUser(data).then(() => {
+          this.loadingUser = false;
+        });
       }
     }
   },
   async mounted() {
+    this.updateBrowserDimensions();
+    window.addEventListener("resize", this.updateBrowserDimensions);
     if (
       this.token != null &&
       this.user == null &&
@@ -68,6 +78,9 @@ export default {
       this.loadingUser = true;
       await this.getUser();
     }
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.updateBrowserDimensions);
   },
   updated() {
     // this.loadingUser = false;
@@ -91,16 +104,7 @@ export default {
 
   --secondary-color: #17183b;
   --muted-color: rgb(176, 176, 176);
-  /* --primary-color: #439a86;
-  --primary-light-color: rgba(67, 154, 134, 0.11);
 
-  --warn-color: #cc444b;
-
-  --button-hover-color: #4baa94;
-  --button-active-color: #3e8e7b;
-
-  --secondary-color: #17183b;
-  --muted-color: rgb(176, 176, 176); */
   font-size: 15px;
 }
 

@@ -7,6 +7,9 @@
     </div>
   </div>
   <div class="page" v-else>
+    <Modal :show="deleteDialog" :close="() => updateDialogState(false)">
+      <DeleteForm :form="form" />
+    </Modal>
     <div class="container">
       <div class="form__meta">
         <h1 class="title">
@@ -20,7 +23,11 @@
             <Entries :keys="form.tableKeys" :formId="form.id" />
           </TabItem>
           <TabItem :icon="settingsIcon">
-            <Prefrences :form="form" @formUpdate="handleUpdate" />
+            <Prefrences
+              :form="form"
+              @formUpdate="handleUpdate"
+              @deleteFormRequest="() => updateDialogState(true)"
+            />
           </TabItem>
         </Tab>
       </div>
@@ -29,7 +36,15 @@
 </template>
 <script>
 // v-bind="$attrs"
-import { Entries, Prefrences, Tab, TabItem, Spinner } from "@/components";
+import {
+  Entries,
+  Prefrences,
+  Tab,
+  TabItem,
+  Spinner,
+  DeleteForm,
+  Modal
+} from "@/components";
 import * as api from "@/api";
 import { mapActions } from "vuex";
 import EntryIcon from "@/assets/entry.svg";
@@ -40,14 +55,17 @@ export default {
     form: null,
     status: "loading",
     entryIcon: EntryIcon,
-    settingsIcon: SettingsIcon
+    settingsIcon: SettingsIcon,
+    deleteDialog: false
   }),
   components: {
     Entries,
     Prefrences,
     TabItem,
     Tab,
-    Spinner
+    Spinner,
+    DeleteForm,
+    Modal
   },
   computed: {
     form_url() {
@@ -59,7 +77,9 @@ export default {
     handleRefresh() {
       window.location.reload();
     },
-
+    updateDialogState(state) {
+      this.deleteDialog = state;
+    },
     handleUpdate(data) {
       this.form = data;
     }

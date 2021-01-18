@@ -4,7 +4,7 @@ import {
   Home,
   Login,
   Register,
-  Form,
+  ContactForm,
   Account,
   Plans,
   ForgetPassword,
@@ -56,7 +56,7 @@ const routes = [
   {
     path: "/form/:id",
     name: "Form",
-    component: Form,
+    component: ContactForm,
     meta: { protected: true }
   },
   {
