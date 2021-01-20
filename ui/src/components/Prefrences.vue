@@ -30,11 +30,7 @@
         </label>
         <form class="form" @submit.prevent="saveFormName">
           <div class="input">
-            <CustomInput
-              :value="newName"
-              :icon="false"
-              @input="val => handleUpdate(val, 'newName')"
-            />
+            <CustomInput v-model="newName" :icon="false" />
           </div>
           <button
             class="button"
@@ -50,11 +46,7 @@
         </label>
         <form class="form" @submit.prevent="saveNewEmail">
           <div class="input">
-            <CustomInput
-              :value="newTargetEmail"
-              :icon="false"
-              @input="val => handleUpdate(val, 'newTargetEmail')"
-            />
+            <CustomInput v-model="newTargetEmail" :icon="false" />
           </div>
 
           <button

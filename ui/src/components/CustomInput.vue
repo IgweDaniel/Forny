@@ -9,8 +9,9 @@
       class="input__element"
       :placeholder="placeholder"
       :class="{ withIcon: icon }"
-      v-model="inpvalue"
+      :value="value"
       :readonly="readonly"
+      v-on:input="$emit('input', $event.target.value)"
     />
   </div>
 </template>
@@ -27,21 +28,6 @@ export default {
     icon: {
       default: true,
       type: Boolean
-    }
-  },
-  computed: {
-    inpvalue: {
-      get() {
-        return this.value;
-      },
-      set(val) {
-        this.$emit("input", val);
-      }
-    }
-  },
-  methods: {
-    handleInputChange() {
-      this.$emit("input", this.value);
     }
   }
 };

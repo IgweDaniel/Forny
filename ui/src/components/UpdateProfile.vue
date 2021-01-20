@@ -11,7 +11,7 @@
     <div class="inputLabel">
       Account Email
     </div>
-    <CustomInput :icon="false" :value="newEmail" @input="setEmail" />
+    <CustomInput :icon="false" v-model="newEmail" />
 
     <button class="button " @click="updateEmail">
       update
@@ -37,9 +37,7 @@ export default {
 
   methods: {
     ...mapActions(["notify"]),
-    setEmail(email) {
-      this.newEmail = email;
-    },
+
     updateEmail() {
       console.log(`Account email has been updated to ${this.newEmail}`);
       this.notify({

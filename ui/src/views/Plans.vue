@@ -55,6 +55,14 @@
 </template>
 
 <script>
+/**
+ *
+ * TODO: delete checkout component
+ * and instead do this:
+ * prevent user from upgrading plan until he or she has added a card
+ * then just upgrade the plan straight up
+ *
+ */
 import { Checkout, Spinner, Modal } from "@/components";
 import * as api from "@/api";
 import { mapActions, mapState } from "vuex";

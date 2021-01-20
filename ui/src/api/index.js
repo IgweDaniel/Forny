@@ -38,7 +38,7 @@ export async function getMe() {
     const { data } = await axios.get("users/me");
     return { error: null, data: data.user };
   } catch (error) {
-    return { error: error.response.data.error, data: null };
+    return { error: error, data: null };
   }
 }
 

@@ -4,7 +4,7 @@
       <CustomInput
         placeholder="Card Holder"
         :icon="false"
-        @input="val => handleUpdate(val, 'cardHolderName')"
+        v-model="cardHolderName"
       />
     </div>
     <div class="checkOut__input">
@@ -48,9 +48,7 @@ export default {
   },
   methods: {
     ...mapActions(["notify", "setUser"]),
-    handleUpdate(val, key) {
-      this[key] = val;
-    },
+
     async handlePurchase() {
       if (this.cardHolderName.trim() == "") {
         this.notify({

@@ -1,17 +1,8 @@
 <template>
   <div id="app">
-    <div class="notification-container">
-      <transition-group name="list">
-        <Notification
-          v-for="notification in notifications"
-          :key="notification.id"
-          :id="notification.id"
-          :message="notification.message"
-          :type="notification.type"
-        />
-      </transition-group>
-    </div>
+    <Notifications />
     <Header v-if="showHeader" />
+    <!-- <Header /> -->
     <Spinner v-if="loadingUser" />
     <router-view v-else />
   </div>
@@ -19,32 +10,25 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import { Notification, Header, Spinner } from "@/components";
+import { Header, Spinner, Notifications } from "@/components";
 
 import * as api from "@/api";
 
-const blacklist = [
-  "Register",
-  "Login",
-  "PasswordReset",
-  "ForgetPassword",
-  "LoginGoogle"
-];
 export default {
   components: {
-    Notification,
     Header,
-    Spinner
+    Spinner,
+    Notifications
   },
   data() {
     return {
-      loadingUser: false
+      loadingUser: true
     };
   },
   computed: {
     ...mapState(["notifications", "user", "token"]),
     showHeader() {
-      return !blacklist.includes(this.$route.name);
+      return !this.$route.meta.hideHeader;
     }
   },
   methods: {
@@ -58,8 +42,11 @@ export default {
     async getUser() {
       const { data, error } = await api.getMe();
       if (error) {
-        this.loadingUser = false;
-        console.log({ error });
+        if (this.$route.meta.protected) {
+          this.$router.push({ name: "Login" });
+        } else {
+          this.loadingUser = false;
+        }
       } else {
         this.setUser(data).then(() => {
           this.loadingUser = false;
@@ -70,20 +57,14 @@ export default {
   async mounted() {
     this.updateBrowserDimensions();
     window.addEventListener("resize", this.updateBrowserDimensions);
-    if (
-      this.token != null &&
-      this.user == null &&
-      !blacklist.includes(this.$route.name)
-    ) {
-      this.loadingUser = true;
+    if (this.token != null && this.user == null) {
       await this.getUser();
+    } else {
+      this.loadingUser = false;
     }
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.updateBrowserDimensions);
-  },
-  updated() {
-    // this.loadingUser = false;
   }
 };
 </script>
@@ -121,17 +102,10 @@ body {
   background: var(--primary-light-color);
 }
 .page {
+  /* margin-top: 100px; */
   height: 100%;
 }
 
-.notification-container {
-  max-height: 100vh;
-  overflow-y: auto;
-  position: fixed;
-  top: 0;
-  right: 10px;
-  z-index: 400;
-}
 .list-enter-active,
 .list-leave-active,
 .list-move {

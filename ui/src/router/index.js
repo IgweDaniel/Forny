@@ -4,13 +4,14 @@ import {
   Home,
   Login,
   Register,
-  ContactForm,
+  Form,
   Account,
   Plans,
   ForgetPassword,
   PasswordReset,
   LoginGoogle,
-  FourOFour
+  NotFound,
+  Test
 } from "../views";
 
 import store from "../store";
@@ -31,32 +32,37 @@ const routes = [
   {
     path: "/login",
     name: "Login",
-    component: Login
+    component: Login,
+    meta: { hideHeader: true }
   },
   {
     path: "/login/google",
     name: "LoginGoogle",
-    component: LoginGoogle
+    component: LoginGoogle,
+    meta: { hideHeader: true }
   },
   {
     path: "/reset/:token",
     name: "PasswordReset",
-    component: PasswordReset
+    component: PasswordReset,
+    meta: { hideHeader: true }
   },
   {
     path: "/forget-password",
     name: "ForgetPassword",
-    component: ForgetPassword
+    component: ForgetPassword,
+    meta: { hideHeader: true }
   },
   {
     path: "/register",
     name: "Register",
-    component: Register
+    component: Register,
+    meta: { hideHeader: true }
   },
   {
     path: "/form/:id",
     name: "Form",
-    component: ContactForm,
+    component: Form,
     meta: { protected: true }
   },
   {
@@ -71,8 +77,13 @@ const routes = [
     component: Plans
   },
   {
+    path: "/test",
+    name: "Test",
+    component: Test
+  },
+  {
     path: "*",
-    component: FourOFour
+    component: NotFound
   }
 ];
 
@@ -132,7 +143,8 @@ axios.interceptors.response.use(
         type: "error",
         message: "Disconnected from server"
       });
-      return Promise.reject(error);
+      return;
+      // return Promise.reject(error);
     }
     if (
       router.currentRoute.name != "Login" &&

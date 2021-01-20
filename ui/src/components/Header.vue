@@ -1,15 +1,15 @@
 <template>
   <nav class="nav">
     <div class="logo">
-      <router-link :to="{ name: 'Forms' }"> <h3>Logo</h3></router-link>
+      <router-link :to="{ name: 'Forms' }"> <h3>Forny</h3></router-link>
     </div>
 
-    <div class="nav__content" ref="navContent">
+    <div class="nav__content" ref="navContent" v-if="isProtected">
       <button class="menuButton" @click="toggleSideBar">
         <AvatarIcon />
       </button>
 
-      <ul class="nav__links" ref="sideBar">
+      <ul class="nav__links" ref="sideBar" v-if="isProtected">
         <button class="closemenuButton" @click="toggleSideBar">
           <i class="fas fa-times"></i>
         </button>
@@ -42,6 +42,11 @@ export default {
   },
   components: {
     AvatarIcon
+  },
+  computed: {
+    isProtected() {
+      return this.$route.meta.protected;
+    }
   },
   methods: {
     ...mapActions(["logout"]),

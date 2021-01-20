@@ -2,20 +2,15 @@
   <form class="deleteForm" @submit.prevent="deleteForm">
     <h3 class="legend">Are you absolutely sure</h3>
     <p class="warning-msg">
-      This action will also delte all entries made to this form and further
-      entries made to the form will fail
+      This action will also delete all entries made to this form and future
+      entries to this form will fail
     </p>
     <p class="label">
       Please type <span class="formName"> {{ form.name }}</span> to confirm
     </p>
-    <CustomInput
-      :value="formName"
-      :icon="false"
-      @input="val => handleUpdate(val)"
-    >
-    </CustomInput>
+    <CustomInput v-model="formName" :icon="false"> </CustomInput>
     <button class="button" :disabled="!canDelete">
-      I understand the consequences and delete this form
+      Delete form
     </button>
   </form>
 </template>
@@ -36,9 +31,7 @@ export default {
   },
   methods: {
     ...mapActions(["notify"]),
-    handleUpdate(val) {
-      this.formName = val;
-    },
+
     async deleteForm() {
       if (this.canDelete) {
         const { data, error } = await api.deleteForm(this.form.id);

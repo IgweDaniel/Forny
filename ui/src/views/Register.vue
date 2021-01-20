@@ -8,29 +8,17 @@
         Setup a new account in a minute.
       </div>
       <div class="authform__block">
-        <CustomInput
-          placeholder="Full Name"
-          :value="name"
-          @input="val => handleUpdate(val, 'name')"
-        >
+        <CustomInput placeholder="Full Name" v-model="name">
           <UserIcon />
         </CustomInput>
       </div>
       <div class="authform__block">
-        <CustomInput
-          placeholder="Email Address"
-          :value="email"
-          @input="val => handleUpdate(val, 'email')"
-        >
+        <CustomInput placeholder="Email Address" v-model="email">
           <EnvelopeIcon />
         </CustomInput>
       </div>
       <div class="authform__block">
-        <CustomInput
-          placeholder="Password"
-          :value="password"
-          @input="val => handleUpdate(val, 'password')"
-        >
+        <CustomInput placeholder="Password" v-model="password">
           <LockIcon />
         </CustomInput>
       </div>
@@ -82,9 +70,7 @@ export default {
   },
   methods: {
     ...mapActions(["notify", "login"]),
-    handleUpdate(val, prop) {
-      this[prop] = val;
-    },
+
     async createUser() {
       const { name, email, password } = this,
         { data, error } = await api.registerUser(name, email, password);

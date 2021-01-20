@@ -6,7 +6,8 @@ import CheckBox from "./CheckBox.vue";
 import Modal from "./Modal.vue";
 import AddCard from "./AddCard.vue";
 import UpdateProfile from "./UpdateProfile.vue";
-import Notification from "./Notification.vue";
+
+import Notifications from "./Notifications.vue";
 import GoogleButton from "./GoogleButton.vue";
 import Spinner from "./Spinner.vue";
 import Checkout from "./Checkout.vue";
@@ -23,8 +24,8 @@ export {
   DeleteForm,
   AddCard,
   UpdateProfile,
-  Notification,
   GoogleButton,
   Spinner,
+  Notifications,
   Checkout
 };

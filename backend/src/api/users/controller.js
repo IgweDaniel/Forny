@@ -26,6 +26,9 @@ const getUser = async ({ user }, res) => {
 const updateUser = async ({ user }, res) => {
   return success(res)({ user: user.show(true) });
 };
+
+
+
 const verifyUser = async ({ user }, res) => {
   return success(res)("verifyUser");
 };

@@ -11,8 +11,8 @@ export default new Vuex.Store({
   },
   mutations: {
     createNotification(state, payload) {
-      const id = `${new Date()} ${state.notifications.length + 1}`;
-      state.notifications.unshift({ ...payload, id });
+      // const id = `${new Date()} ${state.notifications.length + 1}`;
+      state.notifications.unshift({ ...payload });
     },
     deleteNotification(state, payload) {
       state.notifications = state.notifications.filter(
@@ -32,8 +32,13 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    notify({ commit }, { message, type }) {
-      commit("createNotification", { message, type });
+    notify({ commit, state }, { message, type }) {
+      const id = `${new Date()} ${state.notifications.length + 1}`;
+      commit("createNotification", { message, type, id });
+
+      setTimeout(() => {
+        commit("deleteNotification", { id });
+      }, 5000);
     },
     unotify({ commit }, id) {
       commit("deleteNotification", { id });

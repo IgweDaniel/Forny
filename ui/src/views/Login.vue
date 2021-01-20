@@ -8,20 +8,12 @@
         Use your credentials to access your account.
       </div>
       <div class="authform__block">
-        <CustomInput
-          placeholder="Email Address"
-          :value="email"
-          @input="val => handleUpdate(val, 'email')"
-        >
+        <CustomInput placeholder="Email Address" v-model="email">
           <EnvelopeIcon />
         </CustomInput>
       </div>
       <div class="authform__block">
-        <CustomInput
-          placeholder="Password"
-          :value="password"
-          @input="val => handleUpdate(val, 'password')"
-        >
+        <CustomInput placeholder="Password" v-model="password">
           <LockIcon />
         </CustomInput>
       </div>
@@ -75,9 +67,7 @@ export default {
 
   methods: {
     ...mapActions(["notify", "login"]),
-    handleUpdate(val, prop) {
-      this[prop] = val;
-    },
+
     async handleLogin() {
       const { email, password } = this,
         redirect = this.$route.query.redirect;
